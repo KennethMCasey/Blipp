@@ -1,6 +1,8 @@
 package nourl.tbd.Blipp.Database;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
@@ -13,19 +15,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Like;
 
-public class LikeSender extends AsyncTask<Void, Boolean, Void> {
+public class LikeSender extends AsyncTask<Void, Void, Void> {
 
     FirebaseDatabase db;
     DatabaseReference location;
     Like like;
     LikeSenderCompletion completion;
+    Handler uiThread;
 
-    public LikeSender(Like like, LikeSenderCompletion completion)
+    public LikeSender(Like like, LikeSenderCompletion completion, Context context)
     {
         this.like = like;
         this.completion = completion;
         db = FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/");
         location = db.getReference().child("like");
+        uiThread = new Handler(context.getMainLooper());
         this.execute();
     }
 
@@ -36,14 +40,19 @@ public class LikeSender extends AsyncTask<Void, Boolean, Void> {
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {
-                publishProgress(task.isSuccessful());
+                taskDone(task.isSuccessful());
             }
         });
         return null;
     }
 
-    @Override
-    protected void onProgressUpdate(Boolean... values) {
-        completion.likeSenderDone(values[0]);
-    }
+  void taskDone(final boolean isSuccessful)
+  {
+      uiThread.post(new Runnable() {
+          @Override
+          public void run() {
+              completion.likeSenderDone(isSuccessful);
+          }
+      });
+  }
 }

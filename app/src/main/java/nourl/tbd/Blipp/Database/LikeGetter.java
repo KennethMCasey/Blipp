@@ -1,6 +1,8 @@
 package nourl.tbd.Blipp.Database;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -9,58 +11,51 @@ import java.util.ArrayList;
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Like;
 
-public class LikeGetter extends AsyncTask<Void, Void, ArrayList<Like>>
+public class LikeGetter extends AsyncTask<Void, Void, Void>
 {
 
     Blipp blip;//The blip you are getting the array of likes for
-    LikeGetterCompletion completion;//The completion handler, already implemented.
+
+    ArrayList<Like> results;//the array where you should store results
+
+    //The completion handler, already implemented.
+    LikeGetterCompletion completion;
+    Handler uiThread;
 
 
-    public LikeGetter(Blipp blip, LikeGetterCompletion completion)
+    public LikeGetter(Blipp blip, LikeGetterCompletion completion, Context context)
     {
         this.completion = completion;
         this.blip = blip;
+        uiThread = new Handler(context.getMainLooper());
         this.execute();
     }
 
 
 
     @Override
-    protected ArrayList<Like> doInBackground(Void... voids)
+    protected Void doInBackground(Void... voids)
     {
         //TODO: Write firebase query that will return the ArrayList of ALL Likes on The Blip
-        //return like array list if successful
-        //call cancel(true); if failed
+        //call task done with true or false when done
 
         //Test code delete me
         ArrayList<Like> temp = new ArrayList<>();
         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Like(false, "Fake ID", FirebaseAuth.getInstance().getCurrentUser().getUid()));
-        return temp;
+        results = temp;
+        taskDone(true);
+
+        return null;
     }
 
-    @Override
-    protected void onPostExecute(ArrayList<Like> results)
+    void taskDone(final boolean isSuccessful)
     {
-        completion.likeGetterSucessful(results);
-    }
-
-    @Override
-    protected void onCancelled()
-    {
-        completion.likeGetterUnsucessful();
-    }
-
-
-    protected class Results
-    {
-        int numOfLikes;
-        boolean didCurrentUserLike;
-        boolean didCurrentUserDislike;
-
-        public Results(int numOfLikes, boolean didCurrentUserLike, boolean didCurrentUserDislike) {
-            this.numOfLikes = numOfLikes;
-            this.didCurrentUserLike = didCurrentUserLike;
-            this.didCurrentUserDislike = didCurrentUserDislike;
-        }
+        uiThread.post(new Runnable() {
+            @Override
+            public void run() {
+            if (isSuccessful) completion.likeGetterSucessful(results);
+            else completion.likeGetterUnsucessful();
+            }
+        });
     }
 }

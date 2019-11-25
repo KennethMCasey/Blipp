@@ -1,6 +1,8 @@
 package nourl.tbd.Blipp.Database;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import androidx.annotation.Nullable;
 
@@ -10,7 +12,10 @@ import java.util.ArrayList;
 
 import nourl.tbd.Blipp.BlippConstructs.Community;
 
-public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>> {
+public class CommunityGetter extends AsyncTask<Void, Void, Void> {
+
+    //where query results will be stored
+    ArrayList<Community> results;
 
     //These variables are passed by the caller to choose what query to run
     Section section;
@@ -18,12 +23,13 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
 
     //The completion object, already implemented.
     CommunityGetterCompletion completion;
+    Handler uiThread;
 
 
     ///////////////////
     //    READ ME    //
     ///////////////////
-    //This object will be created and run a query each time it is created. You must return an array list of communities for your query.
+    //This object will be created and run a query each time it is created. You must assign results to the array list of communities for your query then call taskDone() with true or false based on if your task succeed.
     //You must pull the numberOfComunitiesToPull
     //There are two cases to note, the initial query where communityToStartFrom will be null and BottomHitQueries where you will have to pull from the middle of the list.
     Community communityToStartFrom;//If this is null pull from the top, if this has a value start you list from the community directly after this community. Do not return this community in your list.
@@ -33,7 +39,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
 
 
 
-    public CommunityGetter(Section section, Order order, Community communityToStartFrom, int numberOfCommunitiesToPull, CommunityGetterCompletion completion)
+    public CommunityGetter(Section section, Order order, Community communityToStartFrom, int numberOfCommunitiesToPull, CommunityGetterCompletion completion, Context context)
     {
         this.section = section;
         this.order = order;
@@ -41,12 +47,13 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
         this.numberOfCommunitiesToPull = numberOfCommunitiesToPull;
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.completion = completion;
+        uiThread = new Handler(context.getMainLooper());
         this.execute();
     }
 
 
     @Override
-    protected ArrayList<Community> doInBackground(Void... voids)
+    protected Void doInBackground(Void... voids)
     {
         if (section.equals(Section.DISCOVER))
         {
@@ -57,7 +64,8 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
-                return temp;
+                results = temp;
+                taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
@@ -68,7 +76,8 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
-                return temp;
+                results = temp;
+                taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
@@ -79,7 +88,8 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
-                return temp;
+                results = temp;
+                taskDone(true);
             }
         }
 
@@ -93,7 +103,8 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
-                return temp;
+                results = temp;
+                taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
@@ -104,7 +115,8 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
-                return temp;
+                results = temp;
+                taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
@@ -115,7 +127,8 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
-                return temp;
+                results = temp;
+                taskDone(true);
             }
         }
 
@@ -129,7 +142,8 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
-                return temp;
+                results = temp;
+                taskDone(true);;
             }
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
@@ -140,7 +154,8 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
-                return temp;
+                results = temp;
+                taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
@@ -151,24 +166,29 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
-                return temp;
+                results = temp;
+                taskDone(true);
             }
         }
-        //should never be called
-        return new ArrayList<>();
+        return null;
     }
 
-    @Override
-    protected void onPostExecute(ArrayList<Community> communities)
-    {
-        completion.communityGetterGotAditionalCommunities(communities);
-        completion.communityGetterGotInitalCommunities(communities);
-    }
 
-    protected void onCancelled()
-    {
-    completion.communityGetterDidFail();
-    }
+
+   void taskDone(final boolean isSuccessful)
+   {
+       uiThread.post(new Runnable() {
+           @Override
+           public void run() {
+               if (isSuccessful)
+               {
+                if (communityToStartFrom == null) completion.communityGetterGotInitalCommunities(results);
+                else  completion.communityGetterGotAditionalCommunities(results);
+               }
+               else completion.communityGetterDidFail();
+           }
+       });
+   }
 
     //Inner Classes
     public static class Section {

@@ -152,13 +152,13 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     {
 
         //Close Distance
-        if (blippDistance.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.CLOSE, this , blipIdToStartAt, 20);
+        if (blippDistance.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.CLOSE, this , blipIdToStartAt, 20, this.getContext());
 
         //Regular Distance
-        else if (blippDistance.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.REGULAR, this , blipIdToStartAt, 20);
+        else if (blippDistance.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.REGULAR, this , blipIdToStartAt, 20, this.getContext());
 
         //Max Distance
-        else if (blippDistance.getSelectedItemPosition() == 2) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.MAX, this , blipIdToStartAt, 20);
+        else if (blippDistance.getSelectedItemPosition() == 2) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.MAX, this , blipIdToStartAt, 20, this.getContext());
 
     }
 
@@ -166,13 +166,13 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     else if (blippOrder.getSelectedItemPosition() == 1)
     {
         //Close Distance
-        if (blippDistance.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.CLOSE, this , blipIdToStartAt, 20);
+        if (blippDistance.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.CLOSE, this , blipIdToStartAt, 20, this.getContext());
 
         //Regular Distance
-        else if (blippDistance.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.REGULAR, this , blipIdToStartAt, 20);
+        else if (blippDistance.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.REGULAR, this , blipIdToStartAt, 20, this.getContext());
 
         //Max Distance
-        else if (blippDistance.getSelectedItemPosition() == 2) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.MAX, this , blipIdToStartAt, 20);
+        else if (blippDistance.getSelectedItemPosition() == 2) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.MAX, this , blipIdToStartAt, 20, this.getContext());
     }
 }
 
@@ -298,7 +298,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                                 public void blipSenderDone(boolean isSuccessful) {
                                     Toast.makeText(BlippFeedFragment.this.getContext(), isSuccessful ? "Sucess" : "Error", Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                            }, BlippFeedFragment.this.getContext());
 
                     popupWindow.dismiss();
                     popUpIsShowing = false;

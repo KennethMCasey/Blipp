@@ -1,6 +1,8 @@
 package nourl.tbd.Blipp.Database;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
@@ -17,12 +19,14 @@ public class UserSender extends AsyncTask<Void, Boolean, Void> {
     DatabaseReference location;
     User user;
     UserSenderCompletion completion;
+    Handler uiThread;
 
-    public UserSender(User user, UserSenderCompletion completion) {
+    public UserSender(User user, UserSenderCompletion completion, Context context) {
         this.user = user;
         this.completion = completion;
         db = FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/");
         location = db.getReference().child("user");
+        uiThread = new Handler(context.getMainLooper());
         this.execute();
     }
 
@@ -33,14 +37,19 @@ public class UserSender extends AsyncTask<Void, Boolean, Void> {
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {
-               publishProgress(task.isSuccessful());
+               taskDone(task.isSuccessful());
             }
         });
         return null;
     }
 
-    @Override
-    protected void onProgressUpdate(Boolean... values) {
-        completion.userSenderDone(values[0]);
-    }
+   void taskDone(final boolean isSuccessful)
+   {
+       uiThread.post(new Runnable() {
+           @Override
+           public void run() {
+               completion.userSenderDone(isSuccessful);
+           }
+       });
+   }
 }

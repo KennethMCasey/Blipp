@@ -71,9 +71,9 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         refreshLayout.setRefreshing(true);
 
         //TODO: Pull the blip data from the database
-        if (order.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.MY_BLIPS, BlipGetter.Order.MOST_RECENT, null, this, blipToStartAt, 20);
+        if (order.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.MY_BLIPS, BlipGetter.Order.MOST_RECENT, null, this, blipToStartAt, 20, this.getContext());
 
-        else if (order.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.MY_BLIPS, BlipGetter.Order.MOST_LIKED, null, this, blipToStartAt, 20);
+        else if (order.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.MY_BLIPS, BlipGetter.Order.MOST_LIKED, null, this, blipToStartAt, 20, this.getContext());
     }
 
     @Override

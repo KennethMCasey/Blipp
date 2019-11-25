@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                             public void userSenderDone(boolean isSuccessful) {
                                 Toast.makeText(RegisterActivity.this, isSuccessful ? "Action sucessful" : "Error", Toast.LENGTH_SHORT).show();
                             }
-                        }).execute();
+                        }, getApplicationContext());
 
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
 
