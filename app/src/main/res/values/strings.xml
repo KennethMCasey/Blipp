@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Blipp</string>
+    <string name="Tab_1">Near Me</string>
+    <string name="Tab_2">Community</string>
+    <string name="Tab_3">My Blips</string>
+    <string name="Tab_4">Liked Blips</string>
+    <string name="Tab_5">Options</string>
+    <string name="settings_txtView">Select Blipp Distance</string>
+    <string name="settings_radio_close">Close Distance</string>
+    <string name="settings_radio_regular">Regular Distance</string>
+    <string name="settings_radio_super">Super Distance</string>
+    <string name="settings_button">Log Out</string>
+    <string name="my_blipps_txt">My Blips</string>
+    <string name="feed_distance_lbl">Select Blipp Radius</string>
+    <string name="feed_order_lbl">Select Blip Ordering</string>
+    <string name="liked_blipps_txt">Liked Blips</string>
+    <string name="fab_description">Make a blip</string>
+
+    <string-array name="blipp_options">
+        <item>Change User Information</item>
+        <item>Create Community</item>
+        <item>Join Community</item>
+        <item>Manage Communities</item>
+    </string-array>
+
+    <string-array name="blipp_distances">
+        <item>Close Distance</item>
+        <item>Regular Distance</item>
+        <item>Max Distance</item>
+    </string-array>
+
+    <string-array name="blipp_order">
+        <item>Most Recent</item>
+        <item>Most Liked</item>
+    </string-array>
+</resources>

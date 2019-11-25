@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:background="@color/colorAccent"
+    android:layout_height="wrap_content">
+
+
+    <EditText
+        android:hint="Enter Blipp Text Here *required - user must provide text*"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/blipp_text_enter"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:hint="Enter Latitude here *required - will be auto generated*"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/blipp_spoof_lat"
+        android:layout_below="@+id/blipp_text_enter"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:hint="Enter Longitude here *required - will be auto generated*"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/blipp_spoof_lon"
+        android:layout_below="@+id/blipp_spoof_lat"
+        android:layout_centerHorizontal="true" />
+
+
+
+    <CheckBox
+        android:id="@+id/check_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close Distance"
+        android:layout_below="@+id/blipp_spoof_lon"></CheckBox>
+
+    <CheckBox
+        android:id="@+id/check_reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Regular Distance"
+        android:layout_below="@+id/check_close"></CheckBox>
+
+    <CheckBox
+        android:id="@+id/check_max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max Distance"
+        android:layout_below="@+id/check_reg"></CheckBox>
+
+
+    <Button
+        android:text="Discard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnClose"
+        android:layout_below="@+id/check_max"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSubmit"
+        android:layout_below="@+id/btnClose"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

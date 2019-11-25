@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "115695063915",
+    "firebase_url": "https://blipp-15ee8.firebaseio.com",
+    "project_id": "blipp-15ee8",
+    "storage_bucket": "blipp-15ee8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115695063915:android:8a49783e4a645d9dc3b22e",
+        "android_client_info": {
+          "package_name": "nourl.tbd.Blipp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115695063915-5eiauajejq089k5e92qom5ricts0ib73.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nourl.tbd.Blipp",
+            "certificate_hash": "40fc8930f39dae493fc268c7de2e24ef67688136"
+          }
+        },
+        {
+          "client_id": "115695063915-krs6c7p7d69t88khn7dkhopmpqdke70d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHWOiSzPru900OFi1DqAHECBIR10xpn2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115695063915-krs6c7p7d69t88khn7dkhopmpqdke70d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
