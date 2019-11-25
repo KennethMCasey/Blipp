@@ -1,5 +1,6 @@
 package nourl.tbd.Blipp.Database;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 
-public class BlipSender extends AsyncTask<Void, Void, Void>
+public class BlipSender extends AsyncTask<Void, Boolean, Void>
 {
 
     FirebaseDatabase db;
@@ -38,10 +39,15 @@ public class BlipSender extends AsyncTask<Void, Void, Void>
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {
-            if (task.isSuccessful()) completion.blipSenderDone(true);
-            else completion.blipSenderDone(false);
+            onProgressUpdate(task.isSuccessful());
             }
         });
         return null;
+    }
+
+
+    @Override
+    protected void onProgressUpdate(Boolean... values) {
+        completion.blipSenderDone(values[0]);
     }
 }

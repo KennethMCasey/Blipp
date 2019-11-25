@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import nourl.tbd.Blipp.BlippConstructs.User;
 
-public class UserDeleter extends AsyncTask<Void, Void, Void> {
+public class UserDeleter extends AsyncTask<Void, Boolean, Void> {
 
     private User user;
     UserDeleterCompletion completion;
@@ -19,8 +19,12 @@ public class UserDeleter extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         //TODO: delete the passed user from the firebase user table
-        completion.userDeleterDone(true);//call if successful
-        completion.userDeleterDone(false);//call if failed
+        publishProgress(true);// call with true if success call with false if fail
         return null;
+    }
+
+    @Override
+    protected void onProgressUpdate(Boolean... values) {
+        completion.userDeleterDone(values[0]);
     }
 }

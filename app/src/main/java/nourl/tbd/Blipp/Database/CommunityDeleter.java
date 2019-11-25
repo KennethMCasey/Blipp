@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import nourl.tbd.Blipp.BlippConstructs.Community;
 
 
-public class CommunityDeleter extends AsyncTask<Void, Void, Void>
+public class CommunityDeleter extends AsyncTask<Void, Boolean, Void>
 {
     private Community community;
     CommunityDeleterCompletion completion;
@@ -21,9 +21,14 @@ public class CommunityDeleter extends AsyncTask<Void, Void, Void>
     protected Void doInBackground(Void... voids) {
         //TODO: Delete the passed community from firebase. Delete every trace of the community ie. all the member instances, all of its blips ect.
 
-        completion.communityDeleterDone(true);//call if sucessful
-        completion.communityDeleterDone(false);//call if unsucessful
+        publishProgress(true);//pass true isf successful false if failure
 
         return null;
+    }
+
+
+    @Override
+    protected void onProgressUpdate(Boolean... values) {
+        completion.communityDeleterDone(values[0]);
     }
 }

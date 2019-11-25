@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 
-public class BlipDeleter extends AsyncTask<Void, Void, Void> {
+public class BlipDeleter extends AsyncTask<Void, Boolean, Void> {
 
     private Blipp blip;
     BlipDeleterCompletion completion;
@@ -21,8 +21,12 @@ public class BlipDeleter extends AsyncTask<Void, Void, Void> {
         //TODO: Write a Query that Successfully deletes the passed blipp from firebase.
 
         blip = blip; // <-- blip to delete : class variable
-        completion.blippDeleterDone(true); /// <--- call this if successful
-        completion.blippDeleterDone(false); /// <--- call this if unsuccessful
+        publishProgress(true);// pass true on success on false on failure
         return null;
+    }
+
+    @Override
+    protected void onProgressUpdate(Boolean... values) {
+        completion.blippDeleterDone(values[0]);
     }
 }

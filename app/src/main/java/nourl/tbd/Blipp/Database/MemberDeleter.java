@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import nourl.tbd.Blipp.BlippConstructs.Member;
 
-public class MemberDeleter extends AsyncTask<Void, Void, Void>
+public class MemberDeleter extends AsyncTask<Void, Boolean, Void>
 {
     private Member member;
     MemberDeleterCompletion completion;
@@ -20,8 +20,13 @@ public class MemberDeleter extends AsyncTask<Void, Void, Void>
     @Override
     protected Void doInBackground(Void... voids) {
         //TODO: write function that will delete the current member from firebase
-        completion.memberDeleterDone(true);//call if sucessful
-        completion.memberDeleterDone(false);//call if failed
+       publishProgress(true); //call with true if success call with false if fail
         return null;
+    }
+
+
+    @Override
+    protected void onProgressUpdate(Boolean... values) {
+        completion.memberDeleterDone(values[0]);
     }
 }

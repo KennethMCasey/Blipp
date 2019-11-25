@@ -126,8 +126,6 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
             //UnUsed Method
         }
     }
-
-
     private class BottomHit implements AbsListView.OnScrollListener
     {
         @Override

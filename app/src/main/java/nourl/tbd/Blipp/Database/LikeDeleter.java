@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Like;
 
-public class LikeDeleter extends AsyncTask<Void, Void, Void>
+public class LikeDeleter extends AsyncTask<Void, Boolean, Void>
 {
     Like like;
     LikeDeleterCompletion completion;
@@ -23,8 +23,12 @@ public class LikeDeleter extends AsyncTask<Void, Void, Void>
     protected Void doInBackground(Void... voids)
     {
         //TODO: Delete the like on the passed blip by the current user in firebase
-        completion.likeDeleterDone(true);//call me if successful
-        completion.likeDeleterDone(false);//call me if failed
+        publishProgress(true); //pass true if success false if fail
         return null;
+    }
+
+    @Override
+    protected void onProgressUpdate(Boolean... values) {
+        completion.likeDeleterDone(values[0]);
     }
 }

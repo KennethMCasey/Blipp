@@ -11,7 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import nourl.tbd.Blipp.BlippConstructs.Member;
 
-public class MemberSender extends AsyncTask<Void, Void, Void> {
+public class MemberSender extends AsyncTask<Void, Boolean, Void> {
 
     FirebaseDatabase db;
     DatabaseReference location;
@@ -34,10 +34,14 @@ public class MemberSender extends AsyncTask<Void, Void, Void> {
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {
-                if (task.isSuccessful()) completion.memberSenderDone(true);
-                else completion.memberSenderDone(false);
+                publishProgress(task.isSuccessful());
             }
         });
         return null;
+    }
+
+    @Override
+    protected void onProgressUpdate(Boolean... values) {
+        completion.memberSenderDone(values[0]);
     }
 }

@@ -11,7 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import nourl.tbd.Blipp.BlippConstructs.Community;
 
-public class CommunitySender extends AsyncTask<Void, Void, Void> {
+public class CommunitySender extends AsyncTask<Void, Boolean, Void> {
 
 
     FirebaseDatabase db;
@@ -35,10 +35,17 @@ public class CommunitySender extends AsyncTask<Void, Void, Void> {
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {
-                if (task.isSuccessful()) completion.communitySenderDone(true);
-                else completion.communitySenderDone(false);
+                publishProgress(task.isSuccessful());
             }
         });
         return null;
     }
+
+
+    @Override
+    protected void onProgressUpdate(Boolean... values) {
+        completion.communitySenderDone(values[0]);
+    }
 }
+
+
