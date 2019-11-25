@@ -6,13 +6,14 @@ import nourl.tbd.Blipp.BlippConstructs.User;
 
 public class UserDeleter extends AsyncTask<Void, Void, Void> {
 
-    User user;
+    private User user;
     UserDeleterCompletion completion;
 
     public UserDeleter(User user, UserDeleterCompletion completion)
     {
         this.user = user;
         this.completion = completion;
+        this.execute();
     }
 
     @Override

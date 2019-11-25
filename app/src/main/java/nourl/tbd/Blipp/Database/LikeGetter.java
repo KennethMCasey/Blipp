@@ -20,6 +20,7 @@ public class LikeGetter extends AsyncTask<Void, Void, ArrayList<Like>>
     {
         this.completion = completion;
         this.blip = blip;
+        this.execute();
     }
 
 

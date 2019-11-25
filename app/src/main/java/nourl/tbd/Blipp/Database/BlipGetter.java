@@ -65,6 +65,7 @@ public class BlipGetter extends AsyncTask<Void, Void, ArrayList<Blipp>> {
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         communityId = null;
         parentId = null;
+        this.execute();
     }
 
 
@@ -79,6 +80,7 @@ public class BlipGetter extends AsyncTask<Void, Void, ArrayList<Blipp>> {
         this.section = null;
         this.parentId = null;
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        this.execute();
     }
 
     //use this constructor to get blips that are replys
@@ -92,6 +94,7 @@ public class BlipGetter extends AsyncTask<Void, Void, ArrayList<Blipp>> {
         this.section = null;
         this.communityId = null;
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        this.execute();
     }
 
     @Override

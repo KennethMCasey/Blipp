@@ -38,6 +38,7 @@ public class MemberGetter extends AsyncTask<Void, Void, ArrayList<Member>> {
         this.completion = completion;
         this.memberToStartOn = memberToStartOn;
         this.numberToPull = numberToPull;
+        this.execute();
     }
 
 

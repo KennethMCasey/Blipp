@@ -26,6 +26,7 @@ public class LikeSender extends AsyncTask<Void, Void, Void> {
         this.completion = completion;
         db = FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/");
         location = db.getReference().child("like");
+        this.execute();
     }
 
     @Override

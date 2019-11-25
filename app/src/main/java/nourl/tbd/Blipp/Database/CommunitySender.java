@@ -25,6 +25,7 @@ public class CommunitySender extends AsyncTask<Void, Void, Void> {
         this.community = community;
         db = FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/");
         location = db.getReference().child("community");
+        this.execute();
     }
 
     @Override

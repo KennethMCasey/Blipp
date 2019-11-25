@@ -6,13 +6,14 @@ import nourl.tbd.Blipp.BlippConstructs.Member;
 
 public class MemberDeleter extends AsyncTask<Void, Void, Void>
 {
-    Member member;
+    private Member member;
     MemberDeleterCompletion completion;
 
     public MemberDeleter(Member member, MemberDeleterCompletion completion)
     {
         this.member = member;
         this.completion = completion;
+        this.execute();
     }
 
 

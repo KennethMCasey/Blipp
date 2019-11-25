@@ -7,13 +7,14 @@ import nourl.tbd.Blipp.BlippConstructs.Community;
 
 public class CommunityDeleter extends AsyncTask<Void, Void, Void>
 {
-    Community community;
+    private Community community;
     CommunityDeleterCompletion completion;
 
     public CommunityDeleter(Community community, CommunityDeleterCompletion completion)
     {
         this.community = community;
         this.completion = completion;
+        this.execute();
     }
 
     @Override

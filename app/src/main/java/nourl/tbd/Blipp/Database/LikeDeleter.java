@@ -16,6 +16,7 @@ public class LikeDeleter extends AsyncTask<Void, Void, Void>
     {
        this.like = like;
         this.completion = completion;
+        this.execute();
     }
 
     @Override

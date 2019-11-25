@@ -41,6 +41,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, ArrayList<Community>>
         this.numberOfCommunitiesToPull = numberOfCommunitiesToPull;
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.completion = completion;
+        this.execute();
     }
 
 

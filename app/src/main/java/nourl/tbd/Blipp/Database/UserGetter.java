@@ -6,13 +6,14 @@ import nourl.tbd.Blipp.BlippConstructs.User;
 
 public class UserGetter extends AsyncTask<Void, Void, User> {
 
-    String userID;//The ID of the user to get.
+    private String userID;//The ID of the user to get.
     UserGetterCompletion completion;//Completion, already handled.
 
     public UserGetter(String userID, UserGetterCompletion completion)
     {
         this.userID = userID;
         this.completion = completion;
+        this.execute();
     }
 
 
