@@ -6,6 +6,7 @@ package nourl.tbd.Blipp.Helper;
 import java.util.ArrayList;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
+import nourl.tbd.Blipp.BlippConstructs.Community;
 
 public class StatePersistence
 {
@@ -32,6 +33,10 @@ public class StatePersistence
 
     public ArrayList<Blipp> blipsMy;
 
+    public ArrayList<Community> comunityJoined;
+
+    public int communityJoinedOrderPosition;
+
 
     private StatePersistence()
     {
@@ -46,9 +51,11 @@ public class StatePersistence
     this.nearMeSelectedOrdering = 0;
     this.myBlipsSelectedOrdering = 0;
     this.likedBlipsSelectedOrdering = 0;
+    this.communityJoinedOrderPosition = 0;
     this.blipsFeed = null;
     this.blipsLiked = null;
     this.blipsMy = null;
+    this.comunityJoined = null;
     }
 
     public void saveData()

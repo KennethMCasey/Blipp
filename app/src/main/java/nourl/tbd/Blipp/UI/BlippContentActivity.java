@@ -77,7 +77,8 @@ public class BlippContentActivity extends AppCompatActivity
             //Community Tab Selected
             else if (tab.getPosition() == 1)
             {
-                //TODO: CommunityFragment Code Here
+                fragmentTransaction.replace(R.id.fragment_place_holder, new CommunityJoinedFragment());
+                fragmentTransaction.addToBackStack(null);
             }
 
             //My Blips Tag Selected
