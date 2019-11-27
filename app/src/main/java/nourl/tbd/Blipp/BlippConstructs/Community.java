@@ -1,5 +1,7 @@
 package nourl.tbd.Blipp.BlippConstructs;
 
+import android.content.Context;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.net.URL;
@@ -30,13 +32,13 @@ public class Community {
     }
 
     //This will bne the constructor used to create a community
-    public Community(URL photo, double radius, String name, boolean isJoinable) {
+    public Community(URL photo, double radius, String name, boolean isJoinable, Context context) {
         this.photo = photo;
         this.radius = radius;
         this.name = name;
         this.isJoinable = isJoinable;
 
-        LocationGetter lc = new LocationGetter();
+        LocationGetter lc = new LocationGetter(context);
         this.originLong = lc.getLongitude();
         this.originLat = lc.getLatitude();
 
