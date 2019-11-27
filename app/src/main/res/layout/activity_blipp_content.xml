@@ -14,7 +14,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         app:tabIndicatorGravity="bottom">
 
@@ -50,7 +50,7 @@
     <FrameLayout
         android:id="@+id/fragment_place_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="20">
 
 
