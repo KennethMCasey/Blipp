@@ -15,6 +15,7 @@
     <string name="feed_order_lbl">Select Blip Ordering</string>
     <string name="liked_blipps_txt">Liked Blips</string>
     <string name="fab_description">Make a blip</string>
+    <string name="community_joined_order">select community ordering</string>
 
     <string-array name="blipp_options">
         <item>Change User Information</item>
@@ -32,5 +33,12 @@
     <string-array name="blipp_order">
         <item>Most Recent</item>
         <item>Most Liked</item>
+    </string-array>
+
+    <string-array name="community_order">
+        <item>Alphabetical</item>
+        <item>Member Count: Low To High</item>
+        <item>Member Count: High To Low</item>
+
     </string-array>
 </resources>
