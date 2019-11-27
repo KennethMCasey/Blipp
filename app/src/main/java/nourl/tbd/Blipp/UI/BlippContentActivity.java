@@ -1,18 +1,20 @@
 package nourl.tbd.Blipp.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
 import nourl.tbd.Blipp.R;
 import nourl.tbd.Blipp.Helper.StatePersistence;
 
-public class BlippContentActivity extends AppCompatActivity
+public class BlippContentActivity extends AppCompatActivity implements FragmentSwap
 {
     //TODO: Back Button should not bring the user back to the login screen, only the log out button should do that.
 
@@ -35,7 +37,9 @@ public class BlippContentActivity extends AppCompatActivity
         //TODO: Tab Bar looks bad, see if can style
         tabLayout = findViewById(R.id.tab_bar);
         tabLayout.addOnTabSelectedListener(new TabActions());
-        tabLayout.getTabAt(StatePersistence.current.tabSelected).select(); //TODO: Handle null pointer exception
+        tabLayout.getTabAt(StatePersistence.current.tabSelected).select();
+        tabFragmentSwap(tabLayout.getSelectedTabPosition());
+        //TODO: Handle null pointer exception
     }
 
     @Override
@@ -46,6 +50,71 @@ public class BlippContentActivity extends AppCompatActivity
         StatePersistence.current.saveData();
     }
 
+    @Override
+    public void swap(Fragment fragment) {
+        ViewGroup temp = findViewById(R.id.fragment_place_holder);
+        temp.removeAllViews();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_place_holder, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    void tabFragmentSwap(int tab)
+    {
+
+        //saves the currenlty selected tab
+        StatePersistence.current.tabSelected = tab;
+
+        //removes the view from the fragment place holder, note the to-do we can probably do this better
+        ViewGroup temp = findViewById(R.id.fragment_place_holder);
+        temp.removeAllViews();
+
+        //prepare for fragment exchange
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        //Near Me Tab Selected
+        if (tab == 0)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new BlippFeedFragment());
+            fragmentTransaction.addToBackStack(null);
+        }
+
+        //Community Tab Selected
+        else if (tab == 1)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new CommunityJoinedFragment());
+            fragmentTransaction.addToBackStack(null);
+        }
+
+        //My Blips Tag Selected
+        else if (tab == 2)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new MyBlippsFragment());
+            fragmentTransaction.addToBackStack(null);
+        }
+
+        //Liked Blips Selected
+        else if (tab == 3)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new LikedBlippsFragment());
+            fragmentTransaction.addToBackStack(null);
+        }
+
+        //Options Tag Selected
+        else if (tab == 4)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new OptionsFragment());
+            fragmentTransaction.addToBackStack(null);
+        }
+
+        //finalize the swap
+        fragmentTransaction.commit();
+    }
+
+
     //Tab Bar Action Listener
     class TabActions implements TabLayout.OnTabSelectedListener
     {
@@ -55,55 +124,7 @@ public class BlippContentActivity extends AppCompatActivity
         @Override
         public void onTabSelected(TabLayout.Tab tab)
         {
-
-            //saves the currenlty selected tab
-            StatePersistence.current.tabSelected = tab.getPosition();
-
-            //removes the view from the fragment place holder, note the to-do we can probably do this better
-            ViewGroup temp = findViewById(R.id.fragment_place_holder);
-            temp.removeAllViews();
-
-            //prepare for fragment exchange
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            //Near Me Tab Selected
-            if (tab.getPosition() == 0)
-            {
-                fragmentTransaction.replace(R.id.fragment_place_holder, new BlippFeedFragment());
-                fragmentTransaction.addToBackStack(null);
-            }
-
-            //Community Tab Selected
-            else if (tab.getPosition() == 1)
-            {
-                fragmentTransaction.replace(R.id.fragment_place_holder, new CommunityJoinedFragment());
-                fragmentTransaction.addToBackStack(null);
-            }
-
-            //My Blips Tag Selected
-            else if (tab.getPosition() == 2)
-            {
-                fragmentTransaction.replace(R.id.fragment_place_holder, new MyBlippsFragment());
-                fragmentTransaction.addToBackStack(null);
-            }
-
-            //Liked Blips Selected
-            else if (tab.getPosition() == 3)
-            {
-                fragmentTransaction.replace(R.id.fragment_place_holder, new LikedBlippsFragment());
-                fragmentTransaction.addToBackStack(null);
-            }
-
-            //Options Tag Selected
-            else if (tab.getPosition() == 4)
-            {
-                fragmentTransaction.replace(R.id.fragment_place_holder, new OptionsFragment());
-                fragmentTransaction.addToBackStack(null);
-            }
-
-            //finalize the swap
-            fragmentTransaction.commit();
+            tabFragmentSwap(tab.getPosition());
         }
 
         @Override

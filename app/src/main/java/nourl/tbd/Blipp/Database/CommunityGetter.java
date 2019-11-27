@@ -63,7 +63,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 results = temp;
                 taskDone(true);
             }
@@ -75,7 +75,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 results = temp;
                 taskDone(true);
             }
@@ -87,7 +87,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 results = temp;
                 taskDone(true);
             }
@@ -102,7 +102,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 results = temp;
                 taskDone(true);
             }
@@ -114,7 +114,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 results = temp;
                 taskDone(true);
             }
@@ -126,7 +126,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 results = temp;
                 taskDone(true);
             }
@@ -141,7 +141,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 results = temp;
                 taskDone(true);;
             }
@@ -153,7 +153,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 results = temp;
                 taskDone(true);
             }
@@ -165,7 +165,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community(null, 10.0, "Fake community " + i, true));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
                 results = temp;
                 taskDone(true);
             }

@@ -30,6 +30,7 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
     Spinner order;
     SwipeRefreshLayout refresh;
     ListView likedBlipps;
+    FragmentSwap fragmentSwap;
 
     boolean didHitBottom;
 
@@ -37,6 +38,8 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+        fragmentSwap = (FragmentSwap)this.getActivity();
+
         View v = inflater.inflate(R.layout.liked_blipps, container, false);
 
         //configure drop down menu
@@ -55,6 +58,7 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
         likedBlipps = v.findViewById(R.id.list_liked);
         likedBlipps.setAdapter(new BlipListAdapter(this.getContext(), StatePersistence.current.blipsLiked == null ? new ArrayList<Blipp>() : StatePersistence.current.blipsLiked));
         likedBlipps.setOnScrollListener(new BottomHit());
+        likedBlipps.setOnItemClickListener(new ToBlipDetail());
 
         //if there are no previously loaded blips this will start the background action to load them
         if (StatePersistence.current.blipsLiked == null) getBlips(null);
@@ -108,6 +112,17 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
         }
     }
 
+
+    class ToBlipDetail implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+            BlippDetailFragment frag = new BlippDetailFragment();
+            frag.blip = (Blipp)((BlipListAdapter)likedBlipps.getAdapter()).getItem(position);
+            fragmentSwap.swap(new BlippDetailFragment());
+        }
+    }
 
     private class BlippOrderChanged implements Spinner.OnItemSelectedListener
     {
