@@ -6,7 +6,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="5"
         android:id="@+id/list_settings"
         android:minHeight="?android:attr/listPreferredItemHeightLarge"
@@ -18,7 +18,7 @@
     <Button
         android:id="@+id/btn_sign_out"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:text="@string/settings_button"
         android:layout_weight="1"
         />
