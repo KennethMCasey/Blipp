@@ -22,6 +22,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -60,15 +62,19 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     private SwipeRefreshLayout blippRefresh;
     private FloatingActionButton fab;
     boolean didHitBottom;
+    FragmentSwap fragmentSwap;
 
     View popupView;
     PopupWindow popupWindow;
     boolean popUpIsShowing;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+        fragmentSwap = (FragmentSwap)this.getActivity();
+
         //inflates the layout
         //TODO: Make the layout look nicer
         View v = inflater.inflate(R.layout.blipp_feed_list_view, container, false);
@@ -102,6 +108,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         blippFeed = v.findViewById(R.id.list_feed);
         blippFeed.setAdapter(new BlipListAdapter(this.getContext(), StatePersistence.current.blipsFeed == null ? new ArrayList<Blipp>() : StatePersistence.current.blipsFeed));
         blippFeed.setOnScrollListener(new BottomHit());
+        blippFeed.setOnItemClickListener(new ToBlipDetail());
 
         //if there were no previously loaded blipps this will start the background task to get the new blipps
         if (StatePersistence.current.blipsFeed == null) getBlips(null);
@@ -209,6 +216,17 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         }
     }
 
+
+    class ToBlipDetail implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+            BlippDetailFragment frag = new BlippDetailFragment();
+            frag.blip = (Blipp)((BlipListAdapter)blippFeed.getAdapter()).getItem(position);
+            fragmentSwap.swap(new BlippDetailFragment());
+        }
+    }
 
     class BlippSpinnerChanged implements Spinner.OnItemSelectedListener
     {

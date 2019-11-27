@@ -53,12 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="20">
 
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="nourl.tbd.Blipp.UI.BlippFeedFragment"
-            android:tag="fragment_tag"
-            ></fragment>
+
     </FrameLayout>
 
 

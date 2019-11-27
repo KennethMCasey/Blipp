@@ -31,11 +31,14 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
     SwipeRefreshLayout refreshLayout;
     ListView myBlips;
     boolean didHitBottom;
+    FragmentSwap fragmentSwap;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+        fragmentSwap = (FragmentSwap) this.getActivity();
+
         View v = inflater.inflate(R.layout.my_blipps_list, container, false);
 
         //Configure Blipp Ordering Drop Down
@@ -54,6 +57,7 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         myBlips = v.findViewById(R.id.list_my_blips);
         myBlips.setAdapter(new BlipListAdapter(this.getContext(), StatePersistence.current.blipsMy == null ?  new ArrayList<Blipp>() : StatePersistence.current.blipsMy));
         myBlips.setOnScrollListener(new BottomHit());
+        myBlips.setOnItemClickListener(new ToBlipDetail());
 
         //if there were no blipps loaded previously this will start the background task to
         if (StatePersistence.current.blipsMy == null) getBlips(null);
@@ -107,6 +111,17 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         public void onRefresh()
         {
             getBlips(null);
+        }
+    }
+
+    class ToBlipDetail implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+            BlippDetailFragment frag = new BlippDetailFragment();
+            frag.blip = (Blipp)((BlipListAdapter)myBlips.getAdapter()).getItem(position);
+            fragmentSwap.swap(new BlippDetailFragment());
         }
     }
 
