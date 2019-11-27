@@ -43,12 +43,15 @@ public class BlippDetailFragment extends Fragment {
 
         //configure image view
         photo = v.findViewById(R.id.blipp_detail_photo);
+        //TODO: if photo url exists download here
 
         //configure the text
         text = v.findViewById(R.id.blipp_detail_text);
+        text.setText(blip.getText());
 
         //Configure the toParent button
         toParent = v.findViewById(R.id.blip_Detail_to_parent);
+        toParent.setVisibility(blip.getParent() == null ? View.GONE : View.VISIBLE);
 
         //configure like button
         like = v.findViewById(R.id.blip_detail_like);

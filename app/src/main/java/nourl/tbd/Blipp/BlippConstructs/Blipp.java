@@ -141,4 +141,12 @@ public class Blipp {
     public String getUserId() {
         return userId;
     }
+
+    public String getParent() {
+        return parent;
+    }
+
+    public String getCommunity() {
+        return community;
+    }
 }
