@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:contentDescription="Blipp Logo"
+        android:contentDescription="@string/login_logo"
         android:id="@+id/login_logo"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -47,6 +47,7 @@
         android:src="@mipmap/blipp_logo_foreground" />
 
     <EditText
+        android:autofillHints="@string/login_email"
         android:id="@+id/login_email"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -56,7 +57,7 @@
         app:layout_constraintHeight_min="45dp"
         app:layout_constraintWidth_default="spread"
         app:layout_constraintHeight_default="wrap"
-        android:hint="email"
+        android:hint="@string/login_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_logo"
@@ -68,8 +69,9 @@
     </EditText>
 
     <EditText
+        android:autofillHints="@string/login_password"
         android:id="@+id/login_password"
-        android:hint="password"
+        android:hint="@string/login_password"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintWidth_max="300dp"
@@ -103,9 +105,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_password"
-        app:layout_constraintBottom_toTopOf="@id/login_btn_register"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_centerHorizontal="true"
-        android:text="Log In"
+        android:text="@string/login_btn_login"
         android:background="@color/blipp_white"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp" />
@@ -117,16 +119,41 @@
         app:layout_constraintWidth_max="150dp"
         app:layout_constraintHeight_max="50dp"
         app:layout_constraintWidth_min="75dp"
-        app:layout_constraintHeight_min="25dp"
+        app:layout_constraintHeight_min="40dp"
         app:layout_constraintHeight_default="spread"
         app:layout_constraintWidth_default="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/login_btn_reset"
+        app:layout_constraintRight_toLeftOf="@id/login_btn_reset"
         app:layout_constraintTop_toBottomOf="@id/login_btn_login"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@color/blipp_white"
-        android:text="Register" />
+        android:text="@string/login_btn_register" />
+
+    <Button
+    android:id="@+id/login_btn_reset"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintWidth_max="150dp"
+    app:layout_constraintHeight_max="50dp"
+    app:layout_constraintWidth_min="75dp"
+    app:layout_constraintHeight_min="40dp"
+    app:layout_constraintHeight_default="spread"
+    app:layout_constraintWidth_default="spread"
+    app:layout_constraintLeft_toRightOf="@id/login_btn_register"
+    app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/login_btn_register"
+    app:layout_constraintTop_toBottomOf="@id/login_btn_login"
+    app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:background="@color/blipp_white"
+    android:text="@string/login_btn_reset"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

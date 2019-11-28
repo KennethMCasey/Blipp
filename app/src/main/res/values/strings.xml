@@ -16,6 +16,22 @@
     <string name="liked_blipps_txt">Liked Blips</string>
     <string name="fab_description">Make a blip</string>
     <string name="community_joined_order">Select Community Ordering</string>
+    <string name="login_btn_reset">Password Reset</string>
+    <string name="login_btn_register">Register</string>
+    <string name="login_btn_login">Log In</string>
+    <string name="login_password">password</string>
+    <string name="login_email">email</string>
+    <string name="login_logo">Blipp Logo</string>
+    <string name="register_button_submit">Submit</string>
+    <string name="register_phone_number">phone number</string>
+    <string name="register_name">name</string>
+    <string name="register_password_confirm">confirm password</string>
+    <string name="register_password">password</string>
+    <string name="register_email">email</string>
+    <string name="register_message">Please Enter Your Information</string>
+    <string name="reset_opps">uh ohh…</string>
+    <string name="reset_email">Please Enter Your Email Address</string>
+    <string name="reset_reset">RESET</string>
 
     <string-array name="blipp_options">
         <item>Change User Information</item>

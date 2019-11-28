@@ -22,16 +22,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Please Enter Your Information"
+        android:text="@string/register_message"
         android:textAlignment="center"
+        android:textColor="@color/blipp_offset"
         android:textSize="30sp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        ></TextView>
+        android:layout_marginBottom="20dp" />
 
 
     <EditText
+        android:inputType="textEmailAddress"
         android:id="@+id/register_email"
+        android:autofillHints="@string/register_email"
         app:layout_constraintWidth_max="300dp"
         app:layout_constraintHeight_max="50dp"
         app:layout_constraintWidth_min="200dp"
@@ -46,12 +48,11 @@
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:hint="email"
-        android:background="@color/blipp_offset"
-        >
-    </EditText>
+        android:hint="@string/register_email"
+        android:background="@color/blipp_offset" />
 
     <EditText
+        android:autofillHints="@string/register_password"
         app:layout_constraintWidth_max="300dp"
         app:layout_constraintHeight_max="50dp"
         app:layout_constraintWidth_min="200dp"
@@ -59,7 +60,8 @@
         app:layout_constraintWidth_default="spread"
         app:layout_constraintHeight_default="wrap"
         android:id="@+id/register_password"
-        android:hint="password"
+        android:hint="@string/register_password"
+        android:inputType="textPassword"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintTop_toBottomOf="@id/register_email"
@@ -73,14 +75,16 @@
     </EditText>
 
     <EditText
+        android:autofillHints="@string/register_password_confirm"
         app:layout_constraintWidth_max="300dp"
         app:layout_constraintHeight_max="50dp"
         app:layout_constraintWidth_min="200dp"
         app:layout_constraintHeight_min="45dp"
         app:layout_constraintWidth_default="spread"
         app:layout_constraintHeight_default="wrap"
+        android:inputType="textPassword"
         android:id="@+id/register_password_confirm"
-        android:hint="Retype Password"
+        android:hint="@string/register_password_confirm"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintTop_toBottomOf="@id/register_password"
@@ -94,6 +98,7 @@
     </EditText>
 
     <EditText
+        android:autofillHints="@string/register_name"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintWidth_max="300dp"
@@ -105,16 +110,18 @@
         app:layout_constraintTop_toBottomOf="@id/register_password_confirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@id/register_phone"
         android:background="@color/blipp_offset"
         android:id="@+id/register_name"
-        android:hint="name"
+        android:hint="@string/register_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
         >
     </EditText>
 
     <EditText
+        android:autofillHints="@string/register_phone_number"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintWidth_max="300dp"
@@ -128,7 +135,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/register_btn_submit"
         android:id="@+id/register_phone"
-        android:hint="phone number"
+        android:hint="@string/register_phone_number"
+        android:inputType="phone"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/blipp_offset"
@@ -153,6 +161,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/blipp_white"
-        android:text="Submit" />
+        android:text="@string/register_button_submit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

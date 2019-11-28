@@ -10,28 +10,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44ab3f87-80ce-41a0-b5d3-342f9e5a8d05" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/blipp_logo-web.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/options_row.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item_blip.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/blipp_logo.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/blipp_logo_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/blipp_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/blipp_logo_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/blipp_logo_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/blipp_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/blipp_logo_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/blipp_logo_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/blipp_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/blipp_logo_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/blipp_logo_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/blipp_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/blipp_logo_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/blipp_logo_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/blipp_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/blipp_logo_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/blipp_logo_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/blipp_logo_background.xml" afterDir="false" />
+    <list default="true" id="44ab3f87-80ce-41a0-b5d3-342f9e5a8d05" name="Default Changelist" comment="Finalized Activity Classes and layouts removing all warnings and added comments: Login Activity, Register Activity, Blip Content Activity. Added Reset Password Activity, finalized.">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/ResetPasswordActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_reset_password.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -39,37 +20,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_19_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_19_3_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_components_16_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_components_16_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Like.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Like.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippContentActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippContentActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/CommunityJoinedFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/CommunityJoinedFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/MyBlippsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/MyBlippsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/OptionsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/OptionsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/RegisterActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_blipp_content.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_blipp_content.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/blip.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/blip.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/blip_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/blip_detail.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/blipp_feed_list_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/blipp_feed_list_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/community.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/community.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/community_joined.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/community_joined.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/liked_blipps.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/liked_blipps.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/make_blipp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/make_blipp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/my_blipps_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/my_blipps_list.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/settings_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings_fragment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
@@ -93,50 +54,14 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/community.xml">
-          <provider editor-type-id="android-designer2" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippContentActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="101" column="66" selection-start-line="101" selection-start-column="66" selection-end-line="101" selection-end-column="66" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/MyBlippsFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="46" column="67" selection-start-line="46" selection-start-column="67" selection-end-line="46" selection-end-column="67" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="47" column="67" selection-start-line="47" selection-start-column="67" selection-end-line="47" selection-end-column="67" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/community_joined.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="25" column="38" lean-forward="true" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+            <state relative-caret-position="1905">
+              <caret line="127" column="107" selection-start-line="127" selection-start-column="107" selection-end-line="127" selection-end-column="107" />
               <folding>
-                <element signature="e#657#689#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#4533#4534#0" expanded="true" />
+                <element signature="e#4591#4592#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -145,50 +70,132 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="37" lean-forward="true" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
+            <state relative-caret-position="444">
+              <caret line="37" column="37" lean-forward="true" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/CommunityJoinedFragment.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_blipp_content.xml">
+          <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="47" column="67" selection-start-line="47" selection-start-column="67" selection-end-line="47" selection-end-column="67" />
+            <state relative-caret-position="531">
+              <caret line="63" column="34" selection-start-line="63" selection-start-column="34" selection-end-line="63" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LoginActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="632">
+              <caret line="153" column="17" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#4576#6757#0" expanded="true" />
+                <element signature="e#6756#6757#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_item_blip.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+            <state relative-caret-position="2340">
+              <caret line="156" column="44" selection-start-line="156" selection-start-column="44" selection-end-line="156" selection-end-column="44" />
+              <folding>
+                <element signature="e#1253#1273#0" expanded="true" />
+                <element signature="e#2083#2104#0" expanded="true" />
+                <element signature="e#2466#2487#0" expanded="true" />
+                <element signature="e#2965#2989#0" expanded="true" />
+                <element signature="e#2975#2999#0" expanded="true" />
+                <element signature="e#4562#4587#0" expanded="true" />
+                <element signature="e#5668#5696#0" expanded="true" />
+                <element signature="e#6576#6601#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/liked_blipps.xml">
-          <provider editor-type-id="android-designer2" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/RegisterActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" column="44" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
+            <state relative-caret-position="1147">
+              <caret line="85" column="130" selection-start-line="85" selection-start-column="130" selection-end-line="85" selection-end-column="130" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3506#5158#0" expanded="true" />
+                <element signature="e#3831#4391#0" expanded="true" />
+                <element signature="e#4390#4391#0" expanded="true" />
+                <element signature="e#5157#5158#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/my_blipps_list.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+            <state relative-caret-position="240">
+              <caret line="112" column="41" selection-start-line="112" selection-start-column="41" selection-end-line="112" selection-end-column="41" />
+              <folding>
+                <element signature="e#1053#1079#0" expanded="true" />
+                <element signature="e#1417#1441#0" expanded="true" />
+                <element signature="e#2052#2076#0" expanded="true" />
+                <element signature="e#2169#2196#0" expanded="true" />
+                <element signature="e#2506#2533#0" expanded="true" />
+                <element signature="e#3042#3077#0" expanded="true" />
+                <element signature="e#3370#3405#0" expanded="true" />
+                <element signature="e#4228#4251#0" expanded="true" />
+                <element signature="e#4598#4621#0" expanded="true" />
+                <element signature="e#5181#5212#0" expanded="true" />
+                <element signature="e#5391#5422#0" expanded="true" />
+                <element signature="e#6374#6406#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_reset_password.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+              <folding>
+                <element signature="e#573#593#0" expanded="true" />
+                <element signature="e#1335#1356#0" expanded="true" />
+                <element signature="e#1974#1995#0" expanded="true" />
+                <element signature="e#2628#2649#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/ResetPasswordActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="677">
+              <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+              <folding>
+                <element signature="e#635#838#0" expanded="true" />
+                <element signature="e#1576#2116#0" expanded="true" />
+                <element signature="e#2115#2116#0" expanded="true" />
+                <element signature="e#837#838#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -257,8 +264,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipSenderCompletion.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/MemberSenderCompletion.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeDeleterCompletion.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/MemberDeleterCompletion.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeGetterCompletion.java" />
@@ -277,21 +282,13 @@
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/MemberGetter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/UserDeleter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/UserGetter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/RegisterActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Helper/CommunityAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Helper/StatePersistence.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlipDetailFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Blipp.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_blipp_content.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippContentActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/blipp_feed_list_view.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/blip_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/blip.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/community.xml" />
@@ -306,8 +303,18 @@
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/MyBlippsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/community_joined.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_reset_password.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/RegisterActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/ResetPasswordActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_blipp_content.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippContentActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -335,11 +342,6 @@
             <path>
               <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
-            </path>
-            <path>
-              <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
             </path>
             <path>
@@ -347,13 +349,6 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="Blipp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="Blipp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="BlippConstructs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
@@ -372,18 +367,6 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
               <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="mipmap" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
@@ -430,6 +413,7 @@
       <recent name="nourl.tbd.Blipp" />
     </key>
     <key name="android.template.packageName">
+      <recent name="nourl.tbd.Blipp.UI" />
       <recent name="nourl.tbd.Blipp" />
     </key>
     <key name="android.template.parentActivityClass">
@@ -546,7 +530,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574819681398</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Made Things look nice">
+      <created>1574906403338</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1574906403338</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -560,10 +551,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.22097977" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.22097977" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -571,17 +561,17 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.4765708" weight="0.55643564" />
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.47497338" weight="0.30792078" />
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.4941427" weight="0.32871288" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49893504" weight="0.32871288" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49946752" weight="0.17029703" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5181044" side_tool="true" visible="true" weight="0.15049505" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5250266" side_tool="true" weight="0.30792078" />
       <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.49946752" weight="0.32970297" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.48189563" visible="true" weight="0.15049505" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.48083067" weight="0.15049505" />
       <window_info anchor="bottom" id="Find" order="8" sideWeight="0.49946752" weight="0.36712328" />
       <window_info anchor="bottom" id="Android Profiler" order="9" sideWeight="0.4978701" weight="0.32871288" />
-      <window_info anchor="bottom" id="Messages" order="10" visible="true" weight="0.32970297" />
+      <window_info active="true" anchor="bottom" id="Messages" order="10" visible="true" weight="0.32970297" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
@@ -592,7 +582,7 @@
     </layout>
     <layout-to-restore>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.22132471" />
+      <window_info content_ui="combo" id="Project" order="1" weight="0.22097977" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -600,16 +590,16 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.48402557" weight="0.04109589" />
-      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49520767" weight="0.32871288" />
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.47497338" weight="0.30792078" />
+      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.4941427" weight="0.32871288" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49893504" weight="0.32871288" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49946752" weight="0.17029703" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5149095" side_tool="true" weight="0.19702971" />
-      <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.48509052" weight="0.32054794" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5250266" side_tool="true" weight="0.30792078" />
+      <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.49946752" weight="0.32970297" />
+      <window_info active="true" anchor="bottom" id="Build" order="7" sideWeight="0.48083067" visible="true" weight="0.15049505" />
       <window_info anchor="bottom" id="Find" order="8" sideWeight="0.49946752" weight="0.36712328" />
-      <window_info anchor="bottom" id="Android Profiler" order="9" show_stripe_button="false" sideWeight="0.4978701" weight="0.32871288" />
+      <window_info anchor="bottom" id="Android Profiler" order="9" sideWeight="0.4978701" weight="0.32871288" />
       <window_info anchor="bottom" id="Messages" order="10" visible="true" weight="0.32970297" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
@@ -627,53 +617,11 @@
     <MESSAGE value="updated database objects" />
     <MESSAGE value="Added the community fragment in the community tab" />
     <MESSAGE value="Merge branch 'UI-Development'" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'UI-Development'" />
+    <MESSAGE value="Made Things look nice" />
+    <MESSAGE value="Finalized Activity Classes and layouts removing all warnings and added comments: Login Activity, Register Activity, Blip Content Activity. Added Reset Password Activity, finalized." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finalized Activity Classes and layouts removing all warnings and added comments: Login Activity, Register Activity, Blip Content Activity. Added Reset Password Activity, finalized." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/MemberDeleter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
-          <folding>
-            <element signature="e#910#1064#0" expanded="true" />
-            <element signature="e#1063#1064#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/MemberGetter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
-          <folding>
-            <element signature="e#4572#4971#0" expanded="true" />
-            <element signature="e#4970#4971#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/MemberSender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="53" column="11" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="11" />
-          <folding>
-            <element signature="e#1486#1639#0" expanded="true" />
-            <element signature="e#1638#1639#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/UserDeleter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-          <folding>
-            <element signature="e#874#1026#0" expanded="true" />
-            <element signature="e#1025#1026#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/UserGetter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="579">
@@ -700,17 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="59">
           <caret line="16" column="52" selection-start-line="16" selection-start-column="52" selection-end-line="16" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/RegisterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="61" column="52" selection-start-line="61" selection-start-column="52" selection-end-line="61" selection-end-column="52" />
-          <folding>
-            <element signature="e#1976#2320#0" expanded="true" />
-            <element signature="e#2319#2320#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -817,59 +754,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-29/android.jar!/android/widget/Button.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_blipp_content.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
-          <folding>
-            <element signature="e#846#864#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippContentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="31" column="56" selection-start-line="31" selection-start-column="56" selection-end-line="31" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -878,13 +766,6 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="606">
           <caret line="83" column="49" selection-start-line="83" selection-start-column="49" selection-end-line="83" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -916,13 +797,6 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/OptionsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="40" column="115" selection-start-line="40" selection-start-column="115" selection-end-line="40" selection-end-column="115" />
         </state>
       </provider>
     </entry>
@@ -1009,21 +883,169 @@
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="37" lean-forward="true" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/community_joined.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="355">
-          <caret line="25" column="38" lean-forward="true" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+          <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
           <folding>
             <element signature="e#657#689#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/OptionsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="40" column="115" selection-start-line="40" selection-start-column="115" selection-end-line="40" selection-end-column="115" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-29/android.jar!/android/widget/TextView.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="66" column="13" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-29/android.jar!/android/widget/EditText.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2340">
+          <caret line="156" column="44" selection-start-line="156" selection-start-column="44" selection-end-line="156" selection-end-column="44" />
+          <folding>
+            <element signature="e#1253#1273#0" expanded="true" />
+            <element signature="e#2083#2104#0" expanded="true" />
+            <element signature="e#2466#2487#0" expanded="true" />
+            <element signature="e#2965#2989#0" expanded="true" />
+            <element signature="e#2975#2999#0" expanded="true" />
+            <element signature="e#4562#4587#0" expanded="true" />
+            <element signature="e#5668#5696#0" expanded="true" />
+            <element signature="e#6576#6601#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_reset_password.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+          <folding>
+            <element signature="e#573#593#0" expanded="true" />
+            <element signature="e#1335#1356#0" expanded="true" />
+            <element signature="e#1974#1995#0" expanded="true" />
+            <element signature="e#2628#2649#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="112" column="41" selection-start-line="112" selection-start-column="41" selection-end-line="112" selection-end-column="41" />
+          <folding>
+            <element signature="e#1053#1079#0" expanded="true" />
+            <element signature="e#1417#1441#0" expanded="true" />
+            <element signature="e#2052#2076#0" expanded="true" />
+            <element signature="e#2169#2196#0" expanded="true" />
+            <element signature="e#2506#2533#0" expanded="true" />
+            <element signature="e#3042#3077#0" expanded="true" />
+            <element signature="e#3370#3405#0" expanded="true" />
+            <element signature="e#4228#4251#0" expanded="true" />
+            <element signature="e#4598#4621#0" expanded="true" />
+            <element signature="e#5181#5212#0" expanded="true" />
+            <element signature="e#5391#5422#0" expanded="true" />
+            <element signature="e#6374#6406#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/RegisterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1147">
+          <caret line="85" column="130" selection-start-line="85" selection-start-column="130" selection-end-line="85" selection-end-column="130" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3506#5158#0" expanded="true" />
+            <element signature="e#3831#4391#0" expanded="true" />
+            <element signature="e#4390#4391#0" expanded="true" />
+            <element signature="e#5157#5158#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/ResetPasswordActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="677">
+          <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+          <folding>
+            <element signature="e#635#838#0" expanded="true" />
+            <element signature="e#1576#2116#0" expanded="true" />
+            <element signature="e#2115#2116#0" expanded="true" />
+            <element signature="e#837#838#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="632">
+          <caret line="153" column="17" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
+          <folding>
+            <element signature="e#4576#6757#0" expanded="true" />
+            <element signature="e#6756#6757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_blipp_content.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="63" column="34" selection-start-line="63" selection-start-column="34" selection-end-line="63" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippContentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1905">
+          <caret line="127" column="107" selection-start-line="127" selection-start-column="107" selection-end-line="127" selection-end-column="107" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4533#4534#0" expanded="true" />
+            <element signature="e#4591#4592#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="37" column="37" lean-forward="true" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
         </state>
       </provider>
     </entry>

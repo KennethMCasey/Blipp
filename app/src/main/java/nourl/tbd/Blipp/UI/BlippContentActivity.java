@@ -5,18 +5,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import nourl.tbd.Blipp.R;
 import nourl.tbd.Blipp.Helper.StatePersistence;
 
 public class BlippContentActivity extends AppCompatActivity implements FragmentSwap
 {
-    //TODO: Back Button should not bring the user back to the login screen, only the log out button should do that.
+
 
     //TODO: When selecting on any blip in the near me, my blips, and liked blips section we have to bring a user to a detail view fragment where they can see the blipp in greater detail and view all existing comments and likes/dislikes as well as leave there own.
 
@@ -27,17 +28,16 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+
         //inflate layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blipp_content);
 
         //sets up tab layout
-        //TODO: Tab Bar is glitchy when swicthing, see if can fix (might have to do with layout weight)
-        //TODO: Tab Bar looks bad, see if can style
         tabLayout = findViewById(R.id.tab_bar);
         tabLayout.addOnTabSelectedListener(new TabActions());
-        tabLayout.getTabAt(StatePersistence.current.tabSelected).select();
-        tabFragmentSwap(tabLayout.getSelectedTabPosition());
+        tabLayout.setScrollPosition(StatePersistence.current.tabSelected, 0, true);
         //TODO: Handle null pointer exception
     }
 
@@ -49,6 +49,14 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
         StatePersistence.current.saveData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //if the user is logged out bring them back to the log in screem
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) startActivity(new Intent(this.getBaseContext(), LoginActivity.class));
+    }
+
+    //This method is called from inside a fragment to swap with another fragment
     @Override
     public void swap(Fragment fragment) {
         ViewGroup temp = findViewById(R.id.fragment_place_holder);
@@ -62,7 +70,6 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
 
     void tabFragmentSwap(int tab)
     {
-
         //saves the currenlty selected tab
         StatePersistence.current.tabSelected = tab;
 
@@ -119,7 +126,6 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
     {
 
         //This is responsible for switching the fragment to the appropriate fragment when a Tab is selected
-        //TODO: The views do not need to be deleted each time a tab is changed, see if can avoid reconstructing a view every time we switch tabs unless necessary
         @Override
         public void onTabSelected(TabLayout.Tab tab)
         {
