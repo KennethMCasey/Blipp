@@ -89,8 +89,8 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
 
         //Configures the blipp distance selector
         blippDistance = v.findViewById(R.id.spinner_feed);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_distances, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_distances, R.layout.spinner_item_blip);
+        adapter.setDropDownViewResource(R.layout.spinner_item_blip);
         blippDistance.setAdapter(adapter);
         blippDistance.setSelection(StatePersistence.current.nearMeSelectedRadius, false);
         blippDistance.setOnItemSelectedListener(new BlippSpinnerChanged());
@@ -98,8 +98,8 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
 
         //Configures the blipp order selector
         blippOrder = v.findViewById(R.id.spinner_order);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this.getContext(), R.array.blipp_order, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this.getContext(), R.array.blipp_order, R.layout.spinner_item_blip);
+        adapter.setDropDownViewResource(R.layout.spinner_item_blip);
         blippOrder.setAdapter(adapter2);
         blippOrder.setSelection(StatePersistence.current.nearMeSelectedOrdering,false);
         blippOrder.setOnItemSelectedListener(new BlippSpinnerChanged());
@@ -144,6 +144,13 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         }
     }
 
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (StatePersistence.current.blipsFeed != null && StatePersistence.current.blipsFeed.size() != blippFeed.getAdapter().getCount()) ((BlipListAdapter)blippFeed.getAdapter()).notifyDataSetChanged();
+    }
 
     private void getBlips(String blipIdToStartAt)
     {
@@ -224,7 +231,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         {
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.blip = (Blipp)((BlipListAdapter)blippFeed.getAdapter()).getItem(position);
-            fragmentSwap.swap(new BlippDetailFragment());
+            fragmentSwap.swap(frag);
         }
     }
 

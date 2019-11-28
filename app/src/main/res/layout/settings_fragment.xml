@@ -20,6 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="@string/settings_button"
+        android:textColor="@color/blipp_white"
+        android:background="@color/blipp_black"
         android:layout_weight="1"
         />
 

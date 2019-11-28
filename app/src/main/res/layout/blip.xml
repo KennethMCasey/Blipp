@@ -10,12 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         tools:srcCompat="@tools:sample/avatars[1]" />
 
     <TextView
         android:id="@+id/blipp_text"
         android:layout_weight="4"
+        android:textSize="16sp"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
+        android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:textColor="@color/blipp_black"
         android:text="TextView" />
 </LinearLayout>

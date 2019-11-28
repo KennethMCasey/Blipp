@@ -1,44 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".UI.LoginActivity">
+    tools:context=".UI.LoginActivity"
+    android:background="@color/blipp_dark"
+    >
 
+    <TextView
+        android:id="@+id/login_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_max="600dp"
+        app:layout_constraintHeight_max="100dp"
+        app:layout_constraintHeight_min="90dp"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintWidth_default="wrap"
+        android:text="@string/app_name"
+        android:textColor="@color/blipp_offset"
+        android:textSize="50sp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/login_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:contentDescription="Blipp Logo"
+        android:id="@+id/login_logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_max="400dp"
+        app:layout_constraintHeight_max="400dp"
+        app:layout_constraintWidth_min="150dp"
+        app:layout_constraintHeight_min="150dp"
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_name"
+        app:layout_constraintBottom_toTopOf="@id/login_email"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/blipp_logo_foreground" />
 
     <EditText
         android:id="@+id/login_email"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintWidth_max="300dp"
+        app:layout_constraintHeight_max="50dp"
+        app:layout_constraintWidth_min="200dp"
+        app:layout_constraintHeight_min="45dp"
+        app:layout_constraintWidth_default="spread"
+        app:layout_constraintHeight_default="wrap"
         android:hint="email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_logo"
+        app:layout_constraintBottom_toTopOf="@id/login_password"
         android:inputType="textEmailAddress"
-        android:layout_weight="1">
+        android:background="@color/blipp_offset"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
     </EditText>
 
     <EditText
         android:id="@+id/login_password"
         android:hint="password"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintWidth_max="300dp"
+        app:layout_constraintHeight_max="50dp"
+        app:layout_constraintWidth_min="200dp"
+        app:layout_constraintHeight_min="45dp"
+        app:layout_constraintWidth_default="spread"
+        app:layout_constraintHeight_default="wrap"
         android:inputType="textPassword"
-        android:layout_weight="1">
+        android:layout_centerHorizontal="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_email"
+        app:layout_constraintBottom_toTopOf="@id/login_btn_login"
+        android:layout_weight="1"
+        android:background="@color/blipp_offset"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
     </EditText>
 
     <Button
         android:id="@+id/login_btn_login"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        app:layout_constraintWidth_max="150dp"
+        app:layout_constraintHeight_max="50dp"
+        app:layout_constraintWidth_min="75dp"
+        app:layout_constraintHeight_min="25dp"
+        app:layout_constraintHeight_default="spread"
+        app:layout_constraintWidth_default="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_password"
+        app:layout_constraintBottom_toTopOf="@id/login_btn_register"
+        android:layout_centerHorizontal="true"
         android:text="Log In"
-        ></Button>
+        android:background="@color/blipp_white"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
 
     <Button
         android:id="@+id/login_btn_register"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Register"></Button>
+        app:layout_constraintWidth_max="150dp"
+        app:layout_constraintHeight_max="50dp"
+        app:layout_constraintWidth_min="75dp"
+        app:layout_constraintHeight_min="25dp"
+        app:layout_constraintHeight_default="spread"
+        app:layout_constraintWidth_default="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_btn_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/blipp_white"
+        android:text="Register" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

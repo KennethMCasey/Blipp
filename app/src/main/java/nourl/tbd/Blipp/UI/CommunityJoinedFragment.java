@@ -44,8 +44,8 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
 
         //configure drop down menu
         order = v.findViewById(R.id.spinner_community_joined);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.community_order, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.community_order, R.layout.spinner_item_blip);
+        adapter2.setDropDownViewResource(R.layout.spinner_item_blip);
         order.setAdapter(adapter2);
         order.setSelection(StatePersistence.current.communityJoinedOrderPosition, false);
         order.setOnItemSelectedListener(new CommunityOrderChanged());

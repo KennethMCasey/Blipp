@@ -6,6 +6,10 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/community_photo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -13,9 +17,16 @@
         tools:srcCompat="@tools:sample/avatars[1]" />
 
     <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
         android:id="@+id/community_name"
         android:layout_weight="4"
         android:layout_width="0dp"
+        android:textColor="@color/blipp_black"
+        android:textAlignment="textEnd"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        />
 </LinearLayout>

@@ -44,8 +44,8 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
 
         //configure drop down menu
         order = v.findViewById(R.id.spinner_order_liked);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_order, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_order, R.layout.spinner_item_blip);
+        adapter2.setDropDownViewResource(R.layout.spinner_item_blip);
         order.setAdapter(adapter2);
         order.setSelection(StatePersistence.current.likedBlipsSelectedOrdering, false);
         order.setOnItemSelectedListener(new BlippOrderChanged());
@@ -64,6 +64,13 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
         if (StatePersistence.current.blipsLiked == null) getBlips(null);
 
         return v;
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (StatePersistence.current.blipsLiked != null && StatePersistence.current.blipsLiked.size() != likedBlipps.getAdapter().getCount()) ((BlipListAdapter)likedBlipps.getAdapter()).notifyDataSetChanged();
     }
 
     private void getBlips(String blipToStartAt)
@@ -120,7 +127,7 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
         {
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.blip = (Blipp)((BlipListAdapter)likedBlipps.getAdapter()).getItem(position);
-            fragmentSwap.swap(new BlippDetailFragment());
+            fragmentSwap.swap(frag);
         }
     }
 

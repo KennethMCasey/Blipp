@@ -15,18 +15,28 @@
         android:id="@+id/tab_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        app:tabIndicatorGravity="bottom">
+        android:layout_weight="1.5"
+        android:background="@color/blipp_dark"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/blipp_offset"
+        app:tabIndicatorGravity="bottom"
+        app:tabMode="fixed"
+        app:tabPaddingEnd="2dp"
+        app:tabPaddingStart="2dp"
+        app:tabSelectedTextColor="@color/blipp_light"
+        app:tabTextColor="@color/blipp_white">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Tab_1" />
+            android:text="@string/Tab_1"
+            android:textAlignment="center" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Tab_2" />
+            android:text="@string/Tab_2"
+            android:textAlignment="center" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
@@ -36,13 +46,15 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Tab_4" />
+            android:text="@string/Tab_4"
+            android:textAlignment="center" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Tab_5" />
+            android:text="@string/Tab_5"
+            android:textAlignment="center" />
 
 
     </com.google.android.material.tabs.TabLayout>
@@ -51,9 +63,9 @@
         android:id="@+id/fragment_place_holder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20">
-
-
+        android:layout_weight="20"
+        android:background="@color/blipp_medium"
+        >
     </FrameLayout>
 
 

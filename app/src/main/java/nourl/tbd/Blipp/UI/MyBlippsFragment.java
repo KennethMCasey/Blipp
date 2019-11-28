@@ -43,8 +43,8 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
 
         //Configure Blipp Ordering Drop Down
         order = v.findViewById(R.id.spinner_order_my_blipps);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_order, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_order, R.layout.spinner_item_blip);
+        adapter2.setDropDownViewResource(R.layout.spinner_item_blip);
         order.setAdapter(adapter2);
         order.setSelection(StatePersistence.current.myBlipsSelectedOrdering, false);
         order.setOnItemSelectedListener(new OrderChanged());
@@ -66,6 +66,12 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         return v;
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if ( StatePersistence.current.blipsMy != null && StatePersistence.current.blipsMy.size() != myBlips.getAdapter().getCount()) ((BlipListAdapter)myBlips.getAdapter()).notifyDataSetChanged();
+    }
 
     private void getBlips(String blipToStartAt)
     {
@@ -121,7 +127,7 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         {
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.blip = (Blipp)((BlipListAdapter)myBlips.getAdapter()).getItem(position);
-            fragmentSwap.swap(new BlippDetailFragment());
+            fragmentSwap.swap(frag);
         }
     }
 

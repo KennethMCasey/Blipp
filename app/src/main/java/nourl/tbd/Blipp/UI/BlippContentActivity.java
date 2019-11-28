@@ -27,7 +27,6 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         //inflate layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blipp_content);

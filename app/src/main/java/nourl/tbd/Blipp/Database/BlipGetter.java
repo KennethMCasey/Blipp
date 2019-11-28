@@ -110,7 +110,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
 
         //Queries for blips that are not in a community and do not have a parent
-        if (communityId == null && parentId == null) {
+        if (communityId == null && parentId == null && section!= null && order != null) {
 
             if (section.equals(Section.FEED)) {
                 if (distance.equals(Distance.CLOSE)) {

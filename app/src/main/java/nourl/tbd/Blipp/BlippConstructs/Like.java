@@ -1,5 +1,7 @@
 package nourl.tbd.Blipp.BlippConstructs;
 
+import androidx.annotation.Nullable;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Like
@@ -39,5 +41,10 @@ public class Like
     public String getUserId()
     {
         return userId;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return obj.getClass() != this.getClass() ? false : ((Like)obj).isDislike() != this.isDislike ? false : ((Like)obj).blipId != this.blipId ? false : ((Like)obj).userId == this.userId;
     }
 }

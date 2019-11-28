@@ -38,8 +38,8 @@ public class OptionsFragment extends Fragment {
 
         //Configure Settings List
         settings = v.findViewById(R.id.list_settings);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_options, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_options, R.layout.options_row);
+        adapter2.setDropDownViewResource(R.layout.options_row);
         settings.setAdapter(adapter2);
 
         //configures sign out button
