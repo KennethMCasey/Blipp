@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Like;
@@ -27,7 +28,17 @@ public class LikeDeleter extends AsyncTask<Void, Void, Void>
     protected Void doInBackground(Void... voids)
     {
         //TODO: Delete the like on the passed blip by the current user in firebase
-       taskDone(true); //pass true if success false if fail
+        try {
+            FirebaseDatabase.getInstance()
+                    .getReference("like")
+                    .child(like.getBlipId())
+                    .removeValue();
+        }
+        catch (Exception e){
+            taskDone(false);
+            return null;
+        }
+        taskDone(true);// call with true if success call with false if fail
         return null;
     }
 
