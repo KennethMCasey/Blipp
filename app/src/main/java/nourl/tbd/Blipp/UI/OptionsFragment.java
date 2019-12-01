@@ -29,6 +29,7 @@ public class OptionsFragment extends Fragment {
 
     ListView settings;
     Button signOut;
+    Button test;
 
     @Nullable
     @Override
@@ -45,6 +46,19 @@ public class OptionsFragment extends Fragment {
         //configures sign out button
         signOut = v.findViewById(R.id.btn_sign_out);
         signOut.setOnClickListener(new SignOut());
+
+        test = v.findViewById(R.id.btn_test);
+        test.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                ////////////////////////////////////
+                //      PUT TEST CODE HERE        //
+                ////////////////////////////////////
+            }
+        });
+
 
         return v;
     }

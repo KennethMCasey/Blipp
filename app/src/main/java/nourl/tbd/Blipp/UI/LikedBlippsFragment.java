@@ -16,7 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import nourl.tbd.Blipp.Helper.BlipListAdapter;
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
@@ -125,8 +127,27 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
+
+
+            Blipp blipp = (Blipp)likedBlipps.getAdapter().getItem(position);
+
+            String time = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH).format(blipp.getTime());
+
+            Bundle b = new Bundle();
+            b.putString("blipID", blipp.getId());
+            b.putString("blipParent", blipp.getParent());
+            b.putString("blipText", blipp.getText());
+            b.putString("blipUser", blipp.getUserId());
+            b.putString("blipCommunity", blipp.getCommunity());
+            b.putString("blipURL", blipp.getUrl() == null ? null : blipp.getUrl().toString());
+            b.putDouble("blipLat", blipp.getLatitude());
+            b.putDouble("blipLon", blipp.getLongitude());
+            b.putString("blipTime", blipp.getTime() == null ? null : time);
+            b.putBoolean("blipShort", blipp.isShortDistance());
+            b.putBoolean("blipMed", blipp.isMediumDistance());
+            b.putBoolean("blipLong", blipp.isLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
-            frag.blip = (Blipp)((BlipListAdapter)likedBlipps.getAdapter()).getItem(position);
+            frag.setArguments(b);
             fragmentSwap.swap(frag);
         }
     }

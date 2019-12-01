@@ -1,6 +1,10 @@
 package nourl.tbd.Blipp.UI;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -26,11 +31,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.UploadTask;
 
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
 
 import nourl.tbd.Blipp.BlippConstructs.Community;
 import nourl.tbd.Blipp.BlippConstructs.Like;
@@ -53,8 +67,13 @@ import nourl.tbd.Blipp.Database.BlipSenderCompletion;
 import nourl.tbd.Blipp.R;
 import nourl.tbd.Blipp.Helper.StatePersistence;
 
+import static android.app.Activity.RESULT_OK;
+
 public class BlippFeedFragment extends Fragment implements BlipGetterCompletion, BlipSenderCompletion
 {
+    static final int REQUEST_IMAGE_GET = 1;
+
+
     //class properties
     private Spinner blippDistance;
     private Spinner blippOrder;
@@ -67,13 +86,22 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     View popupView;
     PopupWindow popupWindow;
     boolean popUpIsShowing;
+    String currentPhotoPath;
+    URL currentPhotoUrl;
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                      ACTIVITY LIFE CYCLE                                                   //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        fragmentSwap = (FragmentSwap)this.getActivity();
+
+        fragmentSwap = (FragmentSwap) this.getActivity();
+
+
 
         //inflates the layout
         //TODO: Make the layout look nicer
@@ -119,6 +147,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         blippOrder.setOnTouchListener(new AnythingTouched());
         blippDistance.setOnTouchListener(new AnythingTouched());
 
+
         return v;
     }
 
@@ -128,17 +157,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         super.onDestroy();
         if (popUpIsShowing)
         {
-            popupWindow.dismiss();
-            popUpIsShowing = false;
-        }
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        if (popUpIsShowing)
-        {
+            //remove the popupWindow if the fragment is destroyed
             popupWindow.dismiss();
             popUpIsShowing = false;
         }
@@ -148,16 +167,45 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     @Override
     public void onResume()
     {
+        //TODO: Fix me
         super.onResume();
         if (StatePersistence.current.blipsFeed != null && StatePersistence.current.blipsFeed.size() != blippFeed.getAdapter().getCount()) ((BlipListAdapter)blippFeed.getAdapter()).notifyDataSetChanged();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
+            Bitmap thumbnail = data.getParcelableExtra("data");
+            Uri fullPhotoUri = data.getData();
+            ImageView iv = popupView.findViewById(R.id.make_blipp_photo);
+            iv.setImageURI(fullPhotoUri);
+            currentPhotoPath = FirebaseStorage.getInstance().getReference().child(UUID.randomUUID().toString()).getPath();
+            FirebaseStorage.getInstance().getReference(currentPhotoPath).putFile(fullPhotoUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+                {
+                    Toast.makeText(getContext(), task.isSuccessful() ? "Good" : "Bad", Toast.LENGTH_LONG).show();
+                    if (task.isSuccessful()) FirebaseStorage.getInstance().getReference(currentPhotoPath).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                           try { currentPhotoUrl = new URL(uri.toString());} catch (Exception e) {}
+                        }
+                    });
+                }
+            });
+
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                      BLIP GETTER                                                           //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    //This function gets the blips
     private void getBlips(String blipIdToStartAt)
     {
         didHitBottom = false;
-
-    //TODO: populate the inital blips with the first 50 blips that meet the user specifications from firebase. each of the different if statement sections will require different queries. (6 total)
-
         blippRefresh.setEnabled(true);
         blippRefresh.setRefreshing(true);
 
@@ -214,24 +262,48 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         Toast.makeText(this.getContext(), "Error getting blips, please try again later...", Toast.LENGTH_LONG).show();
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                      BLIP SENDER                                                           //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void sendBlip(String text,  boolean isShortDistance, boolean isMedumDistance, boolean isLongDistance)
+    {
+
+       try{ Blipp temp = new Blipp(isLongDistance, isMedumDistance, isShortDistance, text, new URL(currentPhotoPath), this.getContext());
+        new BlipSender(temp, this, this.getContext());
+            }catch (Exception e){Toast.makeText(this.getContext(), "Exception was thrown", Toast.LENGTH_LONG).show();}
+
+    }
+
+
+    @Override
+    public void blipSenderDone(boolean isSucessful)
+    {
+        if (isSucessful)
+        {
+            Toast.makeText(BlippFeedFragment.this.getContext(), "Blipp was sent sucessfully", Toast.LENGTH_SHORT).show();
+            popupWindow.dismiss();
+            popUpIsShowing = false;
+        }
+
+        else
+        {
+            Toast.makeText(BlippFeedFragment.this.getContext(), "Error Sending Blip", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                      VIEW ACTION LISTENERS                                                 //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     private class RefreshFeed implements SwipeRefreshLayout.OnRefreshListener
     {
         @Override
         public void onRefresh()
         {
             getBlips(null);
-        }
-    }
-
-
-    class ToBlipDetail implements ListView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-        {
-            BlippDetailFragment frag = new BlippDetailFragment();
-            frag.blip = (Blipp)((BlipListAdapter)blippFeed.getAdapter()).getItem(position);
-            fragmentSwap.swap(frag);
         }
     }
 
@@ -267,16 +339,39 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         @Override
         public void onScroll(AbsListView absListView, int firstVisableItem, int visableItemCount, int totalItemCount)
         {
-
-            /*Our Blipp Feed should only load 50 or less Blipps at a time. These will either be the 50 most recent or the 50 most liked depending on user configuration
-            TODO: When our list is displaying the very last possible count of items, we should pull the next 50 items from Firebase if the user wishes to keep scrolling
-             */
-
             if (firstVisableItem + visableItemCount == totalItemCount && totalItemCount!=0) getBlips(((Blipp)((BlipListAdapter)blippFeed.getAdapter()).getItem(totalItemCount-1)).getId());
-
         }
     }
 
+    class ToBlipDetail implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+
+
+            Blipp blipp = (Blipp)blippFeed.getAdapter().getItem(position);
+
+            String time = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH).format(blipp.getTime());
+
+            Bundle b = new Bundle();
+                    b.putString("blipID", blipp.getId());
+                    b.putString("blipParent", blipp.getParent());
+                    b.putString("blipText", blipp.getText());
+                    b.putString("blipUser", blipp.getUserId());
+                    b.putString("blipCommunity", blipp.getCommunity());
+                    b.putString("blipURL", blipp.getUrl() == null ? null : blipp.getUrl().toString());
+                    b.putDouble("blipLat", blipp.getLatitude());
+                    b.putDouble("blipLon", blipp.getLongitude());
+                    b.putString("blipTime", blipp.getTime() == null ? null : time);
+                    b.putBoolean("blipShort", blipp.isShortDistance());
+                    b.putBoolean("blipMed", blipp.isMediumDistance());
+                    b.putBoolean("blipLong", blipp.isLongDistance());
+            BlippDetailFragment frag = new BlippDetailFragment();
+            frag.setArguments(b);
+            fragmentSwap.swap(frag);
+        }
+    }
 
     //Floating Action Button Related Classes
 
@@ -310,6 +405,18 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                 }
             });
 
+                Button btnPhoto = popupView.findViewById(R.id.make_blipp_btn_image);
+                btnPhoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("image/*");
+                        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
+                            startActivityForResult(intent, REQUEST_IMAGE_GET);
+                        }
+                    }
+                });
 
             Button btnSubmit = popupView.findViewById(R.id.btnSubmit);
             btnSubmit.setOnClickListener( new View.OnClickListener()
@@ -317,13 +424,8 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                 @Override
                 public void onClick(View view)
                 {
-                    new BlipSender(new Blipp(Double.parseDouble(((EditText) popupView.findViewById(R.id.blipp_spoof_lat)).getText().toString()), Double.parseDouble(((EditText) popupView.findViewById(R.id.blipp_spoof_lon)).getText().toString()), ((CheckBox) popupView.findViewById(R.id.check_max)).isChecked(), ((CheckBox) popupView.findViewById(R.id.check_reg)).isChecked(), ((CheckBox) popupView.findViewById(R.id.check_close)).isChecked(), new Date(), null, ((EditText) popupView.findViewById(R.id.blipp_text_enter)).getText().toString(), null, FirebaseAuth.getInstance().getCurrentUser().getUid()),
-                            new BlipSenderCompletion() {
-                                @Override
-                                public void blipSenderDone(boolean isSuccessful) {
-                                    Toast.makeText(BlippFeedFragment.this.getContext(), isSuccessful ? "Sucess" : "Error", Toast.LENGTH_SHORT).show();
-                                }
-                            }, BlippFeedFragment.this.getContext());
+                    String blipText = ((EditText)popupView.findViewById(R.id.make_blipp_text)).getText().toString();
+                    sendBlip(blipText, false, false ,false);
 
                     popupWindow.dismiss();
                     popUpIsShowing = false;
@@ -337,24 +439,6 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
             }
         }
     }
-
-
-    @Override
-    public void blipSenderDone(boolean isSucessful)
-    {
-        if (isSucessful)
-        {
-            Toast.makeText(BlippFeedFragment.this.getContext(), "Blipp was sent sucessfully", Toast.LENGTH_SHORT).show();
-            popupWindow.dismiss();
-            popUpIsShowing = false;
-        }
-
-        else
-            {
-                Toast.makeText(BlippFeedFragment.this.getContext(), "Error Sending Blip", Toast.LENGTH_SHORT).show();
-            }
-    }
-
 
     class AnythingTouched implements View.OnTouchListener
     {

@@ -2,11 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/blip"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    >
+
+    <TextView
+        android:id="@+id/blip_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="left"
+        ></TextView>
 
     <ImageView
-        android:id="@+id/blipp_photo"
+        android:id="@+id/blip_photo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
@@ -17,7 +28,7 @@
         tools:srcCompat="@tools:sample/avatars[1]" />
 
     <TextView
-        android:id="@+id/blipp_text"
+        android:id="@+id/blip_text"
         android:layout_weight="4"
         android:textSize="16sp"
         android:paddingTop="20dp"
@@ -29,4 +40,34 @@
         android:layout_height="0dp"
         android:textColor="@color/blipp_black"
         android:text="TextView" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <Button
+            android:id="@+id/blip_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="LIKE"></Button>
+
+        <TextView
+            android:id="@+id/blip_num_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:text="num likes"></TextView>
+
+        <Button
+            android:id="@+id/blip_dislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="DISLIKE"></Button>
+
+    </RelativeLayout>
+
 </LinearLayout>

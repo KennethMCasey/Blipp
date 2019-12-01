@@ -7,80 +7,51 @@
     android:layout_height="match_parent">
 
 
-<FrameLayout
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="6">
-    <ImageView
-        android:id="@+id/blipp_detail_photo"
-        android:layout_width="wrap_content"
+    android:layout_weight="1">
+
+    <Button
+    android:id="@+id/blip_detail_to_parent"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_weight="2"
+    android:text="Go To Parent"
+       android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+    >
+</Button>
+    <Button
+        android:id="@+id/blip_detail_reply"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        tools:srcCompat="@tools:sample/avatars[1]" />
-
-    <Button
-        android:id="@+id/blip_detail_btn_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="REFRESH"></Button>
-
+        android:layout_weight="2"
+        android:text="Make Reply"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+    </Button>
     <Button
         android:id="@+id/blip_detail_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:text="DELETE"></Button>
-
-
-</FrameLayout>
-
-    <TextView
-        android:id="@+id/blipp_detail_text"
-        android:layout_weight="4"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="TextView" />
-
-
-    <Button
-        android:id="@+id/blip_Detail_to_parent"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="2"
-        android:text="Go To Parent"
+        android:text="Delete Blip"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         >
     </Button>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
 
-        <Button
-            android:id="@+id/blip_detail_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:text="LIKE"></Button>
 
-        <TextView
-            android:id="@+id/blip_detail_num_likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-           android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:text="num likes"></TextView>
+</LinearLayout>
 
-        <Button
-            android:id="@+id/blip_detail_dislike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="DISLIKE"></Button>
 
-    </RelativeLayout>
 
 
     <LinearLayout
@@ -119,13 +90,5 @@
             android:layout_height="match_parent"
             />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <Button
-        android:id="@+id/blip_detail_reply"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:text="REPLY"></Button>
 </LinearLayout>
 

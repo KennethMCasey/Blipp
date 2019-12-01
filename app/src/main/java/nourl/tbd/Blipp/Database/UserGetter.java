@@ -29,6 +29,7 @@ public class UserGetter extends AsyncTask<Void, Void, User> {
     protected User doInBackground(Void... voids)
     {
         //TODO: get the user object with the passed user id from firebase and assign it to the user class variable
+        this.user = new User("Fake Name", "fake@email.com", "555-555-5555");
        taskDone(true); // call me when done, true if success false if fail
 
         return null;

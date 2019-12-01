@@ -26,6 +26,12 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
 
 
     @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() >0)
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
 
@@ -73,6 +79,10 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
         //saves the currenlty selected tab
         StatePersistence.current.tabSelected = tab;
 
+        while (getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStackImmediate();
+        }
+
         //removes the view from the fragment place holder, note the to-do we can probably do this better
         ViewGroup temp = findViewById(R.id.fragment_place_holder);
         temp.removeAllViews();
@@ -85,35 +95,31 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
         if (tab == 0)
         {
             fragmentTransaction.replace(R.id.fragment_place_holder, new BlippFeedFragment());
-            fragmentTransaction.addToBackStack(null);
+
         }
 
         //Community Tab Selected
         else if (tab == 1)
         {
             fragmentTransaction.replace(R.id.fragment_place_holder, new CommunityJoinedFragment());
-            fragmentTransaction.addToBackStack(null);
         }
 
         //My Blips Tag Selected
         else if (tab == 2)
         {
             fragmentTransaction.replace(R.id.fragment_place_holder, new MyBlippsFragment());
-            fragmentTransaction.addToBackStack(null);
         }
 
         //Liked Blips Selected
         else if (tab == 3)
         {
             fragmentTransaction.replace(R.id.fragment_place_holder, new LikedBlippsFragment());
-            fragmentTransaction.addToBackStack(null);
         }
 
         //Options Tag Selected
         else if (tab == 4)
         {
             fragmentTransaction.replace(R.id.fragment_place_holder, new OptionsFragment());
-            fragmentTransaction.addToBackStack(null);
         }
 
         //finalize the swap

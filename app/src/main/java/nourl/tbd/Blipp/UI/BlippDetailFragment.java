@@ -2,6 +2,8 @@ package nourl.tbd.Blipp.UI;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.style.LineHeightSpan;
+import android.text.style.TtsSpan;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -23,12 +26,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Like;
@@ -77,38 +85,57 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        Bundle b = getArguments();
+
+       String blipID = b.getString("blipID", null);
+       String blipParent = b.getString("blipParent", null);
+       String blipText = b.getString("blipText", null);
+        String blipUser = b.getString("blipUser", null);
+        String blipCommunity = b.getString("blipCommunity", null);
+        String blipURL = b.getString("blipURL", null);
+        double blipLat =b.getDouble("blipLat", -1);
+        double blipLon = b.getDouble("blipLon", -1);
+        String blipTime = b.getString("blipTime", null);
+        boolean blipShort = b.getBoolean("blipShort", false);
+        boolean blipMed = b.getBoolean("blipMed", false);
+        boolean blipLong = b.getBoolean("blipLong", false);
+
+        try {Date temp = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH).parse(blipTime);
+
+        this.blip = new Blipp(blipLat, blipLon, blipLong, blipMed, blipShort, temp  , blipID, blipText, blipURL == null ? null : new URL(blipURL), blipUser, blipParent, blipCommunity);}
+        catch (Exception e ){    }
+
+
+
 
         //inflate the view
         View v = inflater.inflate(R.layout.blip_detail, container, false);
 
+
+        //int index = container.indexOfChild(pp);
+        //container.removeView(pp);
+        Blip blipView = new Blip(this.getContext()).withBlip(this.blip);
+        blipView.setLayoutParams( new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 5.0f));
+        ((ViewGroup)v).addView(blipView, 0);
+
+
+
         //configure image view
-        photo = v.findViewById(R.id.blipp_detail_photo);
+        //photo = v.findViewById(R.id.blipp_detail_photo);
         //TODO: if photo url exists download here
 
-        //configure the text
-        text = v.findViewById(R.id.blipp_detail_text);
-        text.setText(blip.getText());
-
         //Configure the toParent button
-        toParent = v.findViewById(R.id.blip_Detail_to_parent);
-        toParent.setVisibility(blip.getParent() == null ? View.GONE : View.VISIBLE);
-        toParent.setOnClickListener(new ToParent());
+       // toParent = v.findViewById(R.id.blip_Detail_to_parent);
+        //toParent.setVisibility(blip.getParent() == null ? View.GONE : View.VISIBLE);
+        //toParent.setOnClickListener(new ToParent());
 
-        //configure like button
-        like = v.findViewById(R.id.blip_detail_like);
-        like.setOnClickListener(new LikeButtonsPressed());
 
-        //configure dislike buttons
-        dislike = v.findViewById(R.id.blip_detail_dislike);
-        dislike.setOnClickListener(new LikeButtonsPressed());
 
-        //configure numLikes
-        numLikes = v.findViewById(R.id.blip_detail_num_likes);
 
         //configure delete button
-        delete = v.findViewById(R.id.blip_detail_delete);
-        delete.setVisibility(blip.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) ? View.VISIBLE : View.GONE);
-        delete.setOnClickListener(new DeleteBlipp());
+       // delete = v.findViewById(R.id.blip_detail_delete);
+        //delete.setVisibility(blip.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) ? View.VISIBLE : View.GONE);
+        //delete.setOnClickListener(new DeleteBlipp());
 
         //refreshlayout
         refreshLayout = v.findViewById(R.id.swiperefresh_blip_detail);
@@ -118,8 +145,8 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         replys.setAdapter(new BlipListAdapter(this.getContext(), new ArrayList<Blipp>()));
 
         //reply button
-        reply = v.findViewById(R.id.blip_detail_reply);
-        reply.setOnClickListener(new MakeReply());
+        //reply = v.findViewById(R.id.blip_detail_reply);
+        //reply.setOnClickListener(new MakeReply());
 
         //order
         order = v.findViewById(R.id.spinner_order_blip_detail);
@@ -128,14 +155,17 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         order.setAdapter(adapter2);
         order.setOnItemSelectedListener(new OrderSelected());
 
+        //getActivity().getSupportFragmentManager().backStackk
         //refresh button
-        refresh = v.findViewById(R.id.blip_detail_btn_refresh);
-        refresh.setOnClickListener(new ButtonRefresh());
+        //refresh = v.findViewById(R.id.blip_detail_btn_refresh);
+        //refresh.setOnClickListener(new ButtonRefresh());
 
-        getLikes();
-        getReplys(null);
+        //getLikes();
+        //getReplys(null);
         return  v;
     }
+
+
 
 
     void getReplys(String blipToStartAt)
@@ -231,7 +261,7 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
                     @Override
                     public void onClick(View view)
                     {
-                        new BlipSender(new Blipp(((CheckBox) popupView.findViewById(R.id.check_max)).isChecked(), ((CheckBox) popupView.findViewById(R.id.check_reg)).isChecked(), ((CheckBox) popupView.findViewById(R.id.check_close)).isChecked(), ((EditText) popupView.findViewById(R.id.blipp_text_enter)).getText().toString(), null, blip.getId(),blip.getCommunity(), BlippDetailFragment.this.getContext()),
+                        new BlipSender(new Blipp(((CheckBox) popupView.findViewById(R.id.check_max)).isChecked(), ((CheckBox) popupView.findViewById(R.id.check_reg)).isChecked(), ((CheckBox) popupView.findViewById(R.id.check_close)).isChecked(), ((EditText) popupView.findViewById(R.id.make_blipp_text)).getText().toString(), null, blip.getId(),blip.getCommunity(), BlippDetailFragment.this.getContext()),
                                 new BlipSenderCompletion() {
                                     @Override
                                     public void blipSenderDone(boolean isSuccessful) {

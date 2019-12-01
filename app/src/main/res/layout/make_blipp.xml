@@ -11,36 +11,25 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:id="@+id/blipp_text_enter"
+        android:id="@+id/make_blipp_text"
         android:layout_alignParentTop="true"
         android:textColor="@color/blipp_white"
         android:textColorHint="@color/blipp_white"
         android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:hint="Enter Latitude here *required - will be auto generated*"
+    <ImageView
+        android:id="@+id/make_blipp_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:id="@+id/blipp_spoof_lat"
-        android:textColor="@color/blipp_white"
-        android:textColorHint="@color/blipp_white"
-        android:layout_below="@+id/blipp_text_enter"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/make_blipp_text"></ImageView>
 
-    <EditText
-        android:hint="Enter Longitude here *required - will be auto generated*"
+    <Button
+        android:id="@+id/make_blipp_btn_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:id="@+id/blipp_spoof_lon"
-        android:textColor="@color/blipp_white"
-        android:textColorHint="@color/blipp_white"
-        android:layout_below="@+id/blipp_spoof_lat"
-        android:layout_centerHorizontal="true" />
-
+        android:text="Add Photo"
+        android:layout_below="@id/make_blipp_photo">
+    </Button>
 
 
     <CheckBox
@@ -50,7 +39,7 @@
         android:text="Close Distance"
         android:textColor="@color/blipp_white"
         android:textColorHint="@color/blipp_white"
-        android:layout_below="@+id/blipp_spoof_lon"></CheckBox>
+        android:layout_below="@id/make_blipp_btn_image"></CheckBox>
 
     <CheckBox
         android:id="@+id/check_reg"
