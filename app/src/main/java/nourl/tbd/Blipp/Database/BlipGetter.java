@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
+import nourl.tbd.Blipp.UI.Blip;
 
 public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
@@ -110,7 +111,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
 
         //Queries for blips that are not in a community and do not have a parent
-        if (communityId == null && parentId == null) {
+        if (communityId == null && parentId == null && section!= null && order != null) {
 
             if (section.equals(Section.FEED)) {
                 if (distance.equals(Distance.CLOSE)) {
@@ -123,7 +124,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance", new URL("http://fake.com/"), "fake id"));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? new URL("http://fake.com/") : null, "fake id", "fake id", null));
                         } catch (Exception e) {
                         }
                         results = temp;
@@ -316,7 +317,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 ArrayList<Blipp> temp = new ArrayList<Blipp>();
                 try {
                     for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked", new URL("http://fake.com/"), "fake id"));
+                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked", new URL("http://fake.com/"), "fake id", "fake id", null));
                 } catch (Exception e) {
                 }
                 results = temp;
@@ -327,12 +328,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             if (order.equals(Order.MOST_LIKED)) {
                 //TODO: Return an array of blips that are replys to the parent blip ordered by most liked
                 //Test Code: Delete me.
-                ArrayList<Blipp> temp = new ArrayList<Blipp>();
-                try {
-                    for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked", new URL("http://fake.com/"), "fake id"));
-                } catch (Exception e) {
-                }
+                ArrayList<Blipp> temp = null;
                 results = temp;
                 taskDone(true);
             }

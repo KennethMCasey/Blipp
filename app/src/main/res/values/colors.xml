@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#B37DD3</color>
+    <color name="colorPrimaryDark">#d9bdea</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="blipp_dark">#984DC4</color>
+    <color name="blipp_medium">#B37DD3</color>
+    <color name="blipp_light">#d9bdea</color>
+    <color name="blipp_white">#dcdcdc</color>
+    <color name="blipp_offset">#d0cfd0</color>
+    <color name="blipp_brown">#bd9a87</color>
+    <color name="blipp_grey">#c2c0bf</color>
+    <color name="blipp_black">#2b0a2b</color>
+    <color name="blipp_red">#ff1111</color>
 </resources>

@@ -7,10 +7,14 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Like;
@@ -23,8 +27,7 @@ public class LikeSender extends AsyncTask<Void, Void, Void> {
     LikeSenderCompletion completion;
     Handler uiThread;
 
-    public LikeSender(Like like, LikeSenderCompletion completion, Context context)
-    {
+    public LikeSender(Like like, LikeSenderCompletion completion, Context context) {
         this.like = like;
         this.completion = completion;
         db = FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/");
@@ -35,24 +38,28 @@ public class LikeSender extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+
         DatabaseReference here = location.push();
         here.setValue(like).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task)
-            {
+            public void onComplete(@NonNull Task<Void> task) {
                 taskDone(task.isSuccessful());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                taskDone(false);
             }
         });
         return null;
     }
 
-  void taskDone(final boolean isSuccessful)
-  {
-      uiThread.post(new Runnable() {
-          @Override
-          public void run() {
-              completion.likeSenderDone(isSuccessful);
-          }
-      });
-  }
+    void taskDone(final boolean isSuccessful) {
+        uiThread.post(new Runnable() {
+            @Override
+            public void run() {
+                completion.likeSenderDone(isSuccessful);
+            }
+        });
+    }
 }

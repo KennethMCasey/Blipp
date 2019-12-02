@@ -16,7 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import nourl.tbd.Blipp.Helper.BlipListAdapter;
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
@@ -44,8 +46,8 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
 
         //configure drop down menu
         order = v.findViewById(R.id.spinner_order_liked);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_order, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_order, R.layout.spinner_item_blip);
+        adapter2.setDropDownViewResource(R.layout.spinner_item_blip);
         order.setAdapter(adapter2);
         order.setSelection(StatePersistence.current.likedBlipsSelectedOrdering, false);
         order.setOnItemSelectedListener(new BlippOrderChanged());
@@ -64,6 +66,13 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
         if (StatePersistence.current.blipsLiked == null) getBlips(null);
 
         return v;
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (StatePersistence.current.blipsLiked != null && StatePersistence.current.blipsLiked.size() != likedBlipps.getAdapter().getCount()) ((BlipListAdapter)likedBlipps.getAdapter()).notifyDataSetChanged();
     }
 
     private void getBlips(String blipToStartAt)
@@ -118,9 +127,28 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
+
+
+            Blipp blipp = (Blipp)likedBlipps.getAdapter().getItem(position);
+
+            String time = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH).format(blipp.getTime());
+
+            Bundle b = new Bundle();
+            b.putString("blipID", blipp.getId());
+            b.putString("blipParent", blipp.getParent());
+            b.putString("blipText", blipp.getText());
+            b.putString("blipUser", blipp.getUserId());
+            b.putString("blipCommunity", blipp.getCommunity());
+            b.putString("blipURL", blipp.getUrl() == null ? null : blipp.getUrl().toString());
+            b.putDouble("blipLat", blipp.getLatitude());
+            b.putDouble("blipLon", blipp.getLongitude());
+            b.putString("blipTime", blipp.getTime() == null ? null : time);
+            b.putBoolean("blipShort", blipp.isShortDistance());
+            b.putBoolean("blipMed", blipp.isMediumDistance());
+            b.putBoolean("blipLong", blipp.isLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
-            frag.blip = (Blipp)((BlipListAdapter)likedBlipps.getAdapter()).getItem(position);
-            fragmentSwap.swap(new BlippDetailFragment());
+            frag.setArguments(b);
+            fragmentSwap.swap(frag, true);
         }
     }
 

@@ -34,18 +34,21 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
     Spinner order;
     SwipeRefreshLayout refresh;
     ListView communitiesJoined;
+    FragmentSwap fragmentSwap;
 
     boolean didHitBottom;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        fragmentSwap = (FragmentSwap) getActivity();
+
         View v = inflater.inflate(R.layout.community_joined, container, false);
 
         //configure drop down menu
         order = v.findViewById(R.id.spinner_community_joined);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.community_order, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.community_order, R.layout.spinner_item_blip);
+        adapter2.setDropDownViewResource(R.layout.spinner_item_blip);
         order.setAdapter(adapter2);
         order.setSelection(StatePersistence.current.communityJoinedOrderPosition, false);
         order.setOnItemSelectedListener(new CommunityOrderChanged());
@@ -58,6 +61,7 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
         communitiesJoined = v.findViewById(R.id.list_community_joined);
         communitiesJoined.setAdapter(new CommunityAdapter(this.getContext(), StatePersistence.current.comunityJoined == null ? new ArrayList<Community>() : StatePersistence.current.comunityJoined));
         communitiesJoined.setOnScrollListener(new BottomHit());
+        communitiesJoined.setOnItemClickListener(new ToCommunityFeed());
 
         //if there are no previously loaded blips this will start the background action to load them
         if (StatePersistence.current.comunityJoined == null) getCommunity(null);
@@ -127,6 +131,31 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
             //UnUsed Method
+        }
+    }
+
+
+    class ToCommunityFeed implements ListView.OnItemClickListener
+    {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+        {
+            Community c = (Community) communitiesJoined.getAdapter().getItem(i);
+
+            Bundle b = new Bundle();
+            b.putString("id", c.getId());
+            b.putString("name", c.getName());
+            b.putString("owner", c.getOwner());
+            b.putDouble("lat", c.getOriginLat());
+            b.putDouble("lon", c.getOriginLong());
+            b.putDouble("radius", c.getRadius());
+            b.putString("photo", c.getPhoto() == null ? null : c.getPhoto().toString());
+            b.putBoolean("joinable", c.isJoinable());
+
+            CommunityBlipsFragment cbf = new CommunityBlipsFragment();
+            cbf.setArguments(b);
+            fragmentSwap.swap(cbf, true);
+
         }
     }
 
