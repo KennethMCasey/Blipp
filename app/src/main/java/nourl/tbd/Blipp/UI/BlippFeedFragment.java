@@ -270,9 +270,8 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     public void sendBlip(String text,  boolean isShortDistance, boolean isMedumDistance, boolean isLongDistance)
     {
 
-       try{ Blipp temp = new Blipp(isLongDistance, isMedumDistance, isShortDistance, text, new URL(currentPhotoPath), this.getContext());
+       Blipp temp = new Blipp(isLongDistance, isMedumDistance, isShortDistance, text, currentPhotoUrl, this.getContext());
         new BlipSender(temp, this, this.getContext());
-            }catch (Exception e){Toast.makeText(this.getContext(), "Exception was thrown", Toast.LENGTH_LONG).show();}
 
     }
 
@@ -369,7 +368,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                     b.putBoolean("blipLong", blipp.isLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.setArguments(b);
-            fragmentSwap.swap(frag);
+            fragmentSwap.swap(frag, true);
         }
     }
 

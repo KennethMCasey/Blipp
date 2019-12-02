@@ -65,11 +65,6 @@
         android:background="@color/blipp_medium"
         >
 
-        <fragment
-            android:id="@+id/the_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="nourl.tbd.Blipp.UI.BlippFeedFragment" />
     </FrameLayout>
 
 </LinearLayout>

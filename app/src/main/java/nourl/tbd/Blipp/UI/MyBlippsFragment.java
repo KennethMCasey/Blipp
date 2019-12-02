@@ -94,7 +94,7 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
             b.putBoolean("blipLong", blipp.isLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.setArguments(b);
-            fragmentSwap.swap(frag);
+            fragmentSwap.swap(frag, true);
         }
     }
 

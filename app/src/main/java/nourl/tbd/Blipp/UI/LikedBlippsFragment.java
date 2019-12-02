@@ -148,7 +148,7 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
             b.putBoolean("blipLong", blipp.isLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.setArguments(b);
-            fragmentSwap.swap(frag);
+            fragmentSwap.swap(frag, true);
         }
     }
 

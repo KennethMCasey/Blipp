@@ -50,8 +50,8 @@ public class Blip extends LinearLayout
     TextView numLikes;
     TextView name;
 
-    boolean didLike;
-    boolean didDislike;
+    Boolean didLike;
+    Boolean didDislike;
 
     public Blip(Context context) {
         this(context, null);
@@ -80,6 +80,9 @@ public class Blip extends LinearLayout
 
     public Blip withBlip(Blipp blip)
     {
+        didLike = null;
+        didDislike = null;
+
         this.blip = blip;
 
         //Configure text
@@ -104,9 +107,9 @@ public class Blip extends LinearLayout
         }, getContext());
 
 
-        getLikes();
         like.setOnClickListener(new LikeHandler());
         dislike.setOnClickListener(new LikeHandler());
+        getLikes();
         return this;
     }
 
@@ -117,21 +120,26 @@ public class Blip extends LinearLayout
         {
           if (v.equals(like))
           {
+              if (didDislike == null || didLike == null)
+              {
+                  Toast.makeText(Blip.this.getContext(), "Error: Please Try Again", Toast.LENGTH_SHORT).show();
+                  return;
+              }
 
              if (!didLike)  new LikeSender(new Like(blip, false), new LikeSenderCompletion() {
             @Override
             public void likeSenderDone(boolean isSuccessful)
             {
-              if (isSuccessful) getLikes();
               Toast.makeText(Blip.this.getContext(), isSuccessful ? "Action Successful." : "Error: Like not sent.", Toast.LENGTH_SHORT).show();
+                if (isSuccessful) getLikes();
             }
         }, Blip.this.getContext());
              if (didLike) new LikeDeleter(new Like(blip, false), new LikeDeleterCompletion() {
                  @Override
                  public void likeDeleterDone(boolean isSuccessful)
                  {
-                     if (isSuccessful) getLikes();
                      Toast.makeText(Blip.this.getContext(), isSuccessful ? "Action Successful." : "Error: Like not deleted.", Toast.LENGTH_SHORT).show();
+                     if (isSuccessful) getLikes();
                  }
              }, Blip.this.getContext());
           }
@@ -142,8 +150,9 @@ public class Blip extends LinearLayout
                   @Override
                   public void likeSenderDone(boolean isSuccessful)
                   {
-                      if (isSuccessful) getLikes();
+
                       Toast.makeText(Blip.this.getContext(), isSuccessful ? "Action Successful." : "Error: DisLike not sent.", Toast.LENGTH_SHORT).show();
+                      if (isSuccessful) getLikes();
                   }
               }, Blip.this.getContext());
 
@@ -152,8 +161,9 @@ public class Blip extends LinearLayout
                   @Override
                   public void likeDeleterDone(boolean isSuccessful)
                   {
-                      if (isSuccessful) getLikes();
+
                       Toast.makeText(Blip.this.getContext(), isSuccessful ? "Action Successful." : "Error: DisLike not deleted.", Toast.LENGTH_SHORT).show();
+                      if (isSuccessful) getLikes();
                   }
               }, Blip.this.getContext());
           }
@@ -176,7 +186,7 @@ public class Blip extends LinearLayout
 
 
              didDislike = likes.contains(new Like(blip, true));
-             didDislike = likes.contains(new Like(blip, false));
+             didLike = likes.contains(new Like(blip, false));
 
              like.setText(didLike ? "Un-Like" : "Like");
              dislike.setText(didDislike? "Un-DisLike" : "DisLike");
@@ -192,7 +202,7 @@ public class Blip extends LinearLayout
         }, this.getContext());
 
     }
-    public int getLayoutHeight() {return blip.getUrl() == null ? 500 : 1100;}
+    public int getLayoutHeight() {return blip.getUrl() == null ? 500 : 1000;}
 
 }
 

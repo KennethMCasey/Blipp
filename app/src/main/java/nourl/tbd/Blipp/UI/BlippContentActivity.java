@@ -23,6 +23,7 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
 
     //view properties
     TabLayout tabLayout;
+    Fragment currFrag;
 
 
     @Override
@@ -44,7 +45,9 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
         tabLayout = findViewById(R.id.tab_bar);
         tabLayout.addOnTabSelectedListener(new TabActions());
         tabLayout.setScrollPosition(StatePersistence.current.tabSelected, 0, true);
-        //TODO: Handle null pointer exception
+        if (currFrag == null) tabFragmentSwap(StatePersistence.current.tabSelected);
+        else swap(currFrag, false);
+
     }
 
     @Override
@@ -64,14 +67,19 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
 
     //This method is called from inside a fragment to swap with another fragment
     @Override
-    public void swap(Fragment fragment) {
+    public void swap(Fragment fragment, boolean addToBackstack) {
         ViewGroup temp = findViewById(R.id.fragment_place_holder);
         temp.removeAllViews();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_place_holder, fragment);
-        fragmentTransaction.addToBackStack(null);
+        if (addToBackstack) fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+    @Override
+    public void saveFrag(Fragment fragment)
+    {
+        currFrag = fragment;
     }
 
     void tabFragmentSwap(int tab)

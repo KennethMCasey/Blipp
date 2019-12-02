@@ -31,7 +31,7 @@ public class BlipListAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-        return blipps.size();
+        return blipps == null ? 0 : blipps.size();
     }
 
     @Override

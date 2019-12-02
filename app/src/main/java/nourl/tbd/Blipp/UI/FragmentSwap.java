@@ -4,5 +4,7 @@ import androidx.fragment.app.Fragment;
 
 public interface FragmentSwap
 {
-    void swap(Fragment fragment);
+    void swap(Fragment fragment, boolean addToBackstack);
+    void saveFrag(Fragment fragment);
 }
+

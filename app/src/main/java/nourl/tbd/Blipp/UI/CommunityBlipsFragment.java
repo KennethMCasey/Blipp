@@ -339,7 +339,7 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
             b.putBoolean("blipLong", blipp.isLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.setArguments(b);
-            fragmentSwap.swap(frag);
+            fragmentSwap.swap(frag, true);
         }
     }
 

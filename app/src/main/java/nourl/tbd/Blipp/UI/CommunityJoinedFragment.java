@@ -154,7 +154,7 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
 
             CommunityBlipsFragment cbf = new CommunityBlipsFragment();
             cbf.setArguments(b);
-            fragmentSwap.swap(cbf);
+            fragmentSwap.swap(cbf, true);
 
         }
     }

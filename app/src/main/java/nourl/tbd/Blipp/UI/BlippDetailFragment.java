@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -69,6 +70,8 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
     Button dislike;
     boolean didDislike;
 
+    boolean didHitBottom;
+
     TextView numLikes;
     Button delete;
     SwipeRefreshLayout refreshLayout;
@@ -81,9 +84,15 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
     PopupWindow popupWindow;
     boolean popUpIsShowing;
 
+    View emptyView;
+
+    FragmentSwap fragmentSwap;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        fragmentSwap = (FragmentSwap) getActivity();
 
         Bundle b = getArguments();
 
@@ -125,28 +134,36 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         //TODO: if photo url exists download here
 
         //Configure the toParent button
-       // toParent = v.findViewById(R.id.blip_Detail_to_parent);
-        //toParent.setVisibility(blip.getParent() == null ? View.GONE : View.VISIBLE);
-        //toParent.setOnClickListener(new ToParent());
+       toParent = v.findViewById(R.id.blip_detail_to_parent);
+        toParent.setVisibility(blip.getParent() == null ? View.GONE : View.VISIBLE);
+        toParent.setOnClickListener(new ToParent());
 
 
 
 
         //configure delete button
-       // delete = v.findViewById(R.id.blip_detail_delete);
-        //delete.setVisibility(blip.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) ? View.VISIBLE : View.GONE);
-        //delete.setOnClickListener(new DeleteBlipp());
+       delete = v.findViewById(R.id.blip_detail_delete);
+        delete.setVisibility(blip.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) ? View.VISIBLE : View.GONE);
+        delete.setOnClickListener(new DeleteBlipp());
 
         //refreshlayout
         refreshLayout = v.findViewById(R.id.swiperefresh_blip_detail);
+        refreshLayout.setOnRefreshListener(new RefreshFeed());
 
         //replys
         replys = v.findViewById(R.id.list_replys_blipp_detail);
+        replys.setEmptyView(v.findViewById(R.id.empty_view));
         replys.setAdapter(new BlipListAdapter(this.getContext(), new ArrayList<Blipp>()));
+        replys.setOnScrollListener(new BottomHit());
+        replys.setOnItemClickListener(new ToBlipDetail());
+
+        //empty View
+        emptyView = v.findViewById(R.id.blip_detail_empty);
+
 
         //reply button
-        //reply = v.findViewById(R.id.blip_detail_reply);
-        //reply.setOnClickListener(new MakeReply());
+        reply = v.findViewById(R.id.blip_detail_reply);
+        reply.setOnClickListener(new MakeReply());
 
         //order
         order = v.findViewById(R.id.spinner_order_blip_detail);
@@ -156,12 +173,8 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         order.setOnItemSelectedListener(new OrderSelected());
 
         //getActivity().getSupportFragmentManager().backStackk
-        //refresh button
-        //refresh = v.findViewById(R.id.blip_detail_btn_refresh);
-        //refresh.setOnClickListener(new ButtonRefresh());
 
-        //getLikes();
-        //getReplys(null);
+        getReplys(null);
         return  v;
     }
 
@@ -173,17 +186,16 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         refreshLayout.setEnabled(true);
         refreshLayout.setRefreshing(true);
 
-        if (blip.getParent() == null) {refreshLayout.setRefreshing(false);
-        return;}
 
-        if (order.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Order.MOST_RECENT, this, blipToStartAt, 20, blip.getParent(), BlippDetailFragment.this.getContext());
+        if (order.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Order.MOST_RECENT, this, blipToStartAt, 20, blip.getId(), BlippDetailFragment.this.getContext());
 
-        if (order.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Order.MOST_RECENT, this, blipToStartAt, 20, blip.getParent(), BlippDetailFragment.this.getContext());
+        if (order.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Order.MOST_LIKED, this, blipToStartAt, 20, blip.getId(), BlippDetailFragment.this.getContext());
     }
 
     @Override
     public void blipGetterGotInitialBlips(ArrayList<Blipp> results)
     {
+        emptyView.setVisibility(results == null || results.size() == 0 ? View.VISIBLE : View.GONE);
         ((BlipListAdapter)replys.getAdapter()).setBlipps(results);
         refreshLayout.setRefreshing(false);
     }
@@ -198,6 +210,7 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
     @Override
     public void blipGetterDidFail()
     {
+        emptyView.setVisibility(View.GONE);
         Toast.makeText(this.getContext(), "Error", Toast.LENGTH_SHORT).show();
     }
 
@@ -214,15 +227,6 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         }
     }
 
-    private class ButtonRefresh implements Button.OnClickListener
-    {
-        @Override
-        public void onClick(View v)
-        {
-         getLikes();
-         getReplys(null);
-        }
-    }
 
     private class MakeReply implements Button.OnClickListener
     {
@@ -240,6 +244,9 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
             {
                 LayoutInflater layoutInflater = getLayoutInflater();
                 popupView = layoutInflater.inflate(R.layout.make_blipp,null);
+                popupView.findViewById(R.id.check_close).setVisibility(View.GONE);
+                popupView.findViewById(R.id.check_reg).setVisibility(View.GONE);
+                popupView.findViewById(R.id.check_max).setVisibility(View.GONE);
 
                 popupWindow = new PopupWindow(popupView, RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
                 popupWindow.setFocusable(true);
@@ -261,7 +268,9 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
                     @Override
                     public void onClick(View view)
                     {
-                        new BlipSender(new Blipp(((CheckBox) popupView.findViewById(R.id.check_max)).isChecked(), ((CheckBox) popupView.findViewById(R.id.check_reg)).isChecked(), ((CheckBox) popupView.findViewById(R.id.check_close)).isChecked(), ((EditText) popupView.findViewById(R.id.make_blipp_text)).getText().toString(), null, blip.getId(),blip.getCommunity(), BlippDetailFragment.this.getContext()),
+                        new BlipSender(new Blipp(false, false, false, ((EditText) popupView.findViewById(R.id.make_blipp_text)).getText().toString(), null ,blip.getId(), null, getContext()),
+
+
                                 new BlipSenderCompletion() {
                                     @Override
                                     public void blipSenderDone(boolean isSuccessful) {
@@ -304,65 +313,74 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
              public void blippDeleterDone(boolean isSuccessful)
              {
              if (isSuccessful) BlippDetailFragment.this.getActivity().finish();
-             else Toast.makeText(BlippDetailFragment.this.getContext(), "error", Toast.LENGTH_SHORT);
+             else Toast.makeText(BlippDetailFragment.this.getContext(), "Error: Blip Not Deleted", Toast.LENGTH_SHORT);
 
              }
          }, BlippDetailFragment.this.getContext());
         }
     }
 
-
-    private class LikeButtonsPressed implements Button.OnClickListener
+    private class RefreshFeed implements SwipeRefreshLayout.OnRefreshListener
     {
         @Override
-        public void onClick(View v)
+        public void onRefresh()
         {
-
-                if (v.equals(dislike) ? didDislike : didLike)  new LikeDeleter(new Like(blip, v.equals(dislike)), new LikeDeleterCompletion() {
-                    @Override
-                    public void likeDeleterDone(boolean isSuccessful)
-                    {
-                        Toast.makeText(BlippDetailFragment.this.getContext(), isSuccessful ? "Success, Unliked." : "Error Un-liking", Toast.LENGTH_SHORT).show();
-                    }
-                }, BlippDetailFragment.this.getContext());
-
-                if (v.equals(dislike) ? !didDislike : !didLike) new LikeSender(new Like(blip, v.equals(dislike)), new LikeSenderCompletion() {
-                    @Override
-                    public void likeSenderDone(boolean isSuccessful)
-                    {
-                        Toast.makeText(BlippDetailFragment.this.getContext(), isSuccessful ? "Success, Unliked." : "Error Un-liking", Toast.LENGTH_SHORT).show();
-                    }
-                }, BlippDetailFragment.this.getContext());
-                getLikes();
+            getReplys(null);
         }
     }
 
-    void updateLikeButtons()
+
+    private class BottomHit implements AbsListView.OnScrollListener
     {
-        like.setHighlightColor( getResources().getColor( didLike ? R.color.colorPrimary : R.color.colorAccent, null));
-        dislike.setHighlightColor( getResources().getColor( didDislike ? R.color.colorPrimary : R.color.colorAccent, null));
+        @Override
+        public void onScrollStateChanged(AbsListView absListView, int i)
+        {
+            //UnUsed Method
+        }
+
+        @Override
+        public void onScroll(AbsListView absListView, int firstVisableItem, int visableItemCount, int totalItemCount) {
+
+            /*Our Blipp Feed should only load 50 or less Blipps at a time. These will either be the 50 most recent or the 50 most liked depending on user configuration
+            TODO: When our list is displaying the very last possible count of items, we should pull the next 50 items from Firebase if the user wishes to keep scrolling
+             */
+
+            if (firstVisableItem + visableItemCount == totalItemCount && totalItemCount!=0  && !didHitBottom )
+            {
+                getReplys(((Blipp)((BlipListAdapter)replys.getAdapter()).getItem(totalItemCount-1)).getId());
+            }
+        }
     }
 
-    void getLikes()
-    {
-        new LikeGetter(this.blip, new LikeGetterCompletion() {
-            @Override
-            public void likeGetterSucessful(ArrayList<Like> likes)
-            {
-                numLikes.setText(String.valueOf(likes.size()));
-               didDislike = likes.contains(new Like(true, blip.getId(), FirebaseAuth.getInstance().getCurrentUser().getUid()));
-               didLike =  likes.contains(new Like(false, blip.getId(), FirebaseAuth.getInstance().getCurrentUser().getUid()));
-                updateLikeButtons();
-            }
+    class ToBlipDetail implements ListView.OnItemClickListener {
 
-            @Override
-            public void likeGetterUnsucessful()
-            {
-                Toast.makeText(BlippDetailFragment.this.getContext(), "Error getting likes.", Toast.LENGTH_SHORT).show();
-            }
-        }, this.getContext());
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+
+
+            Blipp blipp = (Blipp)replys.getAdapter().getItem(position);
+
+            String time = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH).format(blipp.getTime());
+
+            Bundle b = new Bundle();
+            b.putString("blipID", blipp.getId());
+            b.putString("blipParent", blipp.getParent());
+            b.putString("blipText", blipp.getText());
+            b.putString("blipUser", blipp.getUserId());
+            b.putString("blipCommunity", blipp.getCommunity());
+            b.putString("blipURL", blipp.getUrl() == null ? null : blipp.getUrl().toString());
+            b.putDouble("blipLat", blipp.getLatitude());
+            b.putDouble("blipLon", blipp.getLongitude());
+            b.putString("blipTime", blipp.getTime() == null ? null : time);
+            b.putBoolean("blipShort", blipp.isShortDistance());
+            b.putBoolean("blipMed", blipp.isMediumDistance());
+            b.putBoolean("blipLong", blipp.isLongDistance());
+            BlippDetailFragment frag = new BlippDetailFragment();
+            frag.setArguments(b);
+            fragmentSwap.swap(frag, true);
+        }
     }
-
 
 
 }
