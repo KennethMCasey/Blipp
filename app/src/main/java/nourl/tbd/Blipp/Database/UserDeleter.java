@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import nourl.tbd.Blipp.BlippConstructs.User;
 
 public class UserDeleter extends AsyncTask<Void, Void, Void> {
@@ -26,7 +28,17 @@ public class UserDeleter extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         //TODO: delete the passed user from the firebase user table
-       taskDone(true);// call with true if success call with false if fail
+        try {
+            FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/")
+                    .getReference("user")
+                    .child(user.getId())
+                    .removeValue();
+        }
+        catch (Exception e){
+            taskDone(false);
+            return null;
+        }
+        taskDone(true);// call with true if success call with false if fail
         return null;
     }
 

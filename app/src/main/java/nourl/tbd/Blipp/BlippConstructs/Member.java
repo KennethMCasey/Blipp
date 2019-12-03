@@ -12,6 +12,8 @@ public class Member
     String displayName;
     Date dateJoined;
 
+    public Member() {}
+
     //This is the constructor that would be used for loading a Member. It manually passes in all information needed.
     public Member(String communityId, String userId, boolean isBanned, String displayName, Date dateJoined ) {
         this.communityId = communityId;

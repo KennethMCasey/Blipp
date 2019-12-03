@@ -4,9 +4,22 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import nourl.tbd.Blipp.BlippConstructs.Member;
 import nourl.tbd.Blipp.BlippConstructs.User;
 
 public class UserGetter extends AsyncTask<Void, Void, User> {
+
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMemberDatabaseReference;
 
     private String userID;//The ID of the user to get.
 
@@ -28,21 +41,42 @@ public class UserGetter extends AsyncTask<Void, Void, User> {
     @Override
     protected User doInBackground(Void... voids)
     {
-        //TODO: get the user object with the passed user id from firebase and assign it to the user class variable
-        this.user = new User("Fake Name", "fake@email.com", "555-555-5555");
-       taskDone(true); // call me when done, true if success false if fail
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/");
+        mMemberDatabaseReference = mFirebaseDatabase.getReference("user");
 
+        //TODO: get the user object with the passed user id from firebase and assign it to the user class variable
+        Query query = mMemberDatabaseReference;
+        query.orderByChild("id").equals(userID);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        user = snapshot.getValue(User.class);
+                    }
+                    taskDone(true);
+                }else {
+                    taskDone(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                taskDone(false);
+            }
+        });
         return null;
     }
 
- void taskDone(final boolean isSuccessful)
- {
-     uiThread.post(new Runnable() {
-         @Override
-         public void run() {
-          if (isSuccessful) completion.userGetterSuccess(user);
-          else completion.userGetterFailure();
-         }
-     });
- }
+    void taskDone(final boolean isSuccessful)
+    {
+        uiThread.post(new Runnable() {
+            @Override
+            public void run() {
+                if (isSuccessful) completion.userGetterSuccess(user);
+                else completion.userGetterFailure();
+            }
+        });
+    }
 }

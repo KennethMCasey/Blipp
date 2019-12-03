@@ -64,6 +64,8 @@ import nourl.tbd.Blipp.Database.BlipGetterCompletion;
 import nourl.tbd.Blipp.Database.BlipSender;
 import nourl.tbd.Blipp.Database.BlipGetter;
 import nourl.tbd.Blipp.Database.BlipSenderCompletion;
+import nourl.tbd.Blipp.Helper.LocationGetter;
+import nourl.tbd.Blipp.Helper.LocationGetterCompletion;
 import nourl.tbd.Blipp.R;
 import nourl.tbd.Blipp.Helper.StatePersistence;
 
@@ -267,12 +269,22 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     //                                      BLIP SENDER                                                           //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void sendBlip(String text,  boolean isShortDistance, boolean isMedumDistance, boolean isLongDistance)
+    public void sendBlip(final String text,  final boolean isShortDistance, final boolean isMedumDistance, final boolean isLongDistance)
     {
+        new LocationGetter(getContext(), new LocationGetterCompletion() {
+            @Override
+            public void locationGetterDidGetLocation(double latitude, double longitude) {
+                Blipp temp = new Blipp(latitude, longitude, isLongDistance, isMedumDistance, isShortDistance, text, currentPhotoUrl, getContext());
+                new BlipSender(temp, BlippFeedFragment.this, getContext());
+            }
 
-       Blipp temp = new Blipp(isLongDistance, isMedumDistance, isShortDistance, text, currentPhotoUrl, this.getContext());
-        new BlipSender(temp, this, this.getContext());
+            @Override
+            public void locationGetterDidFail()
+            {
+                Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Can not get location.", Toast.LENGTH_SHORT).show();
 
+            }
+        });
     }
 
 

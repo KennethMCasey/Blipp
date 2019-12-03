@@ -40,7 +40,7 @@ public class LikeSender extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
 
         DatabaseReference here = location.push();
-        here.setValue(like).addOnCompleteListener(new OnCompleteListener<Void>() {
+        here.setValue(like.withId(here.getKey())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 taskDone(task.isSuccessful());

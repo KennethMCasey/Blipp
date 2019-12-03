@@ -4,7 +4,15 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -22,6 +30,7 @@ public class LikeGetter extends AsyncTask<Void, Void, Void>
     LikeGetterCompletion completion;
     Handler uiThread;
 
+    DatabaseReference dbr;
 
     public LikeGetter(Blipp blip, LikeGetterCompletion completion, Context context)
     {
@@ -38,12 +47,30 @@ public class LikeGetter extends AsyncTask<Void, Void, Void>
     {
         //TODO: Write firebase query that will return the ArrayList of ALL Likes on The Blip
         //call task done with true or false when done
+        dbr = FirebaseDatabase.getInstance().getReference();
+        Query query = dbr.child("like")
+                .orderByChild("blipId")
+                .equalTo(blip.getId());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    results = dataSnapshot.hasChildren() ?  new ArrayList<Like>() : null;
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        results.add(snapshot.getValue(Like.class));
+                    }
+                    taskDone(true);
+                }else taskDone(false);
 
-        //Test code delete me
-        ArrayList<Like> temp = new ArrayList<>();
-        for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Like(false, "Fake ID", FirebaseAuth.getInstance().getCurrentUser().getUid()));
-        results = temp;
-        taskDone(true);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                taskDone(false);
+            }
+        });
+
+
 
         return null;
     }
@@ -53,8 +80,8 @@ public class LikeGetter extends AsyncTask<Void, Void, Void>
         uiThread.post(new Runnable() {
             @Override
             public void run() {
-            if (isSuccessful) completion.likeGetterSucessful(results);
-            else completion.likeGetterUnsucessful();
+                if (isSuccessful) completion.likeGetterSucessful(results);
+                else completion.likeGetterUnsucessful();
             }
         });
     }

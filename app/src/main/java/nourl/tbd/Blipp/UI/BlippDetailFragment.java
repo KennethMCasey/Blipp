@@ -54,6 +54,8 @@ import nourl.tbd.Blipp.Database.LikeGetterCompletion;
 import nourl.tbd.Blipp.Database.LikeSender;
 import nourl.tbd.Blipp.Database.LikeSenderCompletion;
 import nourl.tbd.Blipp.Helper.BlipListAdapter;
+import nourl.tbd.Blipp.Helper.LocationGetter;
+import nourl.tbd.Blipp.Helper.LocationGetterCompletion;
 import nourl.tbd.Blipp.R;
 
 public class BlippDetailFragment extends Fragment implements BlipGetterCompletion {
@@ -268,15 +270,31 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
                     @Override
                     public void onClick(View view)
                     {
-                        new BlipSender(new Blipp(false, false, false, ((EditText) popupView.findViewById(R.id.make_blipp_text)).getText().toString(), null ,blip.getId(), null, getContext()),
 
 
-                                new BlipSenderCompletion() {
-                                    @Override
-                                    public void blipSenderDone(boolean isSuccessful) {
-                                        Toast.makeText(BlippDetailFragment.this.getContext(), isSuccessful ? "Sucess" : "Error", Toast.LENGTH_SHORT).show();
-                                    }
-                                }, BlippDetailFragment.this.getContext());
+                        new LocationGetter(getContext(), new LocationGetterCompletion() {
+                            @Override
+                            public void locationGetterDidGetLocation(double latitude, double longitude)
+                            {
+                                new BlipSender(new Blipp(latitude, longitude, false, false, false, ((EditText) popupView.findViewById(R.id.make_blipp_text)).getText().toString(), null ,blip.getId(), null, getContext()),
+                                        new BlipSenderCompletion() {
+                                            @Override
+                                            public void blipSenderDone(boolean isSuccessful) {
+                                                Toast.makeText(BlippDetailFragment.this.getContext(), isSuccessful ? "Sucess" : "Error", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }, BlippDetailFragment.this.getContext());
+                            }
+
+                            @Override
+                            public void locationGetterDidFail()
+                            {
+                                Toast.makeText(BlippDetailFragment.this.getContext(), "Error: could not get location", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+
 
                         popupWindow.dismiss();
                         popUpIsShowing = false;

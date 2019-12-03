@@ -18,6 +18,8 @@ public class Community {
     boolean isJoinable;
     String owner;
 
+    public Community(){}
+
     //This is a constructor that manually passes all of the information to a Community object. This will only be used during testing and will eventually get deleted.
     //Manually assigning the id property is ill advised, the id will be taken care of in the CommunitySender class when push() to firebase.
     public Community(String id, URL photo, double originLat, double originLong, double radius, String name, boolean isJoinable, String owner) {
@@ -32,15 +34,14 @@ public class Community {
     }
 
     //This will bne the constructor used to create a community
-    public Community(URL photo, double radius, String name, boolean isJoinable, Context context) {
+    public Community(double originLat, double originLong, URL photo, double radius, String name, boolean isJoinable, Context context) {
         this.photo = photo;
         this.radius = radius;
         this.name = name;
         this.isJoinable = isJoinable;
 
-        LocationGetter lc = new LocationGetter(context);
-        this.originLong = lc.getLongitude();
-        this.originLat = lc.getLatitude();
+        this.originLong = originLong;
+        this.originLat = originLong;
 
         this.owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

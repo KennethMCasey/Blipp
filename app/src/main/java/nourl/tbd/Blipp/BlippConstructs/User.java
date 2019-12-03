@@ -12,6 +12,9 @@ public class User
     //This is the constructor used when getting a new user instance.
     //Never assign id manually
     //Note: Passwords are maintained by firebase auth
+
+    public User(){}
+
     public User(String name, String email, String id, String phoneNumber)
     {
         this.name = name;

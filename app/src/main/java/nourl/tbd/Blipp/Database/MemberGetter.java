@@ -4,7 +4,16 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -13,9 +22,11 @@ import nourl.tbd.Blipp.BlippConstructs.Member;
 
 public class MemberGetter extends AsyncTask<Void, Void, Void> {
 
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMemberDatabaseReference;
+
     //where to store query results
     ArrayList<Member> results;
-
     //These are variables used to decide on which query to run
     Order order;
     Section section;
@@ -49,9 +60,41 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
     }
 
 
+    /*ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            temp.clear();
+            if(dataSnapshot.exists()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Member m = snapshot.getValue(Member.class);
+                    temp.add(m);
+
+                    taskDone(true);
+                }
+            }else {
+                taskDone(false);
+            }
+            results = temp;
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };*/
+
     @Override
     protected Void doInBackground(Void... voids)
     {
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/");
+        mMemberDatabaseReference = mFirebaseDatabase.getReference("member");
+
+        Query queryAA = mMemberDatabaseReference;
+        Query queryAN = mMemberDatabaseReference;
+        Query queryBA = mMemberDatabaseReference;
+        Query queryBN = mMemberDatabaseReference;
+
+
         //assign result array list to results
         //call taskDone when done
         if (section.equals(Section.ACTIVE))
@@ -60,22 +103,55 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
             {
                 //TODO: Get all active users in alphabetical order from the passed community
 
-                //Test Code Delete me
-                ArrayList<Member> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Member("Fake ID", "Fake Name"));
-                results = temp;
-                taskDone(true);
+                queryAA.orderByChild("banned").equalTo("false");
+                queryAA.orderByChild("displayName");
+                queryAA.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            results = dataSnapshot.hasChildren() ? new ArrayList<Member>() : null;
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                Member m = snapshot.getValue(Member.class);
+                                results.add(m);
+                            }
+                            taskDone(true);
+                        }else {
+                            taskDone(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        taskDone(false);
+                    }
+                });
             }
 
             if (order.equals(Order.NEWEST_TO_OLDEST))
             {
                 //TODO: Get all active users from newest to oldest order from the passed community
 
-                //Test Code Delete me
-                ArrayList<Member> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Member("Fake ID", "Fake Name"));
-                results = temp;
-                taskDone(true);
+                queryAN.orderByChild("banned").equalTo("false");
+                queryAN.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) { ;
+                        if(dataSnapshot.exists()){
+                            results = dataSnapshot.hasChildren() ? new ArrayList<Member>() : null;
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                Member m = snapshot.getValue(Member.class);
+                                results.add(m);
+                            }
+                            taskDone(true);
+                        }else {
+                            taskDone(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        taskDone(false);
+                    }
+                });
             }
         }
 
@@ -85,43 +161,78 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
             {
                 //TODO: Get all banned users in alphabetical order from the passed community
 
-                //Test Code Delete me
-                ArrayList<Member> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Member("Fake ID", "Fake Name"));
-                results = temp;
-                taskDone(true);
+                queryBA.orderByChild("banned").equalTo("true");
+                queryBA.orderByChild("displayName");
+                queryBA.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            results = dataSnapshot.hasChildren() ? new ArrayList<Member>() : null;
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                Member m = snapshot.getValue(Member.class);
+                                results.add(m);
+                            }
+                            taskDone(true);
+                        }else {
+                            taskDone(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        taskDone(false);
+                    }
+                });
             }
 
             if (order.equals(Order.NEWEST_TO_OLDEST))
             {
                 //TODO: Get all banned users in newest to oldest order from the passed community
 
-                //Test Code Delete me
-                ArrayList<Member> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Member("Fake ID", "Fake Name"));
-                results = temp;
-                taskDone(true);
+                queryBN.orderByChild("banned").equalTo("true");
+                queryBN.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            results = dataSnapshot.hasChildren() ? new ArrayList<Member>() : null;
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                                Member m = snapshot.getValue(Member.class);
+                                results.add(m);
+                            }
+                            taskDone(true);
+                        }else {
+                            taskDone(false);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        taskDone(false);
+                    }
+                });
             }
         }
 
         return null;
     }
 
-   void taskDone(final boolean isSuccessful)
-   {
-       uiThread.post(new Runnable() {
-           @Override
-           public void run()
-           {
-               if (isSuccessful)
-               {
-                   if (memberToStartOn == null) completion.memberGetterGotInitalMembers(results);
-                   else completion.memberGetterGotAditionalMembers(results);
-               }
-               else completion.memberGetterDidFail();
-           }
-       });
-   }
+
+
+    void taskDone(final boolean isSuccessful)
+    {
+        uiThread.post(new Runnable() {
+            @Override
+            public void run()
+            {
+                if (isSuccessful)
+                {
+                    if (memberToStartOn == null) completion.memberGetterGotInitalMembers(results);
+                    else completion.memberGetterGotAditionalMembers(results);
+                }
+                else completion.memberGetterDidFail();
+            }
+        });
+    }
 
     //Inner Classes
     public static class Section {

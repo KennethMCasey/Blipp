@@ -50,8 +50,11 @@ public class Blip extends LinearLayout
     TextView numLikes;
     TextView name;
 
-    Boolean didLike;
-    Boolean didDislike;
+    boolean didLike;
+    boolean didDislike;
+
+    String userLikeId;
+    String userDislikeId;
 
     public Blip(Context context) {
         this(context, null);
@@ -80,8 +83,6 @@ public class Blip extends LinearLayout
 
     public Blip withBlip(Blipp blip)
     {
-        didLike = null;
-        didDislike = null;
 
         this.blip = blip;
 
@@ -120,25 +121,20 @@ public class Blip extends LinearLayout
         {
           if (v.equals(like))
           {
-              if (didDislike == null || didLike == null)
-              {
-                  Toast.makeText(Blip.this.getContext(), "Error: Please Try Again", Toast.LENGTH_SHORT).show();
-                  return;
-              }
 
              if (!didLike)  new LikeSender(new Like(blip, false), new LikeSenderCompletion() {
             @Override
             public void likeSenderDone(boolean isSuccessful)
             {
-              Toast.makeText(Blip.this.getContext(), isSuccessful ? "Action Successful." : "Error: Like not sent.", Toast.LENGTH_SHORT).show();
+              Toast.makeText(Blip.this.getContext(), isSuccessful ? "Like Sent." : "Error: Like not sent.", Toast.LENGTH_SHORT).show();
                 if (isSuccessful) getLikes();
             }
         }, Blip.this.getContext());
-             if (didLike) new LikeDeleter(new Like(blip, false), new LikeDeleterCompletion() {
+             if (didLike) new LikeDeleter(new Like(false, blip.getId(), FirebaseAuth.getInstance().getCurrentUser().getUid(), userLikeId), new LikeDeleterCompletion() {
                  @Override
                  public void likeDeleterDone(boolean isSuccessful)
                  {
-                     Toast.makeText(Blip.this.getContext(), isSuccessful ? "Action Successful." : "Error: Like not deleted.", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(Blip.this.getContext(), isSuccessful ? "Like Deleted." : "Error: Like not deleted.", Toast.LENGTH_SHORT).show();
                      if (isSuccessful) getLikes();
                  }
              }, Blip.this.getContext());
@@ -151,18 +147,18 @@ public class Blip extends LinearLayout
                   public void likeSenderDone(boolean isSuccessful)
                   {
 
-                      Toast.makeText(Blip.this.getContext(), isSuccessful ? "Action Successful." : "Error: DisLike not sent.", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(Blip.this.getContext(), isSuccessful ? "Dislike Sent." : "Error: DisLike not sent.", Toast.LENGTH_SHORT).show();
                       if (isSuccessful) getLikes();
                   }
               }, Blip.this.getContext());
 
 
-              if (didDislike) new LikeDeleter(new Like(blip, true), new LikeDeleterCompletion() {
+              if (didDislike) new LikeDeleter(new Like(true, blip.getId(), FirebaseAuth.getInstance().getCurrentUser().getUid(), userDislikeId), new LikeDeleterCompletion() {
                   @Override
                   public void likeDeleterDone(boolean isSuccessful)
                   {
 
-                      Toast.makeText(Blip.this.getContext(), isSuccessful ? "Action Successful." : "Error: DisLike not deleted.", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(Blip.this.getContext(), isSuccessful ? "Dislike Deleted." : "Error: DisLike not deleted.", Toast.LENGTH_SHORT).show();
                       if (isSuccessful) getLikes();
                   }
               }, Blip.this.getContext());
@@ -178,15 +174,25 @@ public class Blip extends LinearLayout
             @Override
             public void likeGetterSucessful(ArrayList<Like> likes)
             {
-            int numUp=0;
-            int numDown=0;
+            int val = 0;
+            didDislike = false;
+            didLike = false;
 
-            for (int i = 0; i < likes.size(); i++) if (likes.get(i).isDislike()) numDown++; else numUp++;
-             numLikes.setText(String.valueOf( numUp - numDown));
+            for (int i = 0; i < likes.size(); i++){
+                Like temp = likes.get(i);
+                if (temp.getIsDislike())Toast.makeText(getContext(), Boolean.toString(temp.getIsDislike()), Toast.LENGTH_SHORT).show();
+               val = temp.getIsDislike() ? val-1 : val+1;
+               if (!didLike){ didLike = !temp.getIsDislike() && temp.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid());
+               if (didLike) userLikeId = temp.getId();
+               }
+                if (!didDislike) {didDislike = temp.getIsDislike() && temp.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                if (didDislike) userDislikeId = temp.getId();
+                }
 
 
-             didDislike = likes.contains(new Like(blip, true));
-             didLike = likes.contains(new Like(blip, false));
+            }
+
+            numLikes.setText(String.valueOf(val));
 
              like.setText(didLike ? "Un-Like" : "Like");
              dislike.setText(didDislike? "Un-DisLike" : "DisLike");

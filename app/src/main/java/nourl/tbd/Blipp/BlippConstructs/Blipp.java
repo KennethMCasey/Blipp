@@ -26,6 +26,8 @@ public class Blipp {
 
 
 
+    public Blipp(){}
+
     //This Blip constructor will construct a blip in its entirety manually passing all information, this will probably only need to be used while loading.
     //as the id parameter will never be known on creation. The id is generated when calling push() while uploading to firebase and will be assigned in the BlipSender Class.
     //do not ever manually assign the id paramater when uplaoding to firebase always use push().
@@ -61,7 +63,7 @@ public class Blipp {
     }
 
     //This constructor constructs a blip without a parent blip (not a comment) and one not in a community.
-    public Blipp(boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, String text, URL url, Context context) {
+    public Blipp(double latitude, double longitude,boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, String text, URL url, Context context) {
         this.isLongDistance = isLongDistance;
         this.isMediumDistance = isMediumDistance;
         this.isShortDistance = isShortDistance;
@@ -70,14 +72,13 @@ public class Blipp {
         this.parent = null;
         this.community = null;
         this.time = new Date();
-        LocationGetter locationGetter = new LocationGetter(context);
-        this.latitude = locationGetter.getLatitude();
+        this.latitude = latitude;
         this.userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        this.longitude = locationGetter.getLongitude();
+        this.longitude = longitude;
     }
 
     //This constructor constructs a blip that is either a comment or part of a community or both.
-    public Blipp(boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, String text, URL url, String parent, String community, Context context) {
+    public Blipp(double latitude, double longitude,boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, String text, URL url, String parent, String community, Context context) {
         this.isLongDistance = isLongDistance;
         this.isMediumDistance = isMediumDistance;
         this.isShortDistance = isShortDistance;
@@ -86,10 +87,9 @@ public class Blipp {
         this.parent = parent;
         this.community = community;
         this.time = new Date();
-        LocationGetter locationGetter = new LocationGetter(context);
-        this.latitude = locationGetter.getLatitude();
+        this.latitude = latitude;
         this.userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        this.longitude = locationGetter.getLongitude();
+        this.longitude = longitude;
     }
 
 

@@ -47,6 +47,8 @@ import nourl.tbd.Blipp.Database.BlipGetterCompletion;
 import nourl.tbd.Blipp.Database.BlipSender;
 import nourl.tbd.Blipp.Database.BlipSenderCompletion;
 import nourl.tbd.Blipp.Helper.BlipListAdapter;
+import nourl.tbd.Blipp.Helper.LocationGetter;
+import nourl.tbd.Blipp.Helper.LocationGetterCompletion;
 import nourl.tbd.Blipp.Helper.StatePersistence;
 import nourl.tbd.Blipp.R;
 
@@ -241,13 +243,29 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
     //                                      BLIP SENDER                                                           //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void sendBlip(String text)
+    public void sendBlip(final String text)
     {
 
-        try{
-            Blipp temp = new Blipp(false, false, false, text, new URL(currentPhotoPath), null, community.getId(), this.getContext());
-            new BlipSender(temp, this, this.getContext());
-        }catch (Exception e){Toast.makeText(this.getContext(), "Exception was thrown", Toast.LENGTH_LONG).show();}
+        new LocationGetter(getContext(), new LocationGetterCompletion() {
+            @Override
+            public void locationGetterDidGetLocation(double latitude, double longitude)
+            {
+
+                try{
+                    Blipp temp = new Blipp(latitude, longitude,false, false, false, text, new URL(currentPhotoPath), null, community.getId(), getContext());
+                    new BlipSender(temp, CommunityBlipsFragment.this, getContext());
+                }catch (Exception e){Toast.makeText(getContext(), "Exception was thrown", Toast.LENGTH_LONG).show();}
+
+
+            }
+
+            @Override
+            public void locationGetterDidFail() {
+
+            }
+        });
+
+
 
     }
 
