@@ -17,7 +17,7 @@ public class LikeDeleter extends AsyncTask<Void, Void, Void>
 
     public LikeDeleter(Like like, LikeDeleterCompletion completion, Context context)
     {
-       this.like = like;
+        this.like = like;
         this.completion = completion;
         uiThread = new Handler(context.getMainLooper());
         this.execute();
