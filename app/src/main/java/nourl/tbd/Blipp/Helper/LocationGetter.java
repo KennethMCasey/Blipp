@@ -36,6 +36,7 @@ public class LocationGetter {
     private Context context;
     private FusedLocationProviderClient mFusedLocationClient;
     protected Location mLastLocation;
+    private LocationGetterCompletion completion;
     private double  lati, longi;
 
     public static LatLongBounds getBounds(double latitude, double longitude, double miles)
@@ -67,6 +68,7 @@ public class LocationGetter {
 
     public LocationGetter(Context context, final LocationGetterCompletion completion) {
         this.context = context;
+        this.completion = completion;
         this.mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
         if (!checkPermissions()) goToSettings(); // If Location permission has not been granted Bring user to settings
         // User permission already granted
@@ -81,7 +83,7 @@ public class LocationGetter {
                         }
                         else
                             {
-                            completion.locationGetterDidFail();
+                            completion.locationGetterDidFail(true);
                         }
                     }
                 });
@@ -108,6 +110,7 @@ public class LocationGetter {
     }
 
     private void goToSettings() { // If location permission is not granted, bring user to settings
+        completion.locationGetterDidFail(false);
         showSnackbar(R.string.permission_denied_explanation, R.string.settings,
                 new View.OnClickListener() {
                     @Override

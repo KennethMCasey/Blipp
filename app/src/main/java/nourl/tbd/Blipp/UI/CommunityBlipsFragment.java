@@ -98,7 +98,7 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
         boolean join = b.getBoolean("joinable", false);
 
         try {
-            community = new Community(comID, photo == null ? null : new URL(photo), lat, lon, radius, name, join, owner);
+            community = new Community(comID, photo, lat, lon, radius, name, join, owner);
         }
         catch (Exception e) {}
 
@@ -252,7 +252,7 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
             {
 
                 try{
-                    Blipp temp = new Blipp(latitude, longitude,false, false, false, text, new URL(currentPhotoPath), null, community.getId(), getContext());
+                    Blipp temp = new Blipp(latitude, longitude,false, false, false, text, currentPhotoPath, null, community.getId());
                     new BlipSender(temp, CommunityBlipsFragment.this, getContext());
                 }catch (Exception e){Toast.makeText(getContext(), "Exception was thrown", Toast.LENGTH_LONG).show();}
 
@@ -260,7 +260,9 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
             }
 
             @Override
-            public void locationGetterDidFail() {
+            public void locationGetterDidFail(boolean shouldShowMesssage)
+            {
+                if (shouldShowMesssage) Toast.makeText(CommunityBlipsFragment.this.getContext(), "Error: Unable to get location", Toast.LENGTH_SHORT).show();
 
             }
         });

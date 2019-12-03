@@ -89,7 +89,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     PopupWindow popupWindow;
     boolean popUpIsShowing;
     String currentPhotoPath;
-    URL currentPhotoUrl;
+    String currentPhotoUrl;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,19 +190,17 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                     if (task.isSuccessful()) FirebaseStorage.getInstance().getReference(currentPhotoPath).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                           try { currentPhotoUrl = new URL(uri.toString());} catch (Exception e) {}
+                           currentPhotoUrl = uri.toString();
                         }
                     });
                 }
             });
-
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                      BLIP GETTER                                                           //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     //This function gets the blips
     private void getBlips(String blipIdToStartAt)
@@ -274,15 +272,14 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         new LocationGetter(getContext(), new LocationGetterCompletion() {
             @Override
             public void locationGetterDidGetLocation(double latitude, double longitude) {
-                Blipp temp = new Blipp(latitude, longitude, isLongDistance, isMedumDistance, isShortDistance, text, currentPhotoUrl, getContext());
+                Blipp temp = new Blipp(latitude, longitude, isLongDistance, isMedumDistance, isShortDistance, text, currentPhotoUrl);
                 new BlipSender(temp, BlippFeedFragment.this, getContext());
             }
 
             @Override
-            public void locationGetterDidFail()
+            public void locationGetterDidFail(boolean shouldShowMessage)
             {
-                Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Can not get location.", Toast.LENGTH_SHORT).show();
-
+                if (shouldShowMessage) Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Can not get location.", Toast.LENGTH_SHORT).show();
             }
         });
     }

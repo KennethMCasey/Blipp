@@ -19,7 +19,7 @@ public class Blipp {
     private Date time;
     private String id;
     private String text;
-    private URL url;
+    private String url;
     private String userId;
     private String parent;
     private String community;
@@ -31,7 +31,7 @@ public class Blipp {
     //This Blip constructor will construct a blip in its entirety manually passing all information, this will probably only need to be used while loading.
     //as the id parameter will never be known on creation. The id is generated when calling push() while uploading to firebase and will be assigned in the BlipSender Class.
     //do not ever manually assign the id paramater when uplaoding to firebase always use push().
-    public Blipp(double latitude, double longitude, boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, Date time, String id, String text, URL url, String userId, String parent, String community) {
+    public Blipp(double latitude, double longitude, boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, Date time, String id, String text, String url, String userId, String parent, String community) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.isLongDistance = isLongDistance;
@@ -47,7 +47,7 @@ public class Blipp {
     }
 
     //This constructor constructs a blip without a parent blip (not a comment) and one not in a community manually passing longitude latitude and time. This will only be used during testing and eventually deleted.
-    public Blipp(double latitude, double longitude, boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, Date time, String id, String text, URL url, String userId) {
+    public Blipp(double latitude, double longitude, boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, Date time, String id, String text, String url, String userId) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.isLongDistance = isLongDistance;
@@ -63,7 +63,7 @@ public class Blipp {
     }
 
     //This constructor constructs a blip without a parent blip (not a comment) and one not in a community.
-    public Blipp(double latitude, double longitude,boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, String text, URL url, Context context) {
+    public Blipp(double latitude, double longitude,boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, String text, String url) {
         this.isLongDistance = isLongDistance;
         this.isMediumDistance = isMediumDistance;
         this.isShortDistance = isShortDistance;
@@ -78,7 +78,7 @@ public class Blipp {
     }
 
     //This constructor constructs a blip that is either a comment or part of a community or both.
-    public Blipp(double latitude, double longitude,boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, String text, URL url, String parent, String community, Context context) {
+    public Blipp(double latitude, double longitude,boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, String text, String url, String parent, String community) {
         this.isLongDistance = isLongDistance;
         this.isMediumDistance = isMediumDistance;
         this.isShortDistance = isShortDistance;
@@ -106,7 +106,7 @@ public class Blipp {
         return id;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
 

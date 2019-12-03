@@ -31,7 +31,8 @@ public class UserSender extends AsyncTask<Void, Boolean, Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids)
+    {
         DatabaseReference here = location.child(user.getId());
         here.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

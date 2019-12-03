@@ -10,7 +10,7 @@ import nourl.tbd.Blipp.Helper.LocationGetter;
 
 public class Community {
     String id;
-    URL photo;
+    String photo;
     double originLat;
     double originLong;
     double radius;
@@ -22,7 +22,7 @@ public class Community {
 
     //This is a constructor that manually passes all of the information to a Community object. This will only be used during testing and will eventually get deleted.
     //Manually assigning the id property is ill advised, the id will be taken care of in the CommunitySender class when push() to firebase.
-    public Community(String id, URL photo, double originLat, double originLong, double radius, String name, boolean isJoinable, String owner) {
+    public Community(String id, String photo, double originLat, double originLong, double radius, String name, boolean isJoinable, String owner) {
         this.id = id;
         this.photo = photo;
         this.originLat = originLat;
@@ -34,17 +34,14 @@ public class Community {
     }
 
     //This will bne the constructor used to create a community
-    public Community(double originLat, double originLong, URL photo, double radius, String name, boolean isJoinable, Context context) {
+    public Community(double originLat, double originLong, String photo, double radius, String name, boolean isJoinable){
         this.photo = photo;
         this.radius = radius;
         this.name = name;
         this.isJoinable = isJoinable;
-
         this.originLong = originLong;
-        this.originLat = originLong;
-
+        this.originLat = originLat;
         this.owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         this.id = null;
     }
 
@@ -60,7 +57,7 @@ public class Community {
         return id;
     }
 
-    public URL getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 

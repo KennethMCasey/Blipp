@@ -24,6 +24,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
     Section section;
     Order order;
     Distance distance;
+    String blipId;
 
     //The completion object, already implemented.
     BlipGetterCompletion completion;
@@ -72,6 +73,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         communityId = null;
         parentId = null;
+        blipId = null;
         this.uiThread = new Handler(context.getMainLooper());
         this.execute();
     }
@@ -87,6 +89,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         this.distance = null;
         this.section = null;
         this.parentId = null;
+        blipId = null;
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.uiThread = new Handler(context.getMainLooper());
         this.execute();
@@ -102,6 +105,15 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         this.distance = null;
         this.section = null;
         this.communityId = null;
+        blipId = null;
+        this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        this.uiThread = new Handler(context.getMainLooper());
+        this.execute();
+    }
+
+    public BlipGetter(String blipId, Context context)
+    {
+        this.blipId = blipId;
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.uiThread = new Handler(context.getMainLooper());
         this.execute();
@@ -109,6 +121,20 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+
+        //This is for getting a single blip
+        if (blipId != null)
+        {
+            ArrayList<Blipp> temp = new ArrayList<Blipp>();
+            try {
+                for (int i = 0; i < 1; i++)
+                    temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+            } catch (Exception e) {
+            }
+            results = temp;
+            taskDone(true);
+            return null;
+        }
 
         //Queries for blips that are not in a community and do not have a parent
         if (communityId == null && parentId == null && section!= null && order != null) {
@@ -124,11 +150,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? new URL("http://fake.com/") : null, "fake id", "fake id", null));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                         } catch (Exception e) {
                         }
                         results = temp;
                         taskDone(true);
+                        return null;
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
@@ -139,11 +166,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked - Close Distance", new URL("http://fake.com/"), "fake id"));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                         } catch (Exception e) {
                         }
                         results = temp;
                         taskDone(true);
+                        return null;
                     }
 
                 }
@@ -157,11 +185,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Regular Distance", new URL("http://fake.com/"), "fake id"));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                         } catch (Exception e) {
                         }
                         results = temp;
                         taskDone(true);
+                        return null;
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
@@ -172,11 +201,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked - Regular Distance", new URL("http://fake.com/"), "fake id"));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                         } catch (Exception e) {
                         }
                         results = temp;
                         taskDone(true);
+                        return null;
                     }
                 }
 
@@ -189,11 +219,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Max Distance", new URL("http://fake.com/"), "fake id"));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                         } catch (Exception e) {
                         }
                         results = temp;
                         taskDone(true);
+                        return null;
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
@@ -204,11 +235,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked - Max Distance", new URL("http://fake.com/"), "fake id"));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                         } catch (Exception e) {
                         }
                         results = temp;
                         taskDone(true);
+                        return null;
                     }
                 }
             }
@@ -223,11 +255,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     ArrayList<Blipp> temp = new ArrayList<Blipp>();
                     try {
                         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent", new URL("http://fake.com/"), "fake id"));
+                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                     } catch (Exception e) {
                     }
                     results = temp;
                     taskDone(true);
+                    return null;
                 }
 
                 if (order.equals(Order.MOST_LIKED)) {
@@ -237,11 +270,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     ArrayList<Blipp> temp = new ArrayList<Blipp>();
                     try {
                         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked", new URL("http://fake.com/"), "fake id"));
+                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                     } catch (Exception e) {
                     }
                     results = temp;
                     taskDone(true);
+                    return null;
                 }
             }
 
@@ -253,11 +287,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     ArrayList<Blipp> temp = new ArrayList<Blipp>();
                     try {
                         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent", new URL("http://fake.com/"), "fake id"));
+                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                     } catch (Exception e) {
                     }
                     results = temp;
                     taskDone(true);
+                    return null;
                 }
 
                 if (order.equals(Order.MOST_LIKED)) {
@@ -267,11 +302,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     ArrayList<Blipp> temp = new ArrayList<Blipp>();
                     try {
                         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked", new URL("http://fake.com/"), "fake id"));
+                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                     } catch (Exception e) {
                     }
                     results = temp;
                     taskDone(true);
+                    return null;
                 }
             }
         }
@@ -286,11 +322,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 ArrayList<Blipp> temp = new ArrayList<Blipp>();
                 try {
                     for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent", new URL("http://fake.com/"), "fake id"));
+                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                 } catch (Exception e) {
                 }
                 results = temp;
                 taskDone(true);
+                return null;
             }
 
             if (order.equals(Order.MOST_LIKED)) {
@@ -300,11 +337,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 ArrayList<Blipp> temp = new ArrayList<Blipp>();
                 try {
                     for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked", new URL("http://fake.com/"), "fake id"));
+                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                 } catch (Exception e) {
                 }
                 results = temp;
                 taskDone(true);
+                return null;
             }
 
         }
@@ -317,11 +355,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 ArrayList<Blipp> temp = new ArrayList<Blipp>();
                 try {
                     for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Liked", new URL("http://fake.com/"), "fake id", "fake id", null));
+                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
                 } catch (Exception e) {
                 }
                 results = temp;
                 taskDone(true);
+                return null;
 
             }
 
@@ -331,6 +370,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 ArrayList<Blipp> temp = null;
                 results = temp;
                 taskDone(true);
+                return null;
             }
 
         }

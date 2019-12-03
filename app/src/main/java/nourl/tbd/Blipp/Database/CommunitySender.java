@@ -33,7 +33,22 @@ public class CommunitySender extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids)
+    {
+        if (community.getId() != null)
+        {
+            DatabaseReference here = location.child(community.getId());
+            here.setValue(community).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task)
+                {
+                    taskDone(task.isSuccessful());
+                }
+            });
+        }
+
+        if (community.getId() == null)
+        {
         DatabaseReference here = location.push();
         here.setValue(community.withId(here.getKey())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -42,6 +57,7 @@ public class CommunitySender extends AsyncTask<Void, Void, Void> {
                 taskDone(task.isSuccessful());
             }
         });
+        }
         return null;
     }
 

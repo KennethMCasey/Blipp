@@ -113,7 +113,7 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
 
         try {Date temp = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH).parse(blipTime);
 
-        this.blip = new Blipp(blipLat, blipLon, blipLong, blipMed, blipShort, temp  , blipID, blipText, blipURL == null ? null : new URL(blipURL), blipUser, blipParent, blipCommunity);}
+        this.blip = new Blipp(blipLat, blipLon, blipLong, blipMed, blipShort, temp  , blipID, blipText, blipURL, blipUser, blipParent, blipCommunity);}
         catch (Exception e ){    }
 
 
@@ -276,7 +276,7 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
                             @Override
                             public void locationGetterDidGetLocation(double latitude, double longitude)
                             {
-                                new BlipSender(new Blipp(latitude, longitude, false, false, false, ((EditText) popupView.findViewById(R.id.make_blipp_text)).getText().toString(), null ,blip.getId(), null, getContext()),
+                                new BlipSender(new Blipp(latitude, longitude, false, false, false, ((EditText) popupView.findViewById(R.id.make_blipp_text)).getText().toString(), null ,blip.getId(), null),
                                         new BlipSenderCompletion() {
                                             @Override
                                             public void blipSenderDone(boolean isSuccessful) {
@@ -286,9 +286,9 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
                             }
 
                             @Override
-                            public void locationGetterDidFail()
+                            public void locationGetterDidFail(boolean shouldShowMessage)
                             {
-                                Toast.makeText(BlippDetailFragment.this.getContext(), "Error: could not get location", Toast.LENGTH_SHORT).show();
+                                if (shouldShowMessage) Toast.makeText(BlippDetailFragment.this.getContext(), "Error: could not get location", Toast.LENGTH_SHORT).show();
                             }
                         });
 

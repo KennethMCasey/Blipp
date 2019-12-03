@@ -39,6 +39,25 @@ public class LikeSender extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
 
+        if (like.getId() != null)
+        {
+            DatabaseReference here = location.child(like.getId());
+            here.setValue(like).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    taskDone(task.isSuccessful());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    taskDone(false);
+                }
+            });
+
+        }
+
+        if (like.getId() == null)
+        {
         DatabaseReference here = location.push();
         here.setValue(like.withId(here.getKey())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -51,6 +70,8 @@ public class LikeSender extends AsyncTask<Void, Void, Void> {
                 taskDone(false);
             }
         });
+        }
+
         return null;
     }
 

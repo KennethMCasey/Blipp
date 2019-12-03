@@ -11,6 +11,7 @@ public class Member
     boolean isBanned;
     String displayName;
     Date dateJoined;
+    String memberId;
 
     public Member() {}
 
@@ -21,6 +22,7 @@ public class Member
         this.isBanned = isBanned;
         this.displayName = displayName;
         this.dateJoined = dateJoined;
+        this.memberId = null;
     }
 
     //This is a constructor that would be useful for creating a new member instance (first joining a community)
@@ -30,6 +32,13 @@ public class Member
         this.userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.isBanned = false;
         dateJoined = new Date();
+        this.memberId = null;
+    }
+
+    public Member withId(String id)
+    {
+        this.memberId = id;
+        return  this;
     }
 
     //Note: We still use push to create a new instance but we do not store the unique id inside the object as there is no benifit.
@@ -43,6 +52,8 @@ public class Member
     public String getUserId() {
         return userId;
     }
+
+    public String getMemberId() {return memberId;}
 
     public boolean isBanned() {
         return isBanned;

@@ -38,6 +38,21 @@ public class BlipSender extends AsyncTask<Void, Void, Void>
     @Override
     protected Void doInBackground(Void... voids)
     {
+        if (blip.getId() != null)
+        {
+            DatabaseReference here = location.child(blip.getId());
+            here.setValue(blip).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task)
+                {
+                    taskDone(task.isSuccessful());
+                }
+            });
+        }
+
+
+        if (blip.getId() == null)
+        {
         DatabaseReference here = location.push();
         here.setValue(blip.withId(here.getKey())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -46,6 +61,7 @@ public class BlipSender extends AsyncTask<Void, Void, Void>
             taskDone(task.isSuccessful());
             }
         });
+        }
         return null;
     }
 

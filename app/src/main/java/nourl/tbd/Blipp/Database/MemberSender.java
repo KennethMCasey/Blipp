@@ -33,14 +33,32 @@ public class MemberSender extends AsyncTask<Void, Boolean, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
+
+
+        if (member.getMemberId() != null)
+        {
+            DatabaseReference here = location.child(member.getMemberId());
+            here.setValue(member).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task)
+                {
+                    taskDone(task.isSuccessful());
+                }
+            });
+        }
+
+        if (member.getMemberId() == null)
+        {
         DatabaseReference here = location.push();
-        here.setValue(member).addOnCompleteListener(new OnCompleteListener<Void>() {
+        here.setValue(member.withId(here.getKey())).addOnCompleteListener(new OnCompleteListener<Void>()
+        {
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {
                 taskDone(task.isSuccessful());
             }
         });
+        }
         return null;
     }
 
