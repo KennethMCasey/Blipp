@@ -292,10 +292,6 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
                             }
                         });
 
-
-
-
-
                         popupWindow.dismiss();
                         popUpIsShowing = false;
 
@@ -311,12 +307,43 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
 
     private class ToParent implements Button.OnClickListener
     {
-
         @Override
         public void onClick(View v)
         {
-        //TODO: Make Blip Getter with paramater that takes in a blip ID
-        Toast.makeText(BlippDetailFragment.this.getContext(), "Complete me", Toast.LENGTH_SHORT).show();
+
+            new BlipGetter(blip.getParent(), new BlipGetterCompletion() {
+                @Override
+                public void blipGetterGotInitialBlips(ArrayList<Blipp> results)
+                {
+                    Blipp blipp = results.get(0);
+                    String time = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH).format(blipp.getTime());
+                    Bundle b = new Bundle();
+                    b.putString("blipID", blipp.getId());
+                    b.putString("blipParent", blipp.getParent());
+                    b.putString("blipText", blipp.getText());
+                    b.putString("blipUser", blipp.getUserId());
+                    b.putString("blipCommunity", blipp.getCommunity());
+                    b.putString("blipURL", blipp.getUrl() == null ? null : blipp.getUrl().toString());
+                    b.putDouble("blipLat", blipp.getLatitude());
+                    b.putDouble("blipLon", blipp.getLongitude());
+                    b.putString("blipTime", blipp.getTime() == null ? null : time);
+                    b.putBoolean("blipShort", blipp.isShortDistance());
+                    b.putBoolean("blipMed", blipp.isMediumDistance());
+                    b.putBoolean("blipLong", blipp.isLongDistance());
+                    BlippDetailFragment frag = new BlippDetailFragment();
+                    frag.setArguments(b);
+                    fragmentSwap.swap(frag, true);
+                }
+
+                @Override
+                public void blipGetterGotAdditionalBlips(ArrayList<Blipp> results) { }
+
+                @Override
+                public void blipGetterDidFail()
+                {
+                    Toast.makeText(BlippDetailFragment.this.getContext(), "Error: Could not get parent.", Toast.LENGTH_SHORT).show();
+                }
+            }, getContext());
         }
     }
 
@@ -400,5 +427,14 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         }
     }
 
+
+    private class ImageDetailView implements View.OnClickListener
+    {
+        @Override
+        public void onClick(View v)
+        {
+
+        }
+    }
 
 }

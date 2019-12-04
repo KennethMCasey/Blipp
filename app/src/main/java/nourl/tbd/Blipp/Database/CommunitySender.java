@@ -35,22 +35,23 @@ public class CommunitySender extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         DatabaseReference here = location.push();
-        here.setValue(community.withId(here.getKey())).addOnCompleteListener(new OnCompleteListener<Void>() {
+        final Community sendMe = community.withId(here.getKey());
+        here.setValue(sendMe).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {
-                taskDone(task.isSuccessful());
+                taskDone(task.isSuccessful(), sendMe);
             }
         });
         return null;
     }
 
-protected void taskDone(final boolean isSuccessful)
+protected void taskDone(final boolean isSuccessful, final Community sendMe)
 {
     uiThread.post(new Runnable() {
         @Override
         public void run() {
-            completion.communitySenderDone(isSuccessful);
+            completion.communitySenderDone(isSuccessful, sendMe);
         }
     });
 }

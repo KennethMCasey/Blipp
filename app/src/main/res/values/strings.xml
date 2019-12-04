@@ -66,4 +66,8 @@
         No location detected. Make sure location is enabled on the device.
     </string>
     <string name="settings">Settings</string>
+    <string name="make_community_message">Create Community</string>
+    <string name="make_community_name">community name</string>
+    <string name="make_community_add_photo">Add Photo</string>
+    <string name="make_community_miles_default">-</string>
 </resources>

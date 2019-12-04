@@ -34,21 +34,23 @@ public class LocationGetter {
     //TODO: Implement the LocationGetter Class, this will make the process of getting the users current geo location (somthing that will need to be repeated a million times) way easier.
 
     private Context context;
-    private FusedLocationProviderClient mFusedLocationClient;
+   private FusedLocationProviderClient mFusedLocationClient;
     protected Location mLastLocation;
     private LocationGetterCompletion completion;
     private double  lati, longi;
 
     public static LatLongBounds getBounds(double latitude, double longitude, double miles)
     {
-        double latMin = (latitude - (miles/69)) % 180;
-        double latMax = (latitude + (miles/69)) % 180;
-        double lonMax = (longitude + (miles/69)) % 360;
-        double lonMin = (longitude + (miles/69)) % 360;
+        double latMin = (((latitude + 90) - (miles/69)) % 180) - 90;
+        double latMax = (((latitude  + 90) + (miles/69)) % 180) - 90;
+        double lonMax = (((longitude + 180) + (miles/69)) % 360) - 180;
+        double lonMin = (((longitude + 180) - (miles/69)) % 360) - 180;
 
         return  new LatLongBounds(latMin, latMax, lonMin, lonMax);
-
     }
+
+
+
 
 
    static public class LatLongBounds
@@ -69,7 +71,8 @@ public class LocationGetter {
     public LocationGetter(Context context, final LocationGetterCompletion completion) {
         this.context = context;
         this.completion = completion;
-        this.mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+
         if (!checkPermissions()) goToSettings(); // If Location permission has not been granted Bring user to settings
         // User permission already granted
         mFusedLocationClient.getLastLocation()

@@ -59,7 +59,7 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
 
         //configure blipp list
         communitiesJoined = v.findViewById(R.id.list_community_joined);
-        communitiesJoined.setAdapter(new CommunityAdapter(this.getContext(), StatePersistence.current.comunityJoined == null ? new ArrayList<Community>() : StatePersistence.current.comunityJoined));
+        communitiesJoined.setAdapter(new CommunityAdapter(this.getContext(), StatePersistence.current.comunityJoined == null ? new ArrayList<Community>() : StatePersistence.current.comunityJoined, false, false));
         communitiesJoined.setOnScrollListener(new BottomHit());
         communitiesJoined.setOnItemClickListener(new ToCommunityFeed());
 

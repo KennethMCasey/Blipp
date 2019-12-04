@@ -90,6 +90,8 @@ public class OptionsFragment extends Fragment {
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
         {
             if (i == 0) fragmentSwap.swap(new ChangeInfoFragment(), true);
+            if (i == 1) fragmentSwap.swap(new MakeCommunityFragment(), true);
+            if (i == 2) fragmentSwap.swap(new JoinCommunityFragment(), true);
         }
     }
 

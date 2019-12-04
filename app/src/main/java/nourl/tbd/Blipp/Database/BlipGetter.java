@@ -111,9 +111,10 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         this.execute();
     }
 
-    public BlipGetter(String blipId, Context context)
+    public BlipGetter(String blipId, BlipGetterCompletion completion, Context context)
     {
         this.blipId = blipId;
+        this.completion = completion;
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.uiThread = new Handler(context.getMainLooper());
         this.execute();
