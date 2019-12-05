@@ -32,7 +32,7 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
     //The first case is the initial pull (memberToStartOn == null). You will pull the numberToPull number of members starting from the top.
     //The second is a secondary pull, Loading more members as the user has hit the current bottom of the memeber list. This is where you will start your return list with the memeber directly after the memeber to start on.
     Community community;//The community you will pull members from.
-    Member memberToStartOn;//This will be null when doing an initial pull. If this contains a member start your return list with the member directly following the passed memberToStartOn.
+    Member memberToStartOn;//This will be null when doing an initial pull. If this contains a member_row start your return list with the member_row directly following the passed memberToStartOn.
     int numberToPull;//number of memebers to include in your return list.
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -103,7 +103,6 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
                 taskDone(true);
             }
         }
-
         return null;
     }
 

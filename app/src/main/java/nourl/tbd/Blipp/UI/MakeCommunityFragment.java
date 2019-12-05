@@ -132,7 +132,7 @@ public class MakeCommunityFragment extends Fragment {
                                             @Override
                                             public void memberSenderDone(boolean isSuccessful)
                                             {
-                                                Toast.makeText(getContext(), isSuccessful ? "Success: Community is live." : "FATAL ERROR: Community constructed but you are not a member.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), isSuccessful ? "Success: Community is live." : "FATAL ERROR: Community constructed but you are not a member_row.", Toast.LENGTH_SHORT).show();
                                                 if (isSuccessful) getActivity().onBackPressed();
                                             }
                                         }, getContext());

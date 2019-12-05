@@ -27,7 +27,7 @@ public class OptionsFragment extends Fragment {
     //TODO: Change User Information - This will bring the user to an activity where they can edit their blipp account information
     //TODO: Create Community - This will bring the user to an activity where they can create a community
     //TODO: Join Community - This will bring up a new activity that has yet to be created which will be populated by a list view of all the Communities that are joinable by the user (the user must be within the appropriate join radius to join)
-    //TODO: Manage Communities - This will bring the user to a new activity with a list view of all the communities they are a member of and those that they have created. They will be able to change their nick name and leave comunities when selecting those they have joined and they will be able to kick memebers change comunity names ect. in communities they own.
+    //TODO: Manage Communities - This will bring the user to a new activity with a list view of all the communities they are a member_row of and those that they have created. They will be able to change their nick name and leave comunities when selecting those they have joined and they will be able to kick memebers change comunity names ect. in communities they own.
 
 
     ListView settings;
@@ -92,6 +92,7 @@ public class OptionsFragment extends Fragment {
             if (i == 0) fragmentSwap.swap(new ChangeInfoFragment(), true);
             if (i == 1) fragmentSwap.swap(new MakeCommunityFragment(), true);
             if (i == 2) fragmentSwap.swap(new JoinCommunityFragment(), true);
+            if (i == 3) fragmentSwap.swap(new ManageCommunitiesSelectFragment(), true);
         }
     }
 

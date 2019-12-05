@@ -26,7 +26,7 @@ public class MemberSender extends AsyncTask<Void, Boolean, Void> {
         this.member = member;
         this.completion = completion;
         db = FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/");
-        location = db.getReference().child("member");
+        location = db.getReference().child("member_row");
         this.uiThread = new Handler(context.getMainLooper());
         this.execute();
     }

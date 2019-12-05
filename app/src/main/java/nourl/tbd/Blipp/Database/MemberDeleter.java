@@ -23,7 +23,7 @@ public class MemberDeleter extends AsyncTask<Void, Void, Void>
 
     @Override
     protected Void doInBackground(Void... voids) {
-        //TODO: write function that will delete the current member from firebase
+        //TODO: write function that will delete the current member_row from firebase
        taskDone(true); //call with true if success call with false if fail
 
         return null;

@@ -58,6 +58,10 @@
 
     </string-array>
 
+    <string-array name="member_order">
+        <item>Alphabetical</item>
+        <item>Newest to Oldest</item>
+    </string-array>
 
     <string name="permission_rationale">Location permission is needed for core functionality</string>
     <string name="permission_denied_explanation">Permission was denied, but is needed for core

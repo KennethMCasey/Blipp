@@ -25,7 +25,7 @@ public class Member
         this.memberId = null;
     }
 
-    //This is a constructor that would be useful for creating a new member instance (first joining a community)
+    //This is a constructor that would be useful for creating a new member_row instance (first joining a community)
     public Member(String communityId, String displayName) {
         this.communityId = communityId;
         this.displayName = displayName;

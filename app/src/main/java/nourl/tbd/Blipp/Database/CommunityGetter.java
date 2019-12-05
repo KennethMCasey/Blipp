@@ -70,7 +70,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
             {
-                //TODO: pull communities that are within range of the current user, order by member count low to high.
+                //TODO: pull communities that are within range of the current user, order by member_row count low to high.
 
 
                 //test code delete me
@@ -82,7 +82,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
             {
-                //TODO: pull communities that are within range of the current user, order by member count high to low.
+                //TODO: pull communities that are within range of the current user, order by member_row count high to low.
 
 
                 //test code delete me
@@ -109,7 +109,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
             {
-                //TODO: pull communities that the user has joined ordered by member count low to high
+                //TODO: pull communities that the user has joined ordered by member_row count low to high
 
 
                 //test code delete me
@@ -121,7 +121,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
             {
-                //TODO: pull communities that the user has joined ordered by member count high to low
+                //TODO: pull communities that the user has joined ordered by member_row count high to low
 
 
                 //test code delete me
@@ -148,7 +148,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
             {
-                //TODO: pull all the communities that the user owns order by member count low to high
+                //TODO: pull all the communities that the user owns order by member_row count low to high
 
 
                 //test code delete me
@@ -160,7 +160,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
             {
-                //TODO: pull all the communities that the user owns order by member count high to low
+                //TODO: pull all the communities that the user owns order by member_row count high to low
 
 
                 //test code delete me

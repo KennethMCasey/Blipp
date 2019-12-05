@@ -76,6 +76,9 @@ public class CommunityAdapter extends BaseAdapter {
 
         TextView name = view.findViewById(R.id.community_name);
 
+        final Button b = view.findViewById(R.id.community_button);
+        b.setVisibility(hasButton ? View.VISIBLE : View.GONE);
+
         ImageView img = view.findViewById(R.id.community_photo);
 
         if (curr.getPhoto() == null)
@@ -96,9 +99,10 @@ public class CommunityAdapter extends BaseAdapter {
 
         if (hasButton)
         {
-            ((ViewGroup)view).setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+            ((ViewGroup)view).setDescendantFocusability(isDeleteButton? ViewGroup.FOCUS_BLOCK_DESCENDANTS : ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 
-            final Button b = view.findViewById(R.id.community_button);
+
+
             b.setText( !isDeleteButton  ? "Join" : isUserOwner ? "Delete" : "Leave");
             b.setBackgroundColor( context.getResources().getColor (isDeleteButton ? R.color.blipp_red : R.color.blipp_offset, null));
             b.setOnClickListener(new Button.OnClickListener() {

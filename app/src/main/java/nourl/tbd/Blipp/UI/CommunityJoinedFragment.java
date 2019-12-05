@@ -28,7 +28,7 @@ import nourl.tbd.Blipp.Helper.StatePersistence;
 import nourl.tbd.Blipp.R;
 
 public class CommunityJoinedFragment extends Fragment implements CommunityGetterCompletion {
-    //TODO: Community Fragment. This fragment will consist of a list view that will be populated by all of the communities that the user is either a member of or an owner of. They can then select on any of those communities which will bring them to another activity which will esentially be the same as BlippFeedFragment but only with community specific Blips.
+    //TODO: Community Fragment. This fragment will consist of a list view that will be populated by all of the communities that the user is either a member_row of or an owner of. They can then select on any of those communities which will bring them to another activity which will esentially be the same as BlippFeedFragment but only with community specific Blips.
 
 
     Spinner order;

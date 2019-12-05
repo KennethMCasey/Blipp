@@ -26,7 +26,7 @@ public class CommunityDeleter extends AsyncTask<Void, Void, Void>
 
     @Override
     protected Void doInBackground(Void... voids) {
-        //TODO: Delete the passed community from firebase. Delete every trace of the community ie. all the member instances, all of its blips ect.
+        //TODO: Delete the passed community from firebase. Delete every trace of the community ie. all the member_row instances, all of its blips ect.
 
         taskDone(true);//pass true if successful false if failure
 
@@ -34,9 +34,16 @@ public class CommunityDeleter extends AsyncTask<Void, Void, Void>
     }
 
 
-    protected void taskDone(boolean isSuccessful)
+    protected void taskDone(final boolean isSuccessful)
     {
-        completion.communityDeleterDone(isSuccessful);
+        uiThread.post(new Runnable() {
+            @Override
+            public void run()
+            {
+                completion.communityDeleterDone(isSuccessful);
+            }
+        });
+
     }
 
 }
