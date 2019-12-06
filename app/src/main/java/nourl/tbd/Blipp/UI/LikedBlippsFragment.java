@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -58,7 +57,6 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
         //configure blipp list
         likedBlipps = v.findViewById(R.id.list_liked);
         likedBlipps.setAdapter(new BlipListAdapter(this.getContext(),  new ArrayList<Blipp>()));
-        likedBlipps.setOnScrollListener(new BottomHit());
         likedBlipps.setOnItemClickListener(new ToBlipDetail());
 
         //if there are no previously loaded blips this will start the background action to load them
@@ -136,9 +134,9 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
             b.putDouble("blipLat", blipp.getLatitude());
             b.putDouble("blipLon", blipp.getLongitude());
             b.putString("blipTime", blipp.getTime() == null ? null : time);
-            b.putBoolean("blipShort", blipp.isShortDistance());
-            b.putBoolean("blipMed", blipp.isMediumDistance());
-            b.putBoolean("blipLong", blipp.isLongDistance());
+            b.putBoolean("blipShort", blipp.getIsShortDistance());
+            b.putBoolean("blipMed", blipp.getIsMediumDistance());
+            b.putBoolean("blipLong", blipp.getIsLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.setArguments(b);
             fragmentSwap.swap(frag, true);
@@ -159,6 +157,9 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
             //UnUsed Method
         }
     }
+
+    //TODO: Implement me
+    /*
     private class BottomHit implements AbsListView.OnScrollListener
     {
         @Override
@@ -176,5 +177,7 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
             }
         }
     }
+
+     */
 
 }

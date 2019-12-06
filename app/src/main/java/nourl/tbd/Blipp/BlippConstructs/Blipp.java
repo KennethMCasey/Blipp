@@ -123,15 +123,15 @@ public class Blipp {
         return longitude;
     }
 
-    public boolean isLongDistance() {
+    public boolean getIsLongDistance() {
         return isLongDistance;
     }
 
-    public boolean isMediumDistance() {
+    public boolean getIsMediumDistance() {
         return isMediumDistance;
     }
 
-    public boolean isShortDistance() {
+    public boolean getIsShortDistance() {
         return isShortDistance;
     }
 

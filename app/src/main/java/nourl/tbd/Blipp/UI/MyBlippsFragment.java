@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -57,7 +56,6 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         //Configure the my blips list
         myBlips = v.findViewById(R.id.list_my_blips);
         myBlips.setAdapter(new BlipListAdapter(this.getContext(), new ArrayList<Blipp>()));
-        myBlips.setOnScrollListener(new BottomHit());
         myBlips.setOnItemClickListener(new ToBlipDetail());
 
         //if there were no blipps loaded previously this will start the background task to
@@ -86,9 +84,9 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
             b.putDouble("blipLat", blipp.getLatitude());
             b.putDouble("blipLon", blipp.getLongitude());
             b.putString("blipTime", blipp.getTime() == null ? null : time);
-            b.putBoolean("blipShort", blipp.isShortDistance());
-            b.putBoolean("blipMed", blipp.isMediumDistance());
-            b.putBoolean("blipLong", blipp.isLongDistance());
+            b.putBoolean("blipShort", blipp.getIsShortDistance());
+            b.putBoolean("blipMed", blipp.getIsMediumDistance());
+            b.putBoolean("blipLong", blipp.getIsLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.setArguments(b);
             fragmentSwap.swap(frag, true);
@@ -162,6 +160,9 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         }
     }
 
+    //TODO: Implement me
+
+    /*
     private class BottomHit implements AbsListView.OnScrollListener
     {
         @Override
@@ -169,6 +170,8 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         {
             //UnUsed Method
         }
+
+
 
         @Override
         public void onScroll(AbsListView absListView, int firstVisableItem, int visableItemCount, int totalItemCount) {
@@ -179,6 +182,8 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
             }
         }
     }
+    */
+
 
 }
 

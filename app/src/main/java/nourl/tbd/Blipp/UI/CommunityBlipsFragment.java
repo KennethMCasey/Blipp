@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -124,7 +123,6 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
         //Configures the blipp feed list
         blippFeed = v.findViewById(R.id.list_feed);
         blippFeed.setAdapter(new BlipListAdapter(this.getContext(), new ArrayList<Blipp>() ));
-        blippFeed.setOnScrollListener(new BottomHit());
         blippFeed.setOnItemClickListener(new ToBlipDetail());
 
         //if there were no previously loaded blipps this will start the background task to get the new blipps
@@ -306,6 +304,9 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
         }
     }
 
+    //TODO: Implement me
+
+    /*
     private class BottomHit implements AbsListView.OnScrollListener
     {
         @Override
@@ -321,6 +322,7 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
         }
     }
 
+     */
     class ToBlipDetail implements ListView.OnItemClickListener {
 
         @Override
@@ -342,9 +344,9 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
             b.putDouble("blipLat", blipp.getLatitude());
             b.putDouble("blipLon", blipp.getLongitude());
             b.putString("blipTime", blipp.getTime() == null ? null : time);
-            b.putBoolean("blipShort", blipp.isShortDistance());
-            b.putBoolean("blipMed", blipp.isMediumDistance());
-            b.putBoolean("blipLong", blipp.isLongDistance());
+            b.putBoolean("blipShort", blipp.getIsShortDistance());
+            b.putBoolean("blipMed", blipp.getIsMediumDistance());
+            b.putBoolean("blipLong", blipp.getIsLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.setArguments(b);
             fragmentSwap.swap(frag, true);

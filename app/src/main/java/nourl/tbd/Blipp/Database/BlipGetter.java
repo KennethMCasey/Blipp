@@ -1,11 +1,8 @@
 package nourl.tbd.Blipp.Database;
 
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,20 +14,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.view.Change;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
-import nourl.tbd.Blipp.BlippConstructs.Community;
 import nourl.tbd.Blipp.BlippConstructs.Like;
 import nourl.tbd.Blipp.Helper.LocationGetter;
 import nourl.tbd.Blipp.Helper.LocationGetterCompletion;
-import nourl.tbd.Blipp.UI.Blip;
 
 public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
@@ -179,6 +171,8 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                 @Override
                                 public void locationGetterDidGetLocation(double latitude, double longitude) {
 
+                                    temp = new ArrayList<>();
+
                                     final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,.1);
 
 
@@ -194,13 +188,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                                         final Blipp blip = childSnapshot.getValue(Blipp.class);
 
                                                         if (blip.getLongitude() >= latLongBounds.getLonMin() && blip.getLongitude() <= latLongBounds.getLonMax()) {
-                                                            if(blip.isShortDistance()== true) {
+                                                            if(blip.getIsShortDistance()== true) {
                                                                 temp.add(blip);
                                                             }
                                                         }
                                                     }
                                                     results = temp;
-
                                                     taskDone(true);
                                                 }
 
@@ -235,6 +228,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                             new LocationGetter(context, new LocationGetterCompletion() {
                                 @Override
                                 public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                                    temp = new ArrayList<>();
                                     final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,.1);
 
                                     FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("blip")
@@ -284,6 +278,8 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                 @Override
                                 public void locationGetterDidGetLocation(double latitude, double longitude) {
 
+                                    temp = new ArrayList<>();
+
                                     final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,1);
 
 
@@ -299,7 +295,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                                         final Blipp blip = childSnapshot.getValue(Blipp.class);
 
                                                         if (blip.getLongitude() >= latLongBounds.getLonMin() && blip.getLongitude() <= latLongBounds.getLonMax()) {
-                                                            if(blip.isMediumDistance()== true) {
+                                                            if(blip.getIsMediumDistance()== true) {
                                                                 temp.add(blip);
                                                             }
                                                         }
@@ -340,6 +336,8 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                             new LocationGetter(context, new LocationGetterCompletion() {
                                 @Override
                                 public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                                    temp = new ArrayList<>();
+
                                     final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,1.0);
 
                                     FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("blip")
@@ -389,6 +387,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                             new LocationGetter(context, new LocationGetterCompletion() {
                                 @Override
                                 public void locationGetterDidGetLocation(double latitude, double longitude) {
+                                    temp = new ArrayList<>();
 
                                     final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
 
@@ -405,7 +404,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                                         final Blipp blip = childSnapshot.getValue(Blipp.class);
 
                                                         if (blip.getLongitude() >= latLongBounds.getLonMin() && blip.getLongitude() <= latLongBounds.getLonMax()) {
-                                                            if(blip.isLongDistance()== true) {
+                                                            if(blip.getIsLongDistance()== true) {
                                                                 temp.add(blip);
                                                             }
                                                         }
@@ -413,6 +412,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                                     results = temp;
 
                                                     taskDone(true);
+
                                                 }
 
                                                 @Override
@@ -436,6 +436,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         } catch (Exception e) {
                             taskDone(false);
                         }
+                        return null;
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
@@ -446,6 +447,9 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                             new LocationGetter(context, new LocationGetterCompletion() {
                                 @Override
                                 public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+
+                                    temp = new ArrayList<>();
+
                                     final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10.0);
 
                                     FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("blip")
@@ -484,6 +488,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         }
 
                     }
+                    return null;
                 }
             }
 
@@ -493,7 +498,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 if (order.equals(Order.MOST_RECENT)) {
                     //TODO: Wrire a query that will return an array of blips from firebase that the user has previously liked (no dislikes) order by most recent
 
-                    results.clear();
                     try {
                         Query q = FirebaseDatabase.getInstance().getReference().child("like").orderByChild("userId").equalTo(currentUser); // pull likes from currentuser
                         q.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -535,7 +539,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
                 if (order.equals(Order.MOST_LIKED)) {
                     //TODO: Wrire a query that will return an array of blips from firebase that the user has previously liked (no dislikes) order by most liked
-                    results.clear();
                     temp.clear();
                     try {
                         Query q = FirebaseDatabase.getInstance().getReference().child("like").orderByChild("userId").equalTo(currentUser); // pull likes from currentuser
@@ -579,12 +582,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             if (section.equals(Section.MY_BLIPS)) {
                 if (order.equals(Order.MOST_RECENT)) {
                     //TODO: Wrire a query that will return an array of blips from firebase that the user has previously bliped, order by most recent
-                    results.clear();
+
                     try {
                         Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("userId").equalTo(currentUser);
                         q.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                results = new ArrayList<>();
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                     results.add(ds.getValue(Blipp.class));
                                 }
@@ -605,9 +609,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
                 if (order.equals(Order.MOST_LIKED)) {
                     //TODO: Wrire a query that will return an array of blips from firebase that the user has previously bliped, order by most liked
-
-                    results.clear();
-                    temp.clear();
+                    temp = new ArrayList<>();
                     try {
                         Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("userId").equalTo(currentUser);
                         q.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -638,8 +640,8 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             if (order.equals(Order.MOST_RECENT))
             {
                 //TODO: Return an array of blips that are in this community ordered by most recent.
-                results.clear();
                 try {
+                    results = new ArrayList<>();
                     Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("community").equalTo(communityId);
                     q.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -654,8 +656,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                             taskDone(false);
                         }
                     });
-
-
                     taskDone(true);
                 }catch (Exception e){
                     taskDone(false);
@@ -666,8 +666,8 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             if (order.equals(Order.MOST_LIKED)) {
                 //TODO: Return an array of blips that are in this community ordered by most recent.
 
-                results.clear();
-                temp.clear();
+                results = new ArrayList<>();
+                temp = new ArrayList<>();
                 try {
                     Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("community").equalTo(communityId);
                     q.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -689,14 +689,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 }
                 return null;
             }
-
         }
 
         //reply queries
         if (parentId != null) {
             if (order.equals(Order.MOST_RECENT)) {
                 //TODO: Return an array of blips that are replys to the parent blip ordered by most recent
-                results.clear();
+                results = new ArrayList<>();
                 try {
                     Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("parent").equalTo(parentId);
                     q.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -720,8 +719,8 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.MOST_LIKED)) {
                 //TODO: Return an array of blips that are replys to the parent blip ordered by most liked
-                temp.clear();
-                results.clear();
+                temp = new ArrayList<>();
+                results = new ArrayList<>();
                 try {
                     Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("parent").equalTo(parentId);
                     q.addListenerForSingleValueEvent(new ValueEventListener() {
