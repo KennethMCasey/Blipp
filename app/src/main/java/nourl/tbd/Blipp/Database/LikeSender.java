@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -14,6 +15,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
@@ -42,8 +45,47 @@ public class LikeSender extends AsyncTask<Void, Void, Void> {
         DatabaseReference here = location.push();
         here.setValue(like).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                taskDone(task.isSuccessful());
+            public void onComplete(@NonNull final Task<Void> task)
+            {
+                if (task.isSuccessful())
+                {
+                    FirebaseDatabase.getInstance().getReference().runTransaction(new Transaction.Handler() {
+                        @NonNull
+                        @Override
+                        public Transaction.Result doTransaction(@NonNull MutableData mutableData)
+                        {
+                            FirebaseDatabase.getInstance().getReference().child("blip").child(like.getBlipId()).child("numLikes").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                                {
+                                    int i = dataSnapshot.getValue(int.class) == null ? 0 : dataSnapshot.getValue(int.class);
+
+                                    FirebaseDatabase.getInstance().getReference().child("blip").child(like.getBlipId()).child("numLikes").setValue(i+1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task)
+                                        {
+                                            taskDone(task.isSuccessful());
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError)
+                                {
+                                    taskDone(false);
+                                }
+                            });
+                            return null;
+                        }
+
+                        @Override
+                        public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot)
+                        {
+
+                        }
+                    });
+                }
+                else taskDone(false);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

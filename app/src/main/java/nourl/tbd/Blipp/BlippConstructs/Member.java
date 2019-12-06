@@ -15,6 +15,15 @@ public class Member
 
     public Member() {}
 
+    public Member(String communityId, String userId, boolean isBanned, String displayName, Date dateJoined, String memberId) {
+        this.communityId = communityId;
+        this.userId = userId;
+        this.isBanned = isBanned;
+        this.displayName = displayName;
+        this.dateJoined = dateJoined;
+        this.memberId = memberId;
+    }
+
     //This is the constructor that would be used for loading a Member. It manually passes in all information needed.
     public Member(String communityId, String userId, boolean isBanned, String displayName, Date dateJoined ) {
         this.communityId = communityId;

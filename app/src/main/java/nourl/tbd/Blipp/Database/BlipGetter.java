@@ -4,9 +4,14 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -129,7 +134,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             ArrayList<Blipp> temp = new ArrayList<Blipp>();
             try {
                 for (int i = 0; i < 1; i++)
-                    temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                    temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
             } catch (Exception e) {
             }
             results = temp;
@@ -144,14 +149,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 if (distance.equals(Distance.CLOSE)) {
 
                     if (order.equals(Order.MOST_RECENT)) {
-                        //TODO: Wrire a query that will return an array of blips from firebase that are within close distance of the current user and marked as close distance ordered by most recent
-                        //Note: Close distance is defined as 0Miles - 0.1Miles
+                          //Note: Close distance is defined as 0Miles - 0.1Miles
 
                         //Test Code: Delete me.
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                         } catch (Exception e) {
                         }
                         results = temp;
@@ -160,14 +164,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
-                        //TODO: Wrire a query that will return an array of blips from firebase that are within close distance of the current user and marked as close distance ordered by most liked
-                        //Note: Close distance is defined as 0Miles - 0.1Miles
+                         //Note: Close distance is defined as 0Miles - 0.1Miles
 
                         //Test Code: Delete me.
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                         } catch (Exception e) {
                         }
                         results = temp;
@@ -179,14 +182,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
                 if (distance.equals(Distance.REGULAR)) {
                     if (order.equals(Order.MOST_RECENT)) {
-                        //TODO: Wrire a query that will return an array of blips from firebase that are within regular distance of the current user and marked as regular distance ordered by most recent
-                        //Note: regular is defined as 0Miles - 1Miles
+                          //Note: regular is defined as 0Miles - 1Miles
 
                         //Test Code: Delete me.
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                         } catch (Exception e) {
                         }
                         results = temp;
@@ -195,14 +197,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
-                        //TODO: Wrire a query that will return an array of blips from firebase that are within regular distance of the current user and marked as regular distance ordered by most liked
-                        //Note: regular is defined as 0Miles - 1Miles
+                         //Note: regular is defined as 0Miles - 1Miles
 
                         //Test Code: Delete me.
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                         } catch (Exception e) {
                         }
                         results = temp;
@@ -213,14 +214,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
                 if (distance.equals(Distance.MAX)) {
                     if (order.equals(Order.MOST_RECENT)) {
-                        //TODO: Wrire a query that will return an array of blips from firebase that are within Max distance of the current user and marked as Max distance ordered by most recent
-                        //Note: MAx distance is defined as 0Miles - 10Miles
+                         //Note: MAx distance is defined as 0Miles - 10Miles
 
                         //Test Code: Delete me.
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                         } catch (Exception e) {
                         }
                         results = temp;
@@ -229,14 +229,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
-                        //TODO: Wrire a query that will return an array of blips from firebase that are within Max distance of the current user and marked as Max distance ordered by most liked
-                        //Note: MAx distance is defined as 0Miles - 10Miles
+                         //Note: MAx distance is defined as 0Miles - 10Miles
 
                         //Test Code: Delete me.
                         ArrayList<Blipp> temp = new ArrayList<Blipp>();
                         try {
                             for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                                temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                         } catch (Exception e) {
                         }
                         results = temp;
@@ -250,13 +249,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             if (section.equals(Section.LIKED_BLIPS)) {
 
                 if (order.equals(Order.MOST_RECENT)) {
-                    //TODO: Wrire a query that will return an array of blips from firebase that the user has previously liked (no dislikes) order by most recent
 
                     //Test Code: Delete me.
                     ArrayList<Blipp> temp = new ArrayList<Blipp>();
                     try {
                         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                     } catch (Exception e) {
                     }
                     results = temp;
@@ -265,13 +263,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 }
 
                 if (order.equals(Order.MOST_LIKED)) {
-                    //TODO: Wrire a query that will return an array of blips from firebase that the user has previously liked (no dislikes) order by most liked
 
                     //Test Code: Delete me.
                     ArrayList<Blipp> temp = new ArrayList<Blipp>();
                     try {
                         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                     } catch (Exception e) {
                     }
                     results = temp;
@@ -282,13 +279,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
             if (section.equals(Section.MY_BLIPS)) {
                 if (order.equals(Order.MOST_RECENT)) {
-                    //TODO: Wrire a query that will return an array of blips from firebase that the user has previously bliped, order by most recent
 
                     //Test Code: Delete me.
                     ArrayList<Blipp> temp = new ArrayList<Blipp>();
                     try {
                         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                     } catch (Exception e) {
                     }
                     results = temp;
@@ -297,13 +293,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 }
 
                 if (order.equals(Order.MOST_LIKED)) {
-                    //TODO: Wrire a query that will return an array of blips from firebase that the user has previously bliped, order by most liked
 
                     //Test Code: Delete me.
                     ArrayList<Blipp> temp = new ArrayList<Blipp>();
                     try {
                         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                            temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                     } catch (Exception e) {
                     }
                     results = temp;
@@ -317,13 +312,11 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         if (communityId != null) {
             if (order.equals(Order.MOST_RECENT))
             {
-                //TODO: Return an array of blips that are in this community ordered by most recent.
-
                 //Test Code: Delete me.
                 ArrayList<Blipp> temp = new ArrayList<Blipp>();
                 try {
                     for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                 } catch (Exception e) {
                 }
                 results = temp;
@@ -332,13 +325,11 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             }
 
             if (order.equals(Order.MOST_LIKED)) {
-                //TODO: Return an array of blips that are in this community ordered by most recent.
-
                 //Test Code: Delete me.
                 ArrayList<Blipp> temp = new ArrayList<Blipp>();
                 try {
                     for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                 } catch (Exception e) {
                 }
                 results = temp;
@@ -351,12 +342,11 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         //reply queries
         if (parentId != null) {
             if (order.equals(Order.MOST_RECENT)) {
-                //TODO: Return an array of blips that are replys to the parent blip ordered by most recent
-                //Test Code: Delete me.
+                 //Test Code: Delete me.
                 ArrayList<Blipp> temp = new ArrayList<Blipp>();
                 try {
                     for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++)
-                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null));
+                        temp.add(new Blipp(0.0, 0.0, false, false, true, new Date(), "fake id", "Most Recent - Close Distance",  Math.random() > 0.5 ? "http://fake.com/" : null, "fake id", "fake id", null, 0));
                 } catch (Exception e) {
                 }
                 results = temp;
@@ -366,7 +356,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             }
 
             if (order.equals(Order.MOST_LIKED)) {
-                //TODO: Return an array of blips that are replys to the parent blip ordered by most liked
                 //Test Code: Delete me.
                 ArrayList<Blipp> temp = null;
                 results = temp;

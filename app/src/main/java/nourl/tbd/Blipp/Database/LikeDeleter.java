@@ -26,8 +26,7 @@ public class LikeDeleter extends AsyncTask<Void, Void, Void>
     @Override
     protected Void doInBackground(Void... voids)
     {
-        //TODO: Delete the like on the passed blip by the current user in firebase
-       taskDone(true); //pass true if success false if fail
+         taskDone(true); //pass true if success false if fail
         return null;
     }
 

@@ -58,8 +58,6 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                //TODO: Get all active users in alphabetical order from the passed community
-
                 //Test Code Delete me
                 ArrayList<Member> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Member("Fake ID", "Fake Name"));
@@ -69,8 +67,6 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.NEWEST_TO_OLDEST))
             {
-                //TODO: Get all active users from newest to oldest order from the passed community
-
                 //Test Code Delete me
                 ArrayList<Member> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Member("Fake ID", "Fake Name"));
@@ -83,8 +79,6 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                //TODO: Get all banned users in alphabetical order from the passed community
-
                 //Test Code Delete me
                 ArrayList<Member> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Member("Fake ID", "Fake Name"));
@@ -94,8 +88,6 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.NEWEST_TO_OLDEST))
             {
-                //TODO: Get all banned users in newest to oldest order from the passed community
-
                 //Test Code Delete me
                 ArrayList<Member> temp = new ArrayList<>();
                 for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Member("Fake ID", "Fake Name"));

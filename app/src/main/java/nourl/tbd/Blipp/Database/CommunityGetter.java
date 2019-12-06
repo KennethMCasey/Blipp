@@ -59,35 +59,27 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                //TODO: pull communities that are within range of the current user, order by alphabetical order.
-
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
                 results = temp;
                 taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
             {
-                //TODO: pull communities that are within range of the current user, order by member_row count low to high.
-
-
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
                 results = temp;
                 taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
             {
-                //TODO: pull communities that are within range of the current user, order by member_row count high to low.
-
-
-                //test code delete me
+                  //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
                 results = temp;
                 taskDone(true);
             }
@@ -97,36 +89,27 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                //TODO: pull communities that the user has joined in alphabetical order
-
-
-                //test code delete me
+                   //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
                 results = temp;
                 taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
             {
-                //TODO: pull communities that the user has joined ordered by member_row count low to high
-
-
-                //test code delete me
+                   //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
                 results = temp;
                 taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
             {
-                //TODO: pull communities that the user has joined ordered by member_row count high to low
-
-
-                //test code delete me
+                      //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
                 results = temp;
                 taskDone(true);
             }
@@ -136,36 +119,26 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                //TODO: pull all the communities that the user owns in alphabetical order
-
-
-                //test code delete me
+                    //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
                 results = temp;
                 taskDone(true);;
             }
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
-            {
-                //TODO: pull all the communities that the user owns order by member_row count low to high
-
-
-                //test code delete me
+            {    //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
                 results = temp;
                 taskDone(true);
             }
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
             {
-                //TODO: pull all the communities that the user owns order by member_row count high to low
-
-
                 //test code delete me
                 ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", null, 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
                 results = temp;
                 taskDone(true);
             }

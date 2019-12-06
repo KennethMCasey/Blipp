@@ -25,8 +25,7 @@ public class UserDeleter extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        //TODO: delete the passed user from the firebase user table
-       taskDone(true);// call with true if success call with false if fail
+         taskDone(true);// call with true if success call with false if fail
         return null;
     }
 

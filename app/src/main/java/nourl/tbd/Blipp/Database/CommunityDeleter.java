@@ -26,8 +26,6 @@ public class CommunityDeleter extends AsyncTask<Void, Void, Void>
 
     @Override
     protected Void doInBackground(Void... voids) {
-        //TODO: Delete the passed community from firebase. Delete every trace of the community ie. all the member_row instances, all of its blips ect.
-
         taskDone(true);//pass true if successful false if failure
 
         return null;

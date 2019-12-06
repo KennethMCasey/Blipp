@@ -14,9 +14,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
 
 import nourl.tbd.Blipp.BlippConstructs.Community;
+import nourl.tbd.Blipp.BlippConstructs.Member;
 import nourl.tbd.Blipp.Database.MemberGetter;
+import nourl.tbd.Blipp.Database.MemberGetterCompletion;
+import nourl.tbd.Blipp.Database.MemberSender;
+import nourl.tbd.Blipp.Database.MemberSenderCompletion;
 import nourl.tbd.Blipp.R;
 
 public class ManageCommunitiesDetailFragment extends Fragment
@@ -34,6 +41,7 @@ public class ManageCommunitiesDetailFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         fragmentSwap = (FragmentSwap)getActivity();
+        fragmentSwap.postFragId(10);
 
         Bundle b = getArguments();
 
@@ -45,8 +53,9 @@ public class ManageCommunitiesDetailFragment extends Fragment
         double radiusG = b.getDouble("radius", 0);
         String ownerG = b.getString("owner", null);
         boolean isJoinableG = b.getBoolean("isJoinable", false);
+        int numMem = b.getInt("numMem", -1);
 
-        community = new Community(idG, photoG, latG, lonG, radiusG, nameG, isJoinableG,ownerG);
+        community = new Community(idG, photoG, latG, lonG, radiusG, nameG, isJoinableG,ownerG, numMem);
 
         View v = inflater.inflate(R.layout.manage_community_detail, null);
 
@@ -64,7 +73,44 @@ public class ManageCommunitiesDetailFragment extends Fragment
                         if (name.getText().toString().equals("*OWNER*") && !community.getOwner().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) Toast.makeText(getContext(), "Error: You are attempting to change your name to a reserved phrase. Please select another name.", Toast.LENGTH_SHORT).show();
                         else
                             {
-                                //TODO: change member_row name
+
+                                new MemberGetter(community, MemberGetter.Order.ALPHABETICAL, MemberGetter.Section.ACTIVE, new MemberGetterCompletion() {
+                                    @Override
+                                    public void memberGetterGotInitalMembers(ArrayList<Member> members)
+                                    {
+                                        for (int i = 0; i < members.size(); i++)
+                                        {
+                                            Member mem = members.get(i);
+                                            if (mem.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                                            {
+                                                Member memU = new Member(mem.getCommunityId(), mem.getUserId(), mem.isBanned(), name.getText().toString() ,mem.getDateJoined(), mem.getMemberId());
+
+                                                new MemberSender(memU, new MemberSenderCompletion()
+                                                {
+                                                    @Override
+                                                    public void memberSenderDone(boolean isSuccessful)
+                                                    {
+                                                        Toast.makeText(getContext(), isSuccessful ? "Success: Updated group member name" : "Error: Could not update name", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }, getContext());
+                                                return;
+                                            }
+                                        } Toast.makeText(getContext(),  "FATAL ERROR: Could not find your member instance.", Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                    @Override
+                                    public void memberGetterGotAditionalMembers(ArrayList<Member> members)
+                                    {
+                                        //unused
+                                    }
+
+                                    @Override
+                                    public void memberGetterDidFail()
+                                    {
+                                        Toast.makeText(getContext(), "Error: Could not update name", Toast.LENGTH_SHORT).show();
+                                    }
+                                }, null, -1, getContext());
                             }
                     }
             }

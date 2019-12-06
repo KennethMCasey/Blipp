@@ -36,9 +36,6 @@ public class LikeGetter extends AsyncTask<Void, Void, Void>
     @Override
     protected Void doInBackground(Void... voids)
     {
-        //TODO: Write firebase query that will return the ArrayList of ALL Likes on The Blip
-        //call task done with true or false when done
-
         //Test code delete me
         ArrayList<Like> temp = new ArrayList<>();
         for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Like(false, "Fake ID", FirebaseAuth.getInstance().getCurrentUser().getUid()));

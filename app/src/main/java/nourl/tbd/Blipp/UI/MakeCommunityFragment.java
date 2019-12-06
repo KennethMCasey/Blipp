@@ -57,6 +57,8 @@ public class MakeCommunityFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.make_community, null);
 
+        ((FragmentSwap)getActivity()).postFragId(9);
+
         communityName = v.findViewById(R.id.make_community_name);
 
         addPhoto = v.findViewById(R.id.make_community_add_photo);

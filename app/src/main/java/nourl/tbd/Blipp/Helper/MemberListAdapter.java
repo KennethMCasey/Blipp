@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import nourl.tbd.Blipp.BlippConstructs.Member;
+import nourl.tbd.Blipp.Database.MemberSender;
+import nourl.tbd.Blipp.Database.MemberSenderCompletion;
 import nourl.tbd.Blipp.R;
 
 public class MemberListAdapter extends BaseAdapter
@@ -44,7 +47,7 @@ public class MemberListAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup)
+    public View getView(final int i, View view, ViewGroup viewGroup)
     {
         if (view == null) view = LayoutInflater.from(context).inflate(R.layout.member_row, viewGroup, false);
 
@@ -63,6 +66,20 @@ public class MemberListAdapter extends BaseAdapter
                 @Override
                 public void onClick(View view)
                 {
+                    Member mem = members.get(i);
+                    Member memU = new Member(mem.getCommunityId(), mem.getUserId(), !mem.isBanned(), mem.getDisplayName(), mem.getDateJoined(), mem.getMemberId());
+                    new MemberSender(memU, new MemberSenderCompletion() {
+                        @Override
+                        public void memberSenderDone(boolean isSuccessful)
+                        {
+                            Toast.makeText(context, !isSuccessful ? "Error: Could not complete action." : isActive ? "Success: Member was banned" : "Success: Member is un-banned", Toast.LENGTH_SHORT).show();
+                            if (isSuccessful)
+                            {
+                                members.remove(i);
+                                notifyDataSetChanged();
+                            }
+                        }
+                    }, context);
 
                 }
             });

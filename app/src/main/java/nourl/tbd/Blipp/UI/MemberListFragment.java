@@ -24,18 +24,11 @@ import nourl.tbd.Blipp.BlippConstructs.Community;
 import nourl.tbd.Blipp.BlippConstructs.Member;
 import nourl.tbd.Blipp.Database.MemberGetter;
 import nourl.tbd.Blipp.Database.MemberGetterCompletion;
-import nourl.tbd.Blipp.Helper.CommunityAdapter;
-import nourl.tbd.Blipp.Helper.LocationGetter;
-import nourl.tbd.Blipp.Helper.LocationGetterCompletion;
 import nourl.tbd.Blipp.Helper.MemberListAdapter;
-import nourl.tbd.Blipp.Helper.StatePersistence;
 import nourl.tbd.Blipp.R;
 
 public class MemberListFragment extends Fragment implements MemberGetterCompletion {
-    //TODO: Community Fragment. This fragment will consist of a list view that will be populated by all of the communities that the user is either a member_row of or an owner of. They can then select on any of those communities which will bring them to another activity which will esentially be the same as BlippFeedFragment but only with community specific Blips.
-
-
-    Spinner order;
+      Spinner order;
     SwipeRefreshLayout refresh;
     ListView membersList;
     FragmentSwap fragmentSwap;
@@ -49,6 +42,7 @@ public class MemberListFragment extends Fragment implements MemberGetterCompleti
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentSwap = (FragmentSwap) getActivity();
+        fragmentSwap.postFragId(12);
 
         View v = inflater.inflate(R.layout.community_joined, container, false);
 
@@ -64,14 +58,13 @@ public class MemberListFragment extends Fragment implements MemberGetterCompleti
         boolean isJoinableG = b.getBoolean("isJoinable", false);
         isBanned =  !b.getBoolean("isActive", false);
 
-        community = new Community(idG, photoG, latG, lonG, radiusG, nameG, isJoinableG,ownerG);
+        community = new Community(idG, photoG, latG, lonG, radiusG, nameG, isJoinableG,ownerG, 0);
 
         //configure drop down menu
         order = v.findViewById(R.id.spinner_community_joined);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.member_order, R.layout.spinner_item_blip);
         adapter2.setDropDownViewResource(R.layout.spinner_item_blip);
         order.setAdapter(adapter2);
-        order.setSelection(StatePersistence.current.communityJoinedOrderPosition, false);
         order.setOnItemSelectedListener(new CommunityOrderChanged());
 
         //configure refresh
@@ -95,7 +88,6 @@ public class MemberListFragment extends Fragment implements MemberGetterCompleti
         refresh.setEnabled(true);
         refresh.setRefreshing(true);
 
-        //TODO: Pull the blip data from the database
         if (order.getSelectedItemPosition() == 0)
         {
             if (isBanned) new MemberGetter(community, MemberGetter.Order.ALPHABETICAL, MemberGetter.Section.BANNED, this, memberToStartAt, 20, getContext());
@@ -163,10 +155,6 @@ public class MemberListFragment extends Fragment implements MemberGetterCompleti
 
         @Override
         public void onScroll(AbsListView absListView, int firstVisableItem, int visableItemCount, int totalItemCount) {
-
-            /*Our Blipp Feed should only load 50 or less Blipps at a time. These will either be the 50 most recent or the 50 most liked depending on user configuration
-            TODO: When our list is displaying the very last possible count of items, we should pull the next 50 items from Firebase if the user wishes to keep scrolling
-             */
 
             if (firstVisableItem + visableItemCount == totalItemCount && totalItemCount != 0 && !didHitBottom) {
                 getMembers(((Member) ((MemberListAdapter) membersList.getAdapter()).getItem(totalItemCount - 1)));

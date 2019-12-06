@@ -25,8 +25,6 @@ public class BlipDeleter extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        //TODO: Write a Query that Successfully deletes the passed blipp from firebase.
-
         // blip to delete : class variable blip
         taskDone(true);// pass true on success on false on failure
         return null;

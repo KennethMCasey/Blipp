@@ -18,19 +18,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
-import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Community;
 import nourl.tbd.Blipp.Database.CommunityGetter;
 import nourl.tbd.Blipp.Database.CommunityGetterCompletion;
-import nourl.tbd.Blipp.Helper.BlipListAdapter;
 import nourl.tbd.Blipp.Helper.CommunityAdapter;
-import nourl.tbd.Blipp.Helper.StatePersistence;
 import nourl.tbd.Blipp.R;
 
 public class CommunityJoinedFragment extends Fragment implements CommunityGetterCompletion {
-    //TODO: Community Fragment. This fragment will consist of a list view that will be populated by all of the communities that the user is either a member_row of or an owner of. They can then select on any of those communities which will bring them to another activity which will esentially be the same as BlippFeedFragment but only with community specific Blips.
-
-
     Spinner order;
     SwipeRefreshLayout refresh;
     ListView communitiesJoined;
@@ -42,6 +36,7 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentSwap = (FragmentSwap) getActivity();
+        fragmentSwap.postFragId(1);
 
         View v = inflater.inflate(R.layout.community_joined, container, false);
 
@@ -50,7 +45,6 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.community_order, R.layout.spinner_item_blip);
         adapter2.setDropDownViewResource(R.layout.spinner_item_blip);
         order.setAdapter(adapter2);
-        order.setSelection(StatePersistence.current.communityJoinedOrderPosition, false);
         order.setOnItemSelectedListener(new CommunityOrderChanged());
 
         //configure refresh
@@ -59,12 +53,12 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
 
         //configure blipp list
         communitiesJoined = v.findViewById(R.id.list_community_joined);
-        communitiesJoined.setAdapter(new CommunityAdapter(this.getContext(), StatePersistence.current.comunityJoined == null ? new ArrayList<Community>() : StatePersistence.current.comunityJoined, false, false));
+        communitiesJoined.setAdapter(new CommunityAdapter(this.getContext(),  new ArrayList<Community>() , false, false));
         communitiesJoined.setOnScrollListener(new BottomHit());
         communitiesJoined.setOnItemClickListener(new ToCommunityFeed());
 
         //if there are no previously loaded blips this will start the background action to load them
-        if (StatePersistence.current.comunityJoined == null) getCommunity(null);
+        getCommunity(null);
 
         return v;
     }
@@ -75,7 +69,6 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
         refresh.setEnabled(true);
         refresh.setRefreshing(true);
 
-        //TODO: Pull the blip data from the database
         if (order.getSelectedItemPosition() == 0)
             new CommunityGetter(CommunityGetter.Section.JOINED, CommunityGetter.Order.ALPHABETICAL, communityToStartAt, 20, this, this.getContext());
 
@@ -91,7 +84,6 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
     @Override
     public void communityGetterGotInitalCommunities(ArrayList<Community> results) {
         if (results == null) didHitBottom = true;
-        StatePersistence.current.comunityJoined = results;
         ((CommunityAdapter) communitiesJoined.getAdapter()).setCommunities(results);
         refresh.setRefreshing(false);
     }
@@ -100,7 +92,6 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
     public void communityGetterGotAditionalCommunities(ArrayList<Community> results) {
         if (results == null) didHitBottom = true;
         else {
-        StatePersistence.current.comunityJoined.addAll(results);
         ((CommunityAdapter) communitiesJoined.getAdapter()).addCommunities(results);
         refresh.setRefreshing(false);}
     }
@@ -121,10 +112,8 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
 
     private class CommunityOrderChanged implements Spinner.OnItemSelectedListener {
         @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-
-            StatePersistence.current.communityJoinedOrderPosition = position;
-
+        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l)
+        {
             getCommunity(null);
         }
 
@@ -167,11 +156,6 @@ public class CommunityJoinedFragment extends Fragment implements CommunityGetter
 
         @Override
         public void onScroll(AbsListView absListView, int firstVisableItem, int visableItemCount, int totalItemCount) {
-
-            /*Our Blipp Feed should only load 50 or less Blipps at a time. These will either be the 50 most recent or the 50 most liked depending on user configuration
-            TODO: When our list is displaying the very last possible count of items, we should pull the next 50 items from Firebase if the user wishes to keep scrolling
-             */
-
             if (firstVisableItem + visableItemCount == totalItemCount && totalItemCount != 0 && !didHitBottom) {
                 getCommunity(((Community) ((CommunityAdapter) communitiesJoined.getAdapter()).getItem(totalItemCount - 1)));
             }
