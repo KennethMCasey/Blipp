@@ -68,6 +68,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     boolean popUpIsShowing;
     String currentPhotoPath;
     String currentPhotoUrl;
+    boolean didClose;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,6 +79,8 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+
+        didClose = false;
 
         fragmentSwap = (FragmentSwap) this.getActivity();
         fragmentSwap.postFragId(0);
@@ -382,6 +385,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                     popUpIsShowing = false;
                     if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
                     currentPhotoUrl = null;
+                    didClose = true;
                 }
             });
 
@@ -410,6 +414,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                     }
 
                     sendBlip(blipText, isShortDistance, isMedumDistance ,isLongDistance);
+                    didClose = true;
                     popupWindow.dismiss();
                     popUpIsShowing = false;
 
@@ -421,6 +426,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                 btnPhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        ((ImageView)popupView.findViewById(R.id.make_blipp_photo)).setImageDrawable(null);
                         btnSubmit.setVisibility(View.INVISIBLE);
                         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
@@ -434,9 +440,12 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                 popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                     @Override
                     public void onDismiss() {
+
+                        if (!didClose){
                         popUpIsShowing = false;
                         if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
-                        currentPhotoUrl = null;
+                        currentPhotoUrl = null;}
+                        didClose = false;
                     }
                 });
 
