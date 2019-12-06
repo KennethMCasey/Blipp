@@ -15,6 +15,15 @@ public class Member
 
     public Member() {}
 
+    public Member(String communityId, String userId, boolean isBanned, String displayName, Date dateJoined, String memberId) {
+        this.communityId = communityId;
+        this.userId = userId;
+        this.isBanned = isBanned;
+        this.displayName = displayName;
+        this.dateJoined = dateJoined;
+        this.memberId = memberId;
+    }
+
     //This is the constructor that would be used for loading a Member. It manually passes in all information needed.
     public Member(String communityId, String userId, boolean isBanned, String displayName, Date dateJoined ) {
         this.communityId = communityId;
@@ -25,7 +34,7 @@ public class Member
         this.memberId = null;
     }
 
-    //This is a constructor that would be useful for creating a new member instance (first joining a community)
+    //This is a constructor that would be useful for creating a new member_row instance (first joining a community)
     public Member(String communityId, String displayName) {
         this.communityId = communityId;
         this.displayName = displayName;

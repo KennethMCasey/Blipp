@@ -60,8 +60,11 @@ public class LikeGetter extends AsyncTask<Void, Void, Void>
                         results.add(snapshot.getValue(Like.class));
                     }
                     taskDone(true);
-                }else taskDone(false);
-
+                }else
+                    {
+                        results = new ArrayList<>();
+                    taskDone(true);
+                }
             }
 
             @Override

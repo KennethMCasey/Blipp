@@ -1,13 +1,8 @@
 package nourl.tbd.Blipp.BlippConstructs;
 
-import android.content.Context;
-
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.net.URL;
 import java.util.Date;
-
-import nourl.tbd.Blipp.Helper.LocationGetter;
 
 public class Blipp {
 
@@ -23,6 +18,7 @@ public class Blipp {
     private String userId;
     private String parent;
     private String community;
+    private int numOfLikes;
 
 
 
@@ -31,7 +27,7 @@ public class Blipp {
     //This Blip constructor will construct a blip in its entirety manually passing all information, this will probably only need to be used while loading.
     //as the id parameter will never be known on creation. The id is generated when calling push() while uploading to firebase and will be assigned in the BlipSender Class.
     //do not ever manually assign the id paramater when uplaoding to firebase always use push().
-    public Blipp(double latitude, double longitude, boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, Date time, String id, String text, String url, String userId, String parent, String community) {
+    public Blipp(double latitude, double longitude, boolean isLongDistance, boolean isMediumDistance, boolean isShortDistance, Date time, String id, String text, String url, String userId, String parent, String community, int numOfLikes) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.isLongDistance = isLongDistance;
@@ -44,6 +40,7 @@ public class Blipp {
         this.userId = userId;
         this.parent = parent;
         this.community = community;
+        this.numOfLikes = numOfLikes;
     }
 
     //This constructor constructs a blip without a parent blip (not a comment) and one not in a community manually passing longitude latitude and time. This will only be used during testing and eventually deleted.
@@ -104,6 +101,10 @@ public class Blipp {
     //Geters are required to upload to firebase
     public String getId() {
         return id;
+    }
+
+    public int getNumOfLikes() {
+        return numOfLikes;
     }
 
     public String getUrl() {

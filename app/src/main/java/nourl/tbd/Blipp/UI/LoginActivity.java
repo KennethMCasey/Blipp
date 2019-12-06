@@ -24,7 +24,6 @@ import nourl.tbd.Blipp.BlippConstructs.User;
 import nourl.tbd.Blipp.Database.UserGetter;
 import nourl.tbd.Blipp.Database.UserGetterCompletion;
 import nourl.tbd.Blipp.R;
-import nourl.tbd.Blipp.Helper.StatePersistence;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -54,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-
+    //No going back
     }
 
     @Override
@@ -136,10 +135,6 @@ public class LoginActivity extends AppCompatActivity {
                         public void userGetterSuccess(User user) {
                             //Gets the users name
                             String userName = user == null ? "*unknown*" : user.getName() == null ? "*unknown*" : user.getName();
-
-                            //Stores the validated information into StatePersistence.current
-                            StatePersistence.current.loggedInUser = userEmail;
-                            StatePersistence.current.password = userPassword;
 
                             //Moves to the BlippContent Activity, this activity will host all of the apps content through the use of fragments.
                             startActivity(new Intent(LoginActivity.this, BlippContentActivity.class));

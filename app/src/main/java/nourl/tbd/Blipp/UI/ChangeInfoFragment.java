@@ -44,6 +44,9 @@ public class ChangeInfoFragment extends Fragment
     {
         auth = FirebaseAuth.getInstance();
 
+        FragmentSwap fs = ((FragmentSwap)getActivity());
+        fs.postFragId(6);
+
        final View v = inflater.inflate(R.layout.change_user_info, null);
 
         info = (v.findViewById(R.id.change_id));

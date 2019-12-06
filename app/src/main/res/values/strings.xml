@@ -58,6 +58,10 @@
 
     </string-array>
 
+    <string-array name="member_order">
+        <item>Alphabetical</item>
+        <item>Newest to Oldest</item>
+    </string-array>
 
     <string name="permission_rationale">Location permission is needed for core functionality</string>
     <string name="permission_denied_explanation">Permission was denied, but is needed for core
@@ -66,4 +70,8 @@
         No location detected. Make sure location is enabled on the device.
     </string>
     <string name="settings">Settings</string>
+    <string name="make_community_message">Create Community</string>
+    <string name="make_community_name">community name</string>
+    <string name="make_community_add_photo">Add Photo</string>
+    <string name="make_community_miles_default">-</string>
 </resources>

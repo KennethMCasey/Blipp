@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.net.MalformedURLException;
 import java.util.Locale;
 
 
@@ -31,15 +32,13 @@ import nourl.tbd.Blipp.BuildConfig;
 import nourl.tbd.Blipp.R;
 
 public class LocationGetter {
-    //TODO: Implement the LocationGetter Class, this will make the process of getting the users current geo location (somthing that will need to be repeated a million times) way easier.
-
-    private Context context;
-    private FusedLocationProviderClient mFusedLocationClient;
+      private Context context;
+   private FusedLocationProviderClient mFusedLocationClient;
     protected Location mLastLocation;
     private LocationGetterCompletion completion;
     private double  lati, longi;
 
-    public static LatLongBounds getBounds(double latitude, double longitude, double miles)
+    /*public static LatLongBounds getBounds(double latitude, double longitude, double miles)
     {
         double latMin = (latitude - (miles/69)) % 180;
         double latMax = (latitude + (miles/69)) % 180;
@@ -48,21 +47,37 @@ public class LocationGetter {
 
         return  new LatLongBounds(latMin, latMax, lonMin, lonMax);
 
-    }
+    }*/
 
 
-   static public class LatLongBounds
+    static public class LatLongBounds
     {
         double latMin;
         double latMax;
         double lonMin;
         double lonMax;
 
-        public LatLongBounds(double latMin, double latMax, double lonMin, double lonMax) {
-            this.latMin = latMin;
-            this.latMax = latMax;
-            this.lonMin = lonMin;
-            this.lonMax = lonMax;
+        public LatLongBounds(double latitude, double longitude, double miles) {
+            latMin = (((latitude + 90) - (miles/69)) % 180) - 90;
+            latMax = (((latitude + 90) + (miles/69)) % 180) - 90;
+            lonMax = (((longitude + 180) + (miles/69)) % 360) - 180;
+            lonMin = (((longitude + 180) - (miles/69)) % 360) - 180;
+        }
+
+        public double getLatMin() {
+            return latMin;
+        }
+
+        public double getLatMax() {
+            return latMax;
+        }
+
+        public double getLonMin() {
+            return lonMin;
+        }
+
+        public double getLonMax() {
+            return lonMax;
         }
     }
 
@@ -82,7 +97,7 @@ public class LocationGetter {
                             completion.locationGetterDidGetLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                         }
                         else
-                            {
+                        {
                             completion.locationGetterDidFail(true);
                         }
                     }

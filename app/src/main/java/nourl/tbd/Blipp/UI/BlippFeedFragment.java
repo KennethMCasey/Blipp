@@ -1,13 +1,10 @@
 package nourl.tbd.Blipp.UI;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -27,37 +24,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
-import nourl.tbd.Blipp.BlippConstructs.Community;
-import nourl.tbd.Blipp.BlippConstructs.Like;
-import nourl.tbd.Blipp.BlippConstructs.Member;
-import nourl.tbd.Blipp.BlippConstructs.User;
-import nourl.tbd.Blipp.Database.CommunitySender;
-import nourl.tbd.Blipp.Database.CommunitySenderCompletion;
-import nourl.tbd.Blipp.Database.LikeSender;
-import nourl.tbd.Blipp.Database.LikeSenderCompletion;
-import nourl.tbd.Blipp.Database.MemberSender;
-import nourl.tbd.Blipp.Database.MemberSenderCompletion;
-import nourl.tbd.Blipp.Database.UserSender;
-import nourl.tbd.Blipp.Database.UserSenderCompletion;
 import nourl.tbd.Blipp.Helper.BlipListAdapter;
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.Database.BlipGetterCompletion;
@@ -67,7 +47,6 @@ import nourl.tbd.Blipp.Database.BlipSenderCompletion;
 import nourl.tbd.Blipp.Helper.LocationGetter;
 import nourl.tbd.Blipp.Helper.LocationGetterCompletion;
 import nourl.tbd.Blipp.R;
-import nourl.tbd.Blipp.Helper.StatePersistence;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -102,11 +81,9 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     {
 
         fragmentSwap = (FragmentSwap) this.getActivity();
-
-
+        fragmentSwap.postFragId(0);
 
         //inflates the layout
-        //TODO: Make the layout look nicer
         View v = inflater.inflate(R.layout.blipp_feed_list_view, container, false);
 
         //Configures the floating action button
@@ -122,7 +99,6 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_distances, R.layout.spinner_item_blip);
         adapter.setDropDownViewResource(R.layout.spinner_item_blip);
         blippDistance.setAdapter(adapter);
-        blippDistance.setSelection(StatePersistence.current.nearMeSelectedRadius, false);
         blippDistance.setOnItemSelectedListener(new BlippSpinnerChanged());
 
 
@@ -131,24 +107,16 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this.getContext(), R.array.blipp_order, R.layout.spinner_item_blip);
         adapter.setDropDownViewResource(R.layout.spinner_item_blip);
         blippOrder.setAdapter(adapter2);
-        blippOrder.setSelection(StatePersistence.current.nearMeSelectedOrdering,false);
         blippOrder.setOnItemSelectedListener(new BlippSpinnerChanged());
 
         //Configures the blipp feed list
         blippFeed = v.findViewById(R.id.list_feed);
-        blippFeed.setAdapter(new BlipListAdapter(this.getContext(), StatePersistence.current.blipsFeed == null ? new ArrayList<Blipp>() : StatePersistence.current.blipsFeed));
+        blippFeed.setAdapter(new BlipListAdapter(getContext(), new ArrayList<Blipp>()));
         blippFeed.setOnScrollListener(new BottomHit());
         blippFeed.setOnItemClickListener(new ToBlipDetail());
 
         //if there were no previously loaded blipps this will start the background task to get the new blipps
-        if (StatePersistence.current.blipsFeed == null) getBlips(null);
-
-
-        //set the touch listener for if the user clicks outside the make blip window
-        v.setOnTouchListener(new AnythingTouched());
-        blippOrder.setOnTouchListener(new AnythingTouched());
-        blippDistance.setOnTouchListener(new AnythingTouched());
-
+        getBlips(null);
 
         return v;
     }
@@ -169,15 +137,16 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     @Override
     public void onResume()
     {
-        //TODO: Fix me
         super.onResume();
-        if (StatePersistence.current.blipsFeed != null && StatePersistence.current.blipsFeed.size() != blippFeed.getAdapter().getCount()) ((BlipListAdapter)blippFeed.getAdapter()).notifyDataSetChanged();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
+        currentPhotoUrl = null;
+
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
-            Bitmap thumbnail = data.getParcelableExtra("data");
             Uri fullPhotoUri = data.getData();
             ImageView iv = popupView.findViewById(R.id.make_blipp_photo);
             iv.setImageURI(fullPhotoUri);
@@ -186,16 +155,21 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
                 {
-                    Toast.makeText(getContext(), task.isSuccessful() ? "Good" : "Bad", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), task.isSuccessful() ? "Success: Uploaded photo" : "Error: Could not upload photo", Toast.LENGTH_LONG).show();
                     if (task.isSuccessful()) FirebaseStorage.getInstance().getReference(currentPhotoPath).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                            currentPhotoUrl = uri.toString();
+                            popupView.findViewById(R.id.btnSubmit).setVisibility(View.VISIBLE);
                         }
                     });
+                    else
+                    {popupView.findViewById(R.id.btnSubmit).setVisibility(View.VISIBLE);
+                    Toast.makeText(getContext(), "Error: could not post photo, please reselect", Toast.LENGTH_SHORT).show(); ;
+                    }
                 }
             });
-        }
+        } else popupView.findViewById(R.id.btnSubmit).setVisibility(View.VISIBLE);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -242,7 +216,6 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     public void blipGetterGotInitialBlips(ArrayList<Blipp> results)
     {
         if (results == null) didHitBottom = true;
-        StatePersistence.current.blipsFeed = results;
         ((BlipListAdapter)blippFeed.getAdapter()).setBlipps(results);
         blippRefresh.setRefreshing(false);
     }
@@ -251,7 +224,6 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
     public void blipGetterGotAdditionalBlips(ArrayList<Blipp> results)
     {
         if (results == null) didHitBottom = true;
-        StatePersistence.current.blipsFeed.addAll(results);
         ((BlipListAdapter)blippFeed.getAdapter()).addBlips(results);
         blippRefresh.setRefreshing(false);
     }
@@ -269,6 +241,8 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
 
     public void sendBlip(final String text,  final boolean isShortDistance, final boolean isMedumDistance, final boolean isLongDistance)
     {
+
+
         new LocationGetter(getContext(), new LocationGetterCompletion() {
             @Override
             public void locationGetterDidGetLocation(double latitude, double longitude) {
@@ -280,6 +254,8 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
             public void locationGetterDidFail(boolean shouldShowMessage)
             {
                 if (shouldShowMessage) Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Can not get location.", Toast.LENGTH_SHORT).show();
+                if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
+                currentPhotoUrl = null;
             }
         });
     }
@@ -291,12 +267,15 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         if (isSucessful)
         {
             Toast.makeText(BlippFeedFragment.this.getContext(), "Blipp was sent sucessfully", Toast.LENGTH_SHORT).show();
+            currentPhotoUrl = null;
             popupWindow.dismiss();
             popUpIsShowing = false;
         }
 
         else
         {
+            if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
+            currentPhotoUrl = null;
             Toast.makeText(BlippFeedFragment.this.getContext(), "Error Sending Blip", Toast.LENGTH_SHORT).show();
         }
     }
@@ -320,11 +299,6 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l)
         {
-            StatePersistence.current.nearMeSelectedRadius =  view.equals(blippDistance) ? position : StatePersistence.current.nearMeSelectedRadius;
-
-            StatePersistence.current.nearMeSelectedOrdering = view.equals(blippOrder) ?  position : StatePersistence.current.nearMeSelectedOrdering;
-
-
             blippRefresh.setRefreshing(true);
             getBlips(null);
         }
@@ -388,13 +362,6 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         @Override
         public void onClick(View view)
         {
-            //TODO: Create new blip interface and functionality
-            //Note: Must include option for blipp to be in either close, regular or max distance.
-            //Note: Must include way of adding a photo to your blipp. Photos are optional but text is mandatory.
-            //Note: Blipps are anonymous when posting, but please ensure to link the blipp with the current user when storing in the database so we can query them later such as in the My blipps section
-            //Note: Please try and make the interface look as aesthetically pleasing as possible AFTER we get the core functionality working, try to make a clean interface we will go back and polish later.
-            //Note: Look at the Fire base data face and see what other additional information is stored in each blip (ex: time, location), Some of this information isnt entered by the user but instead requires us to pull it from code.
-
             if (!popUpIsShowing)
             {
             LayoutInflater layoutInflater = getLayoutInflater();
@@ -410,14 +377,48 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                 public void onClick(View view) {
                     popupWindow.dismiss();
                     popUpIsShowing = false;
+                    if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
+                    currentPhotoUrl = null;
                 }
             });
+
+            final Button btnSubmit = popupView.findViewById(R.id.btnSubmit);
+            btnSubmit.setOnClickListener( new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    String blipText = ((EditText)popupView.findViewById(R.id.make_blipp_text)).getText().toString();
+
+                    if (blipText.isEmpty())
+                    {
+                        Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Blip must contain texr", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                   final boolean isShortDistance = ((CheckBox)popupView.findViewById(R.id.check_close)).isChecked();
+                   final boolean isMedumDistance = ((CheckBox)popupView.findViewById(R.id.check_reg)).isChecked();
+                   final boolean isLongDistance = ((CheckBox)popupView.findViewById(R.id.check_max)).isChecked();
+
+                    if (!isShortDistance && !isMedumDistance && !isLongDistance)
+                    {
+                        Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Must select at least one distance.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    sendBlip(blipText, isShortDistance, isMedumDistance ,isLongDistance);
+                    popupWindow.dismiss();
+                    popUpIsShowing = false;
+
+                }
+            });
+
 
                 Button btnPhoto = popupView.findViewById(R.id.make_blipp_btn_image);
                 btnPhoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        btnSubmit.setVisibility(View.INVISIBLE);
                         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
                         if (intent.resolveActivity(getContext().getPackageManager()) != null) {
@@ -426,40 +427,18 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                     }
                 });
 
-            Button btnSubmit = popupView.findViewById(R.id.btnSubmit);
-            btnSubmit.setOnClickListener( new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    String blipText = ((EditText)popupView.findViewById(R.id.make_blipp_text)).getText().toString();
-                    sendBlip(blipText, false, false ,false);
-
-                    popupWindow.dismiss();
-                    popUpIsShowing = false;
-
-                }
-            });
-
                 popupWindow.showAtLocation(BlippFeedFragment.this.getView().getRootView(), Gravity.CENTER, 0, 0);
+                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        popUpIsShowing = false;
+                        if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
+                        currentPhotoUrl = null;
+                    }
+                });
 
                 popUpIsShowing = true;
             }
         }
     }
-
-    class AnythingTouched implements View.OnTouchListener
-    {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent)
-        {
-            if (popUpIsShowing)
-            {
-                popupWindow.dismiss();
-                popUpIsShowing = false;
-            }
-            return false;
-        }
-    }
-
 }

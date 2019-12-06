@@ -1,29 +1,28 @@
 package nourl.tbd.Blipp.UI;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.ContentProvider;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 import nourl.tbd.Blipp.R;
-import nourl.tbd.Blipp.Helper.StatePersistence;
 
 public class BlippContentActivity extends AppCompatActivity implements FragmentSwap
 {
-
-
-    //TODO: When selecting on any blip in the near me, my blips, and liked blips section we have to bring a user to a detail view fragment where they can see the blipp in greater detail and view all existing comments and likes/dislikes as well as leave there own.
-
     //view properties
     TabLayout tabLayout;
     Fragment currFrag;
+    int fragID;
 
 
     @Override
@@ -35,8 +34,6 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
-
         //inflate layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blipp_content);
@@ -44,19 +41,26 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
         //sets up tab layout
         tabLayout = findViewById(R.id.tab_bar);
         tabLayout.addOnTabSelectedListener(new TabActions());
-        tabLayout.setScrollPosition(StatePersistence.current.tabSelected, 0, true);
-        if (currFrag == null) tabFragmentSwap(StatePersistence.current.tabSelected);
-        else swap(currFrag, false);
+        fragID =  savedInstanceState == null ? 0 : savedInstanceState.getInt("frag id", 1);
+        tabFragmentSwap(fragID);
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt("frag id", fragID);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
+
         //saves the StatePersistence if the application is stopped for whatever reason.
-        StatePersistence.current.saveData();
     }
+
+
 
     @Override
     protected void onResume() {
@@ -76,17 +80,16 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
         if (addToBackstack) fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
     @Override
-    public void saveFrag(Fragment fragment)
+    public void postFragId(int id)
     {
-        currFrag = fragment;
+        fragID = id;
     }
 
+    //Todo: Preserve the state of the current fragment
     void tabFragmentSwap(int tab)
     {
-        //saves the currenlty selected tab
-        StatePersistence.current.tabSelected = tab;
-
         while (getSupportFragmentManager().getBackStackEntryCount() > 0){
             getSupportFragmentManager().popBackStackImmediate();
         }
@@ -130,6 +133,48 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
             fragmentTransaction.replace(R.id.fragment_place_holder, new OptionsFragment());
         }
 
+        //Blip Detail Frag Selected
+        else if (tab == 5)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new BlippDetailFragment());
+        }
+
+        //Change info Frag Selected
+        else if (tab == 6)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new ChangeInfoFragment());
+        }
+
+        else if (tab == 7)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new CommunityBlipsFragment());
+        }
+
+        else if (tab == 8)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new JoinCommunityFragment());
+        }
+
+        else if (tab == 9)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new MakeCommunityFragment());
+        }
+
+        else if (tab == 10)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new ManageCommunitiesDetailFragment());
+        }
+
+        else if (tab == 11)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new ManageCommunitiesSelectFragment());
+        }
+
+        else if (tab == 12)
+        {
+            fragmentTransaction.replace(R.id.fragment_place_holder, new MemberListFragment());
+        }
+
         //finalize the swap
         fragmentTransaction.commit();
     }
@@ -143,6 +188,7 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
         @Override
         public void onTabSelected(TabLayout.Tab tab)
         {
+            fragID = tab.getPosition();
             tabFragmentSwap(tab.getPosition());
         }
 

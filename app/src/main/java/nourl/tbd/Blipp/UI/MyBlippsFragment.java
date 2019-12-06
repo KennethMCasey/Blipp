@@ -25,7 +25,6 @@ import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.Database.BlipGetterCompletion;
 import nourl.tbd.Blipp.Database.BlipGetter;
 import nourl.tbd.Blipp.R;
-import nourl.tbd.Blipp.Helper.StatePersistence;
 
 public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
 
@@ -40,6 +39,7 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         fragmentSwap = (FragmentSwap) this.getActivity();
+        fragmentSwap.postFragId(2);
 
         View v = inflater.inflate(R.layout.my_blipps_list, container, false);
 
@@ -48,7 +48,6 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(v.getContext(), R.array.blipp_order, R.layout.spinner_item_blip);
         adapter2.setDropDownViewResource(R.layout.spinner_item_blip);
         order.setAdapter(adapter2);
-        order.setSelection(StatePersistence.current.myBlipsSelectedOrdering, false);
         order.setOnItemSelectedListener(new OrderChanged());
 
         //Configure the refresh
@@ -57,12 +56,12 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
 
         //Configure the my blips list
         myBlips = v.findViewById(R.id.list_my_blips);
-        myBlips.setAdapter(new BlipListAdapter(this.getContext(), StatePersistence.current.blipsMy == null ?  new ArrayList<Blipp>() : StatePersistence.current.blipsMy));
+        myBlips.setAdapter(new BlipListAdapter(this.getContext(), new ArrayList<Blipp>()));
         myBlips.setOnScrollListener(new BottomHit());
         myBlips.setOnItemClickListener(new ToBlipDetail());
 
         //if there were no blipps loaded previously this will start the background task to
-        if (StatePersistence.current.blipsMy == null) getBlips(null);
+        getBlips(null);
 
 
         return v;
@@ -73,8 +72,6 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
-
-
             Blipp blipp = (Blipp)myBlips.getAdapter().getItem(position);
 
             String time = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH).format(blipp.getTime());
@@ -102,7 +99,6 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
     public void onResume()
     {
         super.onResume();
-        if ( StatePersistence.current.blipsMy != null && StatePersistence.current.blipsMy.size() != myBlips.getAdapter().getCount()) ((BlipListAdapter)myBlips.getAdapter()).notifyDataSetChanged();
     }
 
     private void getBlips(String blipToStartAt)
@@ -112,7 +108,6 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         refreshLayout.setEnabled(true);
         refreshLayout.setRefreshing(true);
 
-        //TODO: Pull the blip data from the database
         if (order.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.MY_BLIPS, BlipGetter.Order.MOST_RECENT, null, this, blipToStartAt, 20, this.getContext());
 
         else if (order.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.MY_BLIPS, BlipGetter.Order.MOST_LIKED, null, this, blipToStartAt, 20, this.getContext());
@@ -122,7 +117,6 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
     public void blipGetterGotInitialBlips(ArrayList<Blipp> results)
     {
         if (results == null) didHitBottom = true;
-        StatePersistence.current.blipsMy = results;
         ((BlipListAdapter)myBlips.getAdapter()).setBlipps(results);
         refreshLayout.setRefreshing(false);
     }
@@ -131,7 +125,6 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
     public void blipGetterGotAdditionalBlips(ArrayList<Blipp> results)
     {
         if (results == null) didHitBottom = true;
-        StatePersistence.current.blipsMy.addAll(results);
         ((BlipListAdapter)myBlips.getAdapter()).addBlips(results);
         refreshLayout.setRefreshing(false);
     }
@@ -159,7 +152,6 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l)
         {
-            StatePersistence.current.myBlipsSelectedOrdering = position;
             getBlips(null);
         }
 
@@ -180,10 +172,6 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
 
         @Override
         public void onScroll(AbsListView absListView, int firstVisableItem, int visableItemCount, int totalItemCount) {
-
-            /*Our Blipp Feed should only load 50 or less Blipps at a time. These will either be the 50 most recent or the 50 most liked depending on user configuration
-            TODO: When our list is displaying the very last possible count of items, we should pull the next 50 items from Firebase if the user wishes to keep scrolling
-             */
 
             if (firstVisableItem + visableItemCount == totalItemCount && totalItemCount!=0 && !didHitBottom)
             {

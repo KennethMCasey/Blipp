@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,14 +36,16 @@ import nourl.tbd.Blipp.Database.LikeSender;
 import nourl.tbd.Blipp.Database.LikeSenderCompletion;
 import nourl.tbd.Blipp.Database.UserGetter;
 import nourl.tbd.Blipp.Database.UserGetterCompletion;
+import nourl.tbd.Blipp.Helper.LocationGetter;
+import nourl.tbd.Blipp.Helper.LocationGetterCompletion;
 import nourl.tbd.Blipp.R;
 
 public class Blip extends LinearLayout
 {
-    static public int HEIGHT = 1000;
-
+    //The blip object containing the data for the blip
     Blipp blip;
 
+    //UI elements
     Button like;
     Button dislike;
     TextView text;
@@ -50,12 +53,13 @@ public class Blip extends LinearLayout
     TextView numLikes;
     TextView name;
 
+    //Wether or not the blip has been liked or not
     boolean didLike;
     boolean didDislike;
-
     String userLikeId;
     String userDislikeId;
 
+    //Initializer
     public Blip(Context context) {
         this(context, null);
     }
@@ -81,9 +85,10 @@ public class Blip extends LinearLayout
     }
 
 
+    //Call this after it has been initialized
     public Blip withBlip(Blipp blip)
     {
-
+        //Set the data
         this.blip = blip;
 
         //Configure text
@@ -93,8 +98,10 @@ public class Blip extends LinearLayout
         if (blip.getUrl() == null){ image.setVisibility(GONE);}
         else {
             image.setVisibility(VISIBLE);
-            image.setImageResource(R.mipmap.test_blimp);}
+            Picasso.get().load(blip.getUrl().equals("http://fake.com/") ?  "https://firebasestorage.googleapis.com/v0/b/blipp-15ee8.appspot.com/o/blipp.png?alt=media&token=06f2b24e-0905-469e-b092-b73f466edfc3" : blip.getUrl()).into(image);
+            }
 
+        //Get the name for the user who bliped through a user getter
         new UserGetter(blip.getUserId(), new UserGetterCompletion() {
             @Override
             public void userGetterSuccess(User user)
@@ -108,12 +115,18 @@ public class Blip extends LinearLayout
         }, getContext());
 
 
+        //Set listeners
         like.setOnClickListener(new LikeHandler());
         dislike.setOnClickListener(new LikeHandler());
+
+        //Get the live like count from the databse
         getLikes();
+
+        //return the view
         return this;
     }
 
+    //This class handles like button responses
     private class LikeHandler implements Button.OnClickListener
     {
         @Override
@@ -153,7 +166,7 @@ public class Blip extends LinearLayout
               }, Blip.this.getContext());
 
 
-              if (didDislike) new LikeDeleter(new Like(true, blip.getId(), FirebaseAuth.getInstance().getCurrentUser().getUid(), userDislikeId), new LikeDeleterCompletion() {
+              if (didDislike) new LikeDeleter(new Like(true, blip.getId(), FirebaseAuth.getInstance().getCurrentUser().getUid(), userDislikeId ), new LikeDeleterCompletion() {
                   @Override
                   public void likeDeleterDone(boolean isSuccessful)
                   {
@@ -163,8 +176,6 @@ public class Blip extends LinearLayout
                   }
               }, Blip.this.getContext());
           }
-
-
         }
     }
 
@@ -180,7 +191,6 @@ public class Blip extends LinearLayout
 
             for (int i = 0; i < likes.size(); i++){
                 Like temp = likes.get(i);
-                if (temp.getIsDislike())Toast.makeText(getContext(), Boolean.toString(temp.getIsDislike()), Toast.LENGTH_SHORT).show();
                val = temp.getIsDislike() ? val-1 : val+1;
                if (!didLike){ didLike = !temp.getIsDislike() && temp.getUserId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid());
                if (didLike) userLikeId = temp.getId();

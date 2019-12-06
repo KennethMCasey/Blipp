@@ -6,6 +6,8 @@ import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,17 +35,15 @@ public class LikeDeleter extends AsyncTask<Void, Void, Void>
     protected Void doInBackground(Void... voids)
     {
         //TODO: Delete the like on the passed blip by the current user in firebase
-        try {//this will only work with a like id attribute.
-            FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/")
-                    .getReference("like")
+        //this will only work with a like id attribute.
+            FirebaseDatabase.getInstance().getReference().child("like")
                     .child(like.getId())
-                    .removeValue();
-        }
-        catch (Exception e){
-            taskDone(false);
-            return null;
-        }
-        taskDone(true);// call with true if success call with false if fail
+                    .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    taskDone(task.isSuccessful());
+                }
+            });
         return null;
     }
         /*try { //this deletes all likes for a certain blip
