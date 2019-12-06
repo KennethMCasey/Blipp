@@ -2,9 +2,10 @@ package nourl.tbd.Blipp.BlippConstructs;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Comparator;
 import java.util.Date;
 
-public class Blipp {
+public class Blipp implements Comparable {
 
     private double latitude;
     private double longitude;
@@ -70,7 +71,7 @@ public class Blipp {
         this.community = null;
         this.time = new Date();
         this.latitude = latitude;
-        this.userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        this.userId =  FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.longitude = longitude;
     }
 
@@ -97,6 +98,8 @@ public class Blipp {
         this.id = id;
         return this;
     }
+
+
 
     //Geters are required to upload to firebase
     public String getId() {
@@ -149,5 +152,12 @@ public class Blipp {
 
     public String getCommunity() {
         return community;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        Blipp oo = (Blipp)o;
+        return this.numOfLikes > oo.numOfLikes ? 1 : this.numOfLikes < oo.numOfLikes ? -1 : 0;
     }
 }

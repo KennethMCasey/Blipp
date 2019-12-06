@@ -54,13 +54,13 @@ public class LikeSender extends AsyncTask<Void, Void, Void> {
                         @Override
                         public Transaction.Result doTransaction(@NonNull MutableData mutableData)
                         {
-                            FirebaseDatabase.getInstance().getReference().child("blip").child(like.getBlipId()).child("numLikes").addListenerForSingleValueEvent(new ValueEventListener() {
+                            FirebaseDatabase.getInstance().getReference().child("blip").child(like.getBlipId()).child("numOfLikes").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                                 {
                                     int i = dataSnapshot.getValue(int.class) == null ? 0 : dataSnapshot.getValue(int.class);
 
-                                    FirebaseDatabase.getInstance().getReference().child("blip").child(like.getBlipId()).child("numLikes").setValue(i+1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    FirebaseDatabase.getInstance().getReference().child("blip").child(like.getBlipId()).child("numOfLikes").setValue(i+1).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task)
                                         {

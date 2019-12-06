@@ -268,6 +268,7 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
             currentPhotoUrl = null;
             popupWindow.dismiss();
             popUpIsShowing = false;
+            getBlips(null);
         }
 
         else

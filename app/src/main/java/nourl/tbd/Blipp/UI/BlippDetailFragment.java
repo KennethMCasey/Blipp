@@ -142,7 +142,6 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         replys = v.findViewById(R.id.list_replys_blipp_detail);
         replys.setEmptyView(v.findViewById(R.id.empty_view));
         replys.setAdapter(new BlipListAdapter(this.getContext(), new ArrayList<Blipp>()));
-        replys.setOnScrollListener(new BottomHit());
         replys.setOnItemClickListener(new ToBlipDetail());
 
         //empty View
@@ -354,7 +353,6 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         @Override
         public void onClick(View v)
         {
-
             new BlipGetter(blip.getParent(), new BlipGetterCompletion() {
                 @Override
                 public void blipGetterGotInitialBlips(ArrayList<Blipp> results)
@@ -380,7 +378,9 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
                 }
 
                 @Override
-                public void blipGetterGotAdditionalBlips(ArrayList<Blipp> results) { }
+                public void blipGetterGotAdditionalBlips(ArrayList<Blipp> results) {
+                 }
+
 
                 @Override
                 public void blipGetterDidFail()
@@ -401,8 +401,10 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
              @Override
              public void blippDeleterDone(boolean isSuccessful)
              {
-             if (isSuccessful) BlippDetailFragment.this.getActivity().finish();
-             else Toast.makeText(BlippDetailFragment.this.getContext(), "Error: Blip Not Deleted", Toast.LENGTH_SHORT);
+             if (isSuccessful) {Toast.makeText(BlippDetailFragment.this.getContext(), "Success: Blip Deleted", Toast.LENGTH_SHORT).show();
+             getActivity().onBackPressed();
+             }
+             else Toast.makeText(BlippDetailFragment.this.getContext(), "Error: Blip Not Deleted", Toast.LENGTH_SHORT).show();
 
              }
          }, BlippDetailFragment.this.getContext());
@@ -419,6 +421,8 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
     }
 
 
+    //TODO: Implement me
+    /*
     private class BottomHit implements AbsListView.OnScrollListener
     {
         @Override
@@ -436,6 +440,8 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
             }
         }
     }
+    */
+
 
     class ToBlipDetail implements ListView.OnItemClickListener {
 

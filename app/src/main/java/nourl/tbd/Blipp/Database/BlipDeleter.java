@@ -3,9 +3,13 @@ package nourl.tbd.Blipp.Database;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.widget.Toast;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +26,7 @@ public class BlipDeleter extends AsyncTask<Void, Void, Void> {
     // Firebase instance variables
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mBlipDatabaseReference;
+    private Context context;
 
     //Blip to delete
     private Blipp blip;
@@ -35,6 +40,7 @@ public class BlipDeleter extends AsyncTask<Void, Void, Void> {
         this.completion = completion;
         this.blip = blip;
         this.mainThread = new Handler(context.getMainLooper());
+        this.context = context;
         this.execute();
     }
 
@@ -44,15 +50,16 @@ public class BlipDeleter extends AsyncTask<Void, Void, Void> {
 
         // blip to delete : class variable blip
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mBlipDatabaseReference = mFirebaseDatabase.getReference("blip").child(blip.getId());
-
-        mBlipDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("blip").child(blip.getId()).getRef().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.hasChild(blip.getId())){
-                    mBlipDatabaseReference.removeValue();
-                    taskDone(true);// pass true on success on false on failure
+                if(dataSnapshot.exists()){
+                    dataSnapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            taskDone(task.isSuccessful());
+                        }
+                    });
                 }else{
                     taskDone(false);// pass true on success on false on failure
                 }

@@ -22,12 +22,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Blipp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Blipp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipDeleter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipDeleter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/CommunityBlipsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/CommunityBlipsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/MyBlippsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/MyBlippsFragment.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="112" column="88" selection-start-line="112" selection-start-column="88" selection-end-line="112" selection-end-column="88" />
+            <state relative-caret-position="-1075">
+              <caret line="270" column="25" selection-start-line="270" selection-start-column="25" selection-end-line="270" selection-end-column="25" />
               <folding>
                 <element signature="e#15420#15813#0" expanded="true" />
                 <element signature="e#15812#15813#0" expanded="true" />
@@ -77,29 +76,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/CommunityBlipsFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="124" column="94" selection-start-line="124" selection-start-column="94" selection-end-line="124" selection-end-column="94" />
-              <folding>
-                <element signature="e#14756#15181#0" expanded="true" />
-                <element signature="e#15180#15181#0" expanded="true" />
-                <element signature="e#15312#16015#0" expanded="true" />
-                <element signature="e#16014#16015#0" expanded="true" />
-                <element signature="e#16148#16692#0" expanded="true" />
-                <element signature="e#16691#16692#0" expanded="true" />
-                <element signature="e#16865#17245#0" expanded="true" />
-                <element signature="e#17244#17245#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="58" column="96" selection-start-line="58" selection-start-column="96" selection-end-line="58" selection-end-column="96" />
+            <state relative-caret-position="953">
+              <caret line="90" column="37" selection-start-line="90" selection-start-column="37" selection-end-line="90" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -107,22 +87,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="357" column="12" selection-start-line="357" selection-start-column="12" selection-end-line="357" selection-end-column="12" />
+            <state relative-caret-position="143">
+              <caret line="354" column="9" selection-start-line="354" selection-start-column="9" selection-end-line="354" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8045#8372#0" expanded="true" />
                 <element signature="e#8371#8372#0" expanded="true" />
+                <element signature="e#16987#17412#0" expanded="true" />
+                <element signature="e#17411#17412#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipDeleterCompletion.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -130,7 +103,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/Blip.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="687">
+            <state relative-caret-position="2250">
               <caret line="204" column="50" selection-start-line="204" selection-start-column="50" selection-end-line="204" selection-end-column="50" />
               <folding>
                 <element signature="e#4833#5209#0" expanded="true" />
@@ -141,39 +114,53 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipDeleter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="589">
-              <caret line="220" column="21" selection-start-line="165" selection-start-column="57" selection-end-line="220" selection-end-column="21" />
+            <state relative-caret-position="378">
+              <caret line="52" column="127" selection-start-line="52" selection-start-column="7" selection-end-line="52" selection-end-column="127" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1241#1248#0" expanded="true" />
-                <element signature="e#1294#1301#0" expanded="true" />
-                <element signature="e#6701#6702#0" expanded="true" />
-                <element signature="e#6754#6755#0" expanded="true" />
-                <element signature="e#9152#9153#0" expanded="true" />
-                <element signature="e#9239#9240#0" expanded="true" />
-                <element signature="e#15225#15226#0" expanded="true" />
-                <element signature="e#15312#15313#0" expanded="true" />
-                <element signature="e#21333#21334#0" expanded="true" />
-                <element signature="e#21420#21421#0" expanded="true" />
-                <element signature="e#37848#38235#0" expanded="true" />
-                <element signature="e#38234#38235#0" expanded="true" />
-                <element signature="e#38528#38529#0" expanded="true" />
-                <element signature="e#38564#38565#0" expanded="true" />
-                <element signature="e#38594#38595#0" expanded="true" />
-                <element signature="e#38627#38628#0" expanded="true" />
-                <element signature="e#39084#39085#0" expanded="true" />
-                <element signature="e#39120#39121#0" expanded="true" />
-                <element signature="e#39150#39151#0" expanded="true" />
-                <element signature="e#39183#39184#0" expanded="true" />
-                <element signature="e#39579#39580#0" expanded="true" />
-                <element signature="e#39615#39616#0" expanded="true" />
-                <element signature="e#39645#39646#0" expanded="true" />
-                <element signature="e#39678#39679#0" expanded="true" />
-                <element signature="e#39990#39997#0" expanded="true" />
-                <element signature="e#40263#40441#0" expanded="true" />
-                <element signature="e#40440#40441#0" expanded="true" />
+                <element signature="e#2196#2444#0" expanded="true" />
+                <element signature="e#2443#2444#0" expanded="true" />
+                <element signature="e#2323#2476#0" expanded="true" />
+                <element signature="e#2475#2476#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Blipp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2355">
+              <caret line="160" column="94" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="94" />
+              <folding>
+                <element signature="e#4254#4255#0" expanded="true" />
+                <element signature="e#4279#4280#0" expanded="true" />
+                <element signature="e#4313#4314#0" expanded="true" />
+                <element signature="e#4346#4347#0" expanded="true" />
+                <element signature="e#4376#4377#0" expanded="true" />
+                <element signature="e#4402#4403#0" expanded="true" />
+                <element signature="e#4433#4434#0" expanded="true" />
+                <element signature="e#4460#4461#0" expanded="true" />
+                <element signature="e#4495#4496#0" expanded="true" />
+                <element signature="e#4526#4527#0" expanded="true" />
+                <element signature="e#4562#4563#0" expanded="true" />
+                <element signature="e#4594#4595#0" expanded="true" />
+                <element signature="e#4636#4637#0" expanded="true" />
+                <element signature="e#4673#4674#0" expanded="true" />
+                <element signature="e#4717#4718#0" expanded="true" />
+                <element signature="e#4756#4757#0" expanded="true" />
+                <element signature="e#4799#4800#0" expanded="true" />
+                <element signature="e#4837#4838#0" expanded="true" />
+                <element signature="e#4866#4867#0" expanded="true" />
+                <element signature="e#4893#4894#0" expanded="true" />
+                <element signature="e#4926#4927#0" expanded="true" />
+                <element signature="e#4955#4956#0" expanded="true" />
+                <element signature="e#4988#4989#0" expanded="true" />
+                <element signature="e#5017#5018#0" expanded="true" />
+                <element signature="e#5053#5054#0" expanded="true" />
+                <element signature="e#5085#5086#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -191,11 +178,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Blipp.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="709">
-              <caret line="133" column="37" selection-start-line="133" selection-start-column="37" selection-end-line="133" selection-end-column="37" />
+            <state relative-caret-position="1995">
+              <caret line="133" column="61" selection-start-line="133" selection-start-column="61" selection-end-line="133" selection-end-column="61" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#40276#40663#0" expanded="true" />
+                <element signature="e#40662#40663#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeSender.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="630">
+              <caret line="62" column="132" selection-start-line="62" selection-start-column="132" selection-end-line="62" selection-end-column="132" />
+              <folding>
+                <element signature="e#1608#3847#0" expanded="true" />
+                <element signature="e#3846#3847#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -220,6 +225,7 @@
       <find>results.</find>
       <find>results.clear</find>
       <find>taskDone</find>
+      <find>Collections.reverse</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -283,7 +289,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/UserGetter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/CommunityDeleter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/UserDeleter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipDeleter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/MemberGetter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Like.java" />
@@ -313,17 +318,18 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/member_list_fragment.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/member_row.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/MakeCommunityFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/Blip.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeDeleter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeSender.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeGetter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/CommunityBlipsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/MyBlippsFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Blipp.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipDeleter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeSender.java" />
       </list>
     </option>
   </component>
@@ -364,30 +370,7 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="Blipp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="BlippConstructs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="Blipp" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="Database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="Blipp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="UI" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="Blipp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
@@ -566,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1575604400561</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Blip Feed Working">
+      <created>1575606145055</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1575606145055</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
@@ -591,12 +581,12 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.4822294" weight="0.054455444" />
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.4822294" weight="0.25247526" />
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49520767" weight="0.32739726" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49893504" weight="0.32739726" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49946752" weight="0.16986302" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.30371568" side_tool="true" visible="true" weight="0.4041096" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.30371568" side_tool="true" weight="0.4041096" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.04109589" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.69628435" weight="0.17821783" />
       <window_info anchor="bottom" id="Find" order="8" sideWeight="0.49946752" weight="0.36712328" />
@@ -610,35 +600,6 @@
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Assistant" order="6" visible="true" weight="0.015974442" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.20274636" />
-      <window_info id="Structure" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info id="Build Variants" order="4" side_tool="true" />
-      <window_info id="Image Layers" order="5" />
-      <window_info id="Designer" order="6" />
-      <window_info id="Resources Explorer" order="7" />
-      <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.48402557" weight="0.46164384" />
-      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49520767" weight="0.32739726" />
-      <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49893504" weight="0.32739726" />
-      <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49946752" weight="0.16986302" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5149095" side_tool="true" weight="0.19702971" />
-      <window_info anchor="bottom" id="Version Control" order="6" weight="0.32876712" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.48509052" visible="true" weight="0.08630137" />
-      <window_info anchor="bottom" id="Find" order="8" sideWeight="0.49946752" weight="0.36712328" />
-      <window_info anchor="bottom" id="Android Profiler" order="9" sideWeight="0.4978701" weight="0.32739726" />
-      <window_info anchor="bottom" id="Messages" order="10" visible="true" weight="0.32970297" />
-      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Gradle" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Preview" order="4" />
-      <window_info anchor="right" id="Palette&#9;" order="5" />
-      <window_info anchor="right" id="Assistant" order="6" visible="true" weight="0.015974442" />
-    </layout-to-restore>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -651,23 +612,14 @@
     <MESSAGE value="Fixed Tab Bar Glitch Issue as well as other layout weight issues." />
     <MESSAGE value="Location getter implemented, Group code implemented." />
     <MESSAGE value="Merge of master and Firebase code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge of master and Firebase code" />
+    <MESSAGE value="Blip Feed Working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Blip Feed Working" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeDeleterCompletion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipDeleter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -999,67 +951,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeSender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="45" column="47" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/Blip.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="687">
-          <caret line="204" column="50" selection-start-line="204" selection-start-column="50" selection-end-line="204" selection-end-column="50" />
-          <folding>
-            <element signature="e#4833#5209#0" expanded="true" />
-            <element signature="e#5208#5209#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeGetter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="61" column="35" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
-          <folding>
-            <element signature="e#2433#2434#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="357" column="12" selection-start-line="357" selection-start-column="12" selection-end-line="357" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8045#8372#0" expanded="true" />
-            <element signature="e#8371#8372#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipDeleterCompletion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="112" column="88" selection-start-line="112" selection-start-column="88" selection-end-line="112" selection-end-column="88" />
-          <folding>
-            <element signature="e#15420#15813#0" expanded="true" />
-            <element signature="e#15812#15813#0" expanded="true" />
-            <element signature="e#15936#17307#0" expanded="true" />
-            <element signature="e#17306#17307#0" expanded="true" />
-            <element signature="e#17441#17985#0" expanded="true" />
-            <element signature="e#17984#17985#0" expanded="true" />
-            <element signature="e#18152#18532#0" expanded="true" />
-            <element signature="e#18531#18532#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1080,13 +975,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="58" column="96" selection-start-line="58" selection-start-column="96" selection-end-line="58" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/MyBlippsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="424">
@@ -1094,47 +982,134 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/LikedBlippsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="220" column="21" selection-start-line="165" selection-start-column="57" selection-end-line="220" selection-end-column="21" />
+        <state relative-caret-position="953">
+          <caret line="90" column="37" selection-start-line="90" selection-start-column="37" selection-end-line="90" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/Blip.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2250">
+          <caret line="204" column="50" selection-start-line="204" selection-start-column="50" selection-end-line="204" selection-end-column="50" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1241#1248#0" expanded="true" />
-            <element signature="e#1294#1301#0" expanded="true" />
-            <element signature="e#6701#6702#0" expanded="true" />
-            <element signature="e#6754#6755#0" expanded="true" />
-            <element signature="e#9152#9153#0" expanded="true" />
-            <element signature="e#9239#9240#0" expanded="true" />
-            <element signature="e#15225#15226#0" expanded="true" />
-            <element signature="e#15312#15313#0" expanded="true" />
-            <element signature="e#21333#21334#0" expanded="true" />
-            <element signature="e#21420#21421#0" expanded="true" />
-            <element signature="e#37848#38235#0" expanded="true" />
-            <element signature="e#38234#38235#0" expanded="true" />
-            <element signature="e#38528#38529#0" expanded="true" />
-            <element signature="e#38564#38565#0" expanded="true" />
-            <element signature="e#38594#38595#0" expanded="true" />
-            <element signature="e#38627#38628#0" expanded="true" />
-            <element signature="e#39084#39085#0" expanded="true" />
-            <element signature="e#39120#39121#0" expanded="true" />
-            <element signature="e#39150#39151#0" expanded="true" />
-            <element signature="e#39183#39184#0" expanded="true" />
-            <element signature="e#39579#39580#0" expanded="true" />
-            <element signature="e#39615#39616#0" expanded="true" />
-            <element signature="e#39645#39646#0" expanded="true" />
-            <element signature="e#39678#39679#0" expanded="true" />
-            <element signature="e#39990#39997#0" expanded="true" />
-            <element signature="e#40263#40441#0" expanded="true" />
-            <element signature="e#40440#40441#0" expanded="true" />
+            <element signature="e#4833#5209#0" expanded="true" />
+            <element signature="e#5208#5209#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippFeedFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1075">
+          <caret line="270" column="25" selection-start-line="270" selection-start-column="25" selection-end-line="270" selection-end-column="25" />
+          <folding>
+            <element signature="e#15420#15813#0" expanded="true" />
+            <element signature="e#15812#15813#0" expanded="true" />
+            <element signature="e#15936#17307#0" expanded="true" />
+            <element signature="e#17306#17307#0" expanded="true" />
+            <element signature="e#17441#17985#0" expanded="true" />
+            <element signature="e#17984#17985#0" expanded="true" />
+            <element signature="e#18152#18532#0" expanded="true" />
+            <element signature="e#18531#18532#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/BlippConstructs/Blipp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="709">
-          <caret line="133" column="37" selection-start-line="133" selection-start-column="37" selection-end-line="133" selection-end-column="37" />
+        <state relative-caret-position="2355">
+          <caret line="160" column="94" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="94" />
+          <folding>
+            <element signature="e#4254#4255#0" expanded="true" />
+            <element signature="e#4279#4280#0" expanded="true" />
+            <element signature="e#4313#4314#0" expanded="true" />
+            <element signature="e#4346#4347#0" expanded="true" />
+            <element signature="e#4376#4377#0" expanded="true" />
+            <element signature="e#4402#4403#0" expanded="true" />
+            <element signature="e#4433#4434#0" expanded="true" />
+            <element signature="e#4460#4461#0" expanded="true" />
+            <element signature="e#4495#4496#0" expanded="true" />
+            <element signature="e#4526#4527#0" expanded="true" />
+            <element signature="e#4562#4563#0" expanded="true" />
+            <element signature="e#4594#4595#0" expanded="true" />
+            <element signature="e#4636#4637#0" expanded="true" />
+            <element signature="e#4673#4674#0" expanded="true" />
+            <element signature="e#4717#4718#0" expanded="true" />
+            <element signature="e#4756#4757#0" expanded="true" />
+            <element signature="e#4799#4800#0" expanded="true" />
+            <element signature="e#4837#4838#0" expanded="true" />
+            <element signature="e#4866#4867#0" expanded="true" />
+            <element signature="e#4893#4894#0" expanded="true" />
+            <element signature="e#4926#4927#0" expanded="true" />
+            <element signature="e#4955#4956#0" expanded="true" />
+            <element signature="e#4988#4989#0" expanded="true" />
+            <element signature="e#5017#5018#0" expanded="true" />
+            <element signature="e#5053#5054#0" expanded="true" />
+            <element signature="e#5085#5086#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="61" column="35" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
+          <folding>
+            <element signature="e#2433#2434#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipDeleter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="52" column="127" selection-start-line="52" selection-start-column="7" selection-end-line="52" selection-end-column="127" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2196#2444#0" expanded="true" />
+            <element signature="e#2443#2444#0" expanded="true" />
+            <element signature="e#2323#2476#0" expanded="true" />
+            <element signature="e#2475#2476#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/UI/BlippDetailFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="354" column="9" selection-start-line="354" selection-start-column="9" selection-end-line="354" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8045#8372#0" expanded="true" />
+            <element signature="e#8371#8372#0" expanded="true" />
+            <element signature="e#16987#17412#0" expanded="true" />
+            <element signature="e#17411#17412#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/BlipGetter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1995">
+          <caret line="133" column="61" selection-start-line="133" selection-start-column="61" selection-end-line="133" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#40276#40663#0" expanded="true" />
+            <element signature="e#40662#40663#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nourl/tbd/Blipp/Database/LikeSender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="62" column="132" selection-start-line="62" selection-start-column="132" selection-end-line="62" selection-end-column="132" />
+          <folding>
+            <element signature="e#1608#3847#0" expanded="true" />
+            <element signature="e#3846#3847#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

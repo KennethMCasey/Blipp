@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
@@ -130,6 +131,8 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         this.indivBlipID = indivBlipID;
         this.completion = completion;
         this.context = context;
+        this.uiThread = new Handler(context.getMainLooper());
+        this.execute();
     }
 
     @Override
@@ -139,10 +142,11 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
         //For single blip
         if (indivBlipID != null) {
-            database.getReference().child("blip").child(indivBlipID).addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference().child("blip").child(indivBlipID).getRef().addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
+                    if (!dataSnapshot.exists()) {taskDone(false); return;}
                     results = new ArrayList<>();
                      results.add(dataSnapshot.getValue(Blipp.class));
                      taskDone(true);
@@ -180,7 +184,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                             .orderByChild("latitude")
                                             .startAt(latLongBounds.getLatMin())
                                             .endAt(latLongBounds.getLatMax())
-                                            .addValueEventListener(new ValueEventListener() {
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot snapshot) {
                                                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
@@ -188,12 +192,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                                         final Blipp blip = childSnapshot.getValue(Blipp.class);
 
                                                         if (blip.getLongitude() >= latLongBounds.getLonMin() && blip.getLongitude() <= latLongBounds.getLonMax()) {
-                                                            if(blip.getIsShortDistance()== true) {
+                                                            if(blip.getIsShortDistance()== true && blip.getParent() == null && blip.getCommunity() == null) {
                                                                 temp.add(blip);
                                                             }
                                                         }
                                                     }
                                                     results = temp;
+                                                   if (results != null) Collections.reverse(results);
                                                     taskDone(true);
                                                 }
 
@@ -235,14 +240,14 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                             .orderByChild("latitude")
                                             .startAt(latLongBounds.getLatMin())
                                             .endAt(latLongBounds.getLatMax())
-                                            .addValueEventListener(new ValueEventListener() {
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot snapshot) {
                                                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
 
                                                         final Blipp blip = childSnapshot.getValue(Blipp.class);
                                                         if (blip.getLongitude() >= latLongBounds.getLonMin() && blip.getLongitude() <= latLongBounds.getLonMax()) {
-                                                            temp.add(blip);
+                                                           if (blip.getCommunity() == null && blip.getParent() == null && blip.getIsShortDistance())   temp.add(blip);
                                                         }
                                                     }
                                                     //ArrayList
@@ -287,7 +292,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                             .orderByChild("latitude")
                                             .startAt(latLongBounds.getLatMin())
                                             .endAt(latLongBounds.getLatMax())
-                                            .addValueEventListener(new ValueEventListener() {
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot snapshot) {
                                                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
@@ -295,11 +300,12 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                                         final Blipp blip = childSnapshot.getValue(Blipp.class);
 
                                                         if (blip.getLongitude() >= latLongBounds.getLonMin() && blip.getLongitude() <= latLongBounds.getLonMax()) {
-                                                            if(blip.getIsMediumDistance()== true) {
+                                                            if(blip.getIsMediumDistance()== true && blip.getParent() == null && blip.getCommunity() == null) {
                                                                 temp.add(blip);
                                                             }
                                                         }
                                                     }
+                                                   if (results != null) Collections.reverse(results);
                                                     results = temp;
 
                                                     taskDone(true);
@@ -344,14 +350,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                             .orderByChild("latitude")
                                             .startAt(latLongBounds.getLatMin())
                                             .endAt(latLongBounds.getLatMax())
-                                            .addValueEventListener(new ValueEventListener() {
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot snapshot) {
                                                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
                                                         final Blipp blip = childSnapshot.getValue(Blipp.class);
                                                         if (blip.getLongitude() >= latLongBounds.getLonMin() && blip.getLongitude() <= latLongBounds.getLonMax()) {
-                                                            temp.add(blip);
-
+                                                           if (blip.getParent() == null && blip.getCommunity() == null && blip.getIsMediumDistance())  temp.add(blip);
                                                         }
                                                     }
                                                     //ArrayList
@@ -396,7 +401,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                             .orderByChild("latitude")
                                             .startAt(latLongBounds.getLatMin())
                                             .endAt(latLongBounds.getLatMax())
-                                            .addValueEventListener(new ValueEventListener() {
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot snapshot) {
                                                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
@@ -404,13 +409,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                                         final Blipp blip = childSnapshot.getValue(Blipp.class);
 
                                                         if (blip.getLongitude() >= latLongBounds.getLonMin() && blip.getLongitude() <= latLongBounds.getLonMax()) {
-                                                            if(blip.getIsLongDistance()== true) {
+                                                            if(blip.getIsLongDistance()== true && blip.getParent() == null && blip.getCommunity() == null) {
                                                                 temp.add(blip);
                                                             }
                                                         }
                                                     }
                                                     results = temp;
-
+                                                   if (results != null) Collections.reverse(results);
                                                     taskDone(true);
 
                                                 }
@@ -456,13 +461,13 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                             .orderByChild("latitude")
                                             .startAt(latLongBounds.getLatMin())
                                             .endAt(latLongBounds.getLatMax())
-                                            .addValueEventListener(new ValueEventListener() {
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot snapshot) {
                                                     for (DataSnapshot childSnapshot: snapshot.getChildren()) {
                                                         final Blipp blip = childSnapshot.getValue(Blipp.class);
                                                         if (blip.getLongitude() >= latLongBounds.getLonMin() && blip.getLongitude() <= latLongBounds.getLonMax()) {
-                                                            temp.add(blip);
+                                                            if (blip.getParent() == null && blip.getCommunity() == null && blip.getIsLongDistance()) temp.add(blip);
                                                         }
                                                     }
                                                     //ArrayList
@@ -497,10 +502,8 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
                 if (order.equals(Order.MOST_RECENT)) {
                     //TODO: Wrire a query that will return an array of blips from firebase that the user has previously liked (no dislikes) order by most recent
-
                     try {
-                        Query q = FirebaseDatabase.getInstance().getReference().child("like").orderByChild("userId").equalTo(currentUser); // pull likes from currentuser
-                        q.addListenerForSingleValueEvent(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("like").orderByChild("userId").equalTo(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 ArrayList<Like> likes = new ArrayList<>();
@@ -508,14 +511,15 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                     if (!ds.getValue(Like.class).getIsDislike())// Don't accept dislikes
                                         likes.add(ds.getValue(Like.class)); //store likes in Arraylist
                                 }
+                                results = new ArrayList<>();
                                 for (Like lk : likes) {
                                     FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("id").equalTo(lk.getBlipId()) // pull blipps from each like id
                                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                                    for (DataSnapshot ds : dataSnapshot.getChildren())
-                                                        results.add(ds.getValue(Blipp.class));  // add matching blipps to results
+                                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                        results.add(ds.getValue(Blipp.class));  }// add matching blipps to results
+                                                       if (results != null) Collections.reverse(results);
                                                     taskDone(true);
                                                 }
 
@@ -524,7 +528,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                                     taskDone(false);
                                                 }
                                             });
-                                }
+                                } if (likes.size() == 0) taskDone(true);
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -539,16 +543,15 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
                 if (order.equals(Order.MOST_LIKED)) {
                     //TODO: Wrire a query that will return an array of blips from firebase that the user has previously liked (no dislikes) order by most liked
-                    temp.clear();
                     try {
-                        Query q = FirebaseDatabase.getInstance().getReference().child("like").orderByChild("userId").equalTo(currentUser); // pull likes from currentuser
-                        q.addListenerForSingleValueEvent(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("like").orderByChild("userId").equalTo(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 ArrayList<Like> likes = new ArrayList<>();
-                                for (DataSnapshot ds : dataSnapshot.getChildren())
+                                for (DataSnapshot ds : dataSnapshot.getChildren()){
                                     if (!ds.getValue(Like.class).getIsDislike())// Don't accept dislikes
-                                        likes.add(ds.getValue(Like.class)); //store likes in Arraylist
+                                        likes.add(ds.getValue(Like.class)); }//store likes in Arraylist
+                                temp = new ArrayList<>();
                                 for (Like lk : likes) {
                                     FirebaseDatabase.getInstance().getReference().child("blip")
                                             .orderByChild("id")
@@ -556,8 +559,10 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                    for (DataSnapshot ds : dataSnapshot.getChildren())
-                                                        temp.add(ds.getValue(Blipp.class));  // add matching blipps to results
+                                                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                                                        temp.add(ds.getValue(Blipp.class));  }// add matching blipps to results
+                                                    results = sortByLikes(temp);
+                                                    taskDone(true);
                                                 }
                                                 @Override
                                                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -565,6 +570,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                                 }
                                             });
                                 }
+                                if (likes.size() == 0) taskDone(true);
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -584,14 +590,15 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     //TODO: Wrire a query that will return an array of blips from firebase that the user has previously bliped, order by most recent
 
                     try {
-                        Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("userId").equalTo(currentUser);
-                        q.addListenerForSingleValueEvent(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("userId").equalTo(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 results = new ArrayList<>();
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                     results.add(ds.getValue(Blipp.class));
                                 }
+                                if (results != null) Collections.reverse(results);
+                                taskDone(true);
                             }
 
                             @Override
@@ -599,8 +606,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                 taskDone(false);
                             }
                         });
-
-                        taskDone(true);
                     }catch (Exception e){
                         taskDone(false);
                     }
@@ -611,13 +616,14 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     //TODO: Wrire a query that will return an array of blips from firebase that the user has previously bliped, order by most liked
                     temp = new ArrayList<>();
                     try {
-                        Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("userId").equalTo(currentUser);
-                        q.addListenerForSingleValueEvent(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("userId").equalTo(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                     temp.add(ds.getValue(Blipp.class));
                                 }
+                                results = sortByLikes( temp);
+                                taskDone(true);
                             }
 
                             @Override
@@ -625,8 +631,7 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                                 taskDone(false);
                             }
                         });
-                        results = sortByLikes( temp);
-                        taskDone(true);
+
                     }catch (Exception e){
                         taskDone(false);
                     }
@@ -703,14 +708,16 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 results.add(ds.getValue(Blipp.class));
+
                             }
+                            taskDone(true);
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             taskDone(false);
                         }
                     });
-                    taskDone(true);
+
                 }catch (Exception e){
                     taskDone(false);
                 }
@@ -729,14 +736,15 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 temp.add(ds.getValue(Blipp.class));
                             }
+                            results = sortByLikes(temp);
+                            taskDone(true);
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             taskDone(false);
                         }
                     });
-                    results = sortByLikes(temp);
-                    taskDone(true);
+
                 }catch (Exception e){
                     taskDone(false);
                 }
@@ -828,8 +836,9 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         }
     }
     public static ArrayList<Blipp> sortByLikes(ArrayList<Blipp> temp) {
-
+/*
         ArrayList<Blipp> finalList = new ArrayList<Blipp>();
+
         int[][] arr = new int[temp.size()][2];
         for(int i = 0; i < temp.size(); i++){
             arr[i][0] = temp.get(i).getNumOfLikes();
@@ -846,7 +855,10 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         for (int j = 0; j <arr.length; j++){
             finalList.add(temp.get(arr[j][1]));
         }
-
+       if (finalList != null) Collections.reverse(finalList);
         return finalList;
+        */
+        Collections.sort(temp);
+        return temp;
     }
 }
