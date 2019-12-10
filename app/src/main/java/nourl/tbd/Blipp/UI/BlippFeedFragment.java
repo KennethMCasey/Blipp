@@ -160,13 +160,13 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                     if (task.isSuccessful()) FirebaseStorage.getInstance().getReference(currentPhotoPath).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                           currentPhotoUrl = uri.toString();
+                            currentPhotoUrl = uri.toString();
                             popupView.findViewById(R.id.btnSubmit).setVisibility(View.VISIBLE);
                         }
                     });
                     else
                     {popupView.findViewById(R.id.btnSubmit).setVisibility(View.VISIBLE);
-                    Toast.makeText(getContext(), "Error: could not post photo, please reselect", Toast.LENGTH_SHORT).show(); ;
+                        Toast.makeText(getContext(), "Error: could not post photo, please reselect", Toast.LENGTH_SHORT).show(); ;
                     }
                 }
             });
@@ -184,34 +184,34 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         blippRefresh.setEnabled(true);
         blippRefresh.setRefreshing(true);
 
-    //Order By Most Recent
-    if (blippOrder.getSelectedItemPosition() == 0)
-    {
+        //Order By Most Recent
+        if (blippOrder.getSelectedItemPosition() == 0)
+        {
 
-        //Close Distance
-        if (blippDistance.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.CLOSE, this , blipIdToStartAt, 20, this.getContext());
+            //Close Distance
+            if (blippDistance.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.CLOSE, this , blipIdToStartAt, 20, this.getContext());
 
-        //Regular Distance
-        else if (blippDistance.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.REGULAR, this , blipIdToStartAt, 20, this.getContext());
+                //Regular Distance
+            else if (blippDistance.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.REGULAR, this , blipIdToStartAt, 20, this.getContext());
 
-        //Max Distance
-        else if (blippDistance.getSelectedItemPosition() == 2) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.MAX, this , blipIdToStartAt, 20, this.getContext());
+                //Max Distance
+            else if (blippDistance.getSelectedItemPosition() == 2) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_RECENT, BlipGetter.Distance.MAX, this , blipIdToStartAt, 20, this.getContext());
 
+        }
+
+        //Order By Most Liked
+        else if (blippOrder.getSelectedItemPosition() == 1)
+        {
+            //Close Distance
+            if (blippDistance.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.CLOSE, this , blipIdToStartAt, 20, this.getContext());
+
+                //Regular Distance
+            else if (blippDistance.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.REGULAR, this , blipIdToStartAt, 20, this.getContext());
+
+                //Max Distance
+            else if (blippDistance.getSelectedItemPosition() == 2) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.MAX, this , blipIdToStartAt, 20, this.getContext());
+        }
     }
-
-    //Order By Most Liked
-    else if (blippOrder.getSelectedItemPosition() == 1)
-    {
-        //Close Distance
-        if (blippDistance.getSelectedItemPosition() == 0) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.CLOSE, this , blipIdToStartAt, 20, this.getContext());
-
-        //Regular Distance
-        else if (blippDistance.getSelectedItemPosition() == 1) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.REGULAR, this , blipIdToStartAt, 20, this.getContext());
-
-        //Max Distance
-        else if (blippDistance.getSelectedItemPosition() == 2) new BlipGetter(BlipGetter.Section.FEED, BlipGetter.Order.MOST_LIKED, BlipGetter.Distance.MAX, this , blipIdToStartAt, 20, this.getContext());
-    }
-}
 
     @Override
     public void blipGetterGotInitialBlips(ArrayList<Blipp> results)
@@ -308,12 +308,12 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         @Override
         public void onNothingSelected(AdapterView<?> adapterView)
         {
-        //UnUsed Method
+            //UnUsed Method
         }
     }
 
 
-    //TODO: Implement me
+
     /*
     private class BottomHit implements AbsListView.OnScrollListener
     {
@@ -343,18 +343,18 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
             String time = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH).format(blipp.getTime());
 
             Bundle b = new Bundle();
-                    b.putString("blipID", blipp.getId());
-                    b.putString("blipParent", blipp.getParent());
-                    b.putString("blipText", blipp.getText());
-                    b.putString("blipUser", blipp.getUserId());
-                    b.putString("blipCommunity", blipp.getCommunity());
-                    b.putString("blipURL", blipp.getUrl() == null ? null : blipp.getUrl().toString());
-                    b.putDouble("blipLat", blipp.getLatitude());
-                    b.putDouble("blipLon", blipp.getLongitude());
-                    b.putString("blipTime", blipp.getTime() == null ? null : time);
-                    b.putBoolean("blipShort", blipp.getIsShortDistance());
-                    b.putBoolean("blipMed", blipp.getIsMediumDistance());
-                    b.putBoolean("blipLong", blipp.getIsLongDistance());
+            b.putString("blipID", blipp.getId());
+            b.putString("blipParent", blipp.getParent());
+            b.putString("blipText", blipp.getText());
+            b.putString("blipUser", blipp.getUserId());
+            b.putString("blipCommunity", blipp.getCommunity());
+            b.putString("blipURL", blipp.getUrl() == null ? null : blipp.getUrl().toString());
+            b.putDouble("blipLat", blipp.getLatitude());
+            b.putDouble("blipLon", blipp.getLongitude());
+            b.putString("blipTime", blipp.getTime() == null ? null : time);
+            b.putBoolean("blipShort", blipp.getIsShortDistance());
+            b.putBoolean("blipMed", blipp.getIsMediumDistance());
+            b.putBoolean("blipLong", blipp.getIsLongDistance());
             BlippDetailFragment frag = new BlippDetailFragment();
             frag.setArguments(b);
             fragmentSwap.swap(frag, true);
@@ -370,56 +370,56 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
         {
             if (!popUpIsShowing)
             {
-            LayoutInflater layoutInflater = getLayoutInflater();
-            popupView = layoutInflater.inflate(R.layout.make_blipp,null);
+                LayoutInflater layoutInflater = getLayoutInflater();
+                popupView = layoutInflater.inflate(R.layout.make_blipp,null);
 
-            popupWindow = new PopupWindow(popupView, RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-            popupWindow.setFocusable(true);
+                popupWindow = new PopupWindow(popupView, RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+                popupWindow.setFocusable(true);
 
-            Button btnClose = (Button)popupView.findViewById(R.id.btnClose);
+                Button btnClose = (Button)popupView.findViewById(R.id.btnClose);
 
-            btnClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    popupWindow.dismiss();
-                    popUpIsShowing = false;
-                    if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
-                    currentPhotoUrl = null;
-                    didClose = true;
-                }
-            });
+                btnClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popupWindow.dismiss();
+                        popUpIsShowing = false;
+                        if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
+                        currentPhotoUrl = null;
+                        didClose = true;
+                    }
+                });
 
-            final Button btnSubmit = popupView.findViewById(R.id.btnSubmit);
-            btnSubmit.setOnClickListener( new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
+                final Button btnSubmit = popupView.findViewById(R.id.btnSubmit);
+                btnSubmit.setOnClickListener( new View.OnClickListener()
                 {
-                    String blipText = ((EditText)popupView.findViewById(R.id.make_blipp_text)).getText().toString();
-
-                    if (blipText.isEmpty())
+                    @Override
+                    public void onClick(View view)
                     {
-                        Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Blip must contain texr", Toast.LENGTH_SHORT).show();
-                        return;
+                        String blipText = ((EditText)popupView.findViewById(R.id.make_blipp_text)).getText().toString();
+
+                        if (blipText.isEmpty())
+                        {
+                            Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Blip must contain texr", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        final boolean isShortDistance = ((CheckBox)popupView.findViewById(R.id.check_close)).isChecked();
+                        final boolean isMedumDistance = ((CheckBox)popupView.findViewById(R.id.check_reg)).isChecked();
+                        final boolean isLongDistance = ((CheckBox)popupView.findViewById(R.id.check_max)).isChecked();
+
+                        if (!isShortDistance && !isMedumDistance && !isLongDistance)
+                        {
+                            Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Must select at least one distance.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        sendBlip(blipText, isShortDistance, isMedumDistance ,isLongDistance);
+                        didClose = true;
+                        popupWindow.dismiss();
+                        popUpIsShowing = false;
+
                     }
-
-                   final boolean isShortDistance = ((CheckBox)popupView.findViewById(R.id.check_close)).isChecked();
-                   final boolean isMedumDistance = ((CheckBox)popupView.findViewById(R.id.check_reg)).isChecked();
-                   final boolean isLongDistance = ((CheckBox)popupView.findViewById(R.id.check_max)).isChecked();
-
-                    if (!isShortDistance && !isMedumDistance && !isLongDistance)
-                    {
-                        Toast.makeText(BlippFeedFragment.this.getContext(), "Error: Must select at least one distance.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    sendBlip(blipText, isShortDistance, isMedumDistance ,isLongDistance);
-                    didClose = true;
-                    popupWindow.dismiss();
-                    popUpIsShowing = false;
-
-                }
-            });
+                });
 
 
                 Button btnPhoto = popupView.findViewById(R.id.make_blipp_btn_image);
@@ -442,9 +442,9 @@ public class BlippFeedFragment extends Fragment implements BlipGetterCompletion,
                     public void onDismiss() {
 
                         if (!didClose){
-                        popUpIsShowing = false;
-                        if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
-                        currentPhotoUrl = null;}
+                            popUpIsShowing = false;
+                            if (currentPhotoUrl != null) FirebaseStorage.getInstance().getReference().child(currentPhotoUrl).delete();
+                            currentPhotoUrl = null;}
                         didClose = false;
                     }
                 });

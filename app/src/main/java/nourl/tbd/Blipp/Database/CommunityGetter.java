@@ -3,19 +3,27 @@ package nourl.tbd.Blipp.Database;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
 import nourl.tbd.Blipp.BlippConstructs.Community;
+import nourl.tbd.Blipp.Helper.LocationGetter;
+import nourl.tbd.Blipp.Helper.LocationGetterCompletion;
 
 public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
     //where query results will be stored
     ArrayList<Community> results;
+    ArrayList<Community> temp = new ArrayList<Community>();
+    private Context context;
 
     //These variables are passed by the caller to choose what query to run
     Section section;
@@ -48,6 +56,7 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
         this.currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.completion = completion;
         uiThread = new Handler(context.getMainLooper());
+        this.context = context;
         this.execute();
     }
 
@@ -59,59 +68,283 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                //test code delete me
-                ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
-                results = temp;
-                taskDone(true);
+                try {
+                    new LocationGetter(context, new LocationGetterCompletion() {
+                        @Override
+                        public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                            final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
+
+                            Log.d("logtag", "Location: " + latitude + " , " + longitude);
+
+
+                            FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("community")
+                                    .orderByChild("name")
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot snapshot) {
+                                            for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                                final Community community = childSnapshot.getValue(Community.class);
+                                                if (community.getOriginLong() >= latLongBounds.getLonMin() && community.getOriginLong() <= latLongBounds.getLonMax()) {
+                                                    if (community.getOriginLat() >= latLongBounds.getLatMin() && community.getOriginLat() <= latLongBounds.getLatMax()) {
+                                                        temp.add(community);
+                                                    }
+                                                }
+                                                results = reverse(temp);
+                                            }
+
+                                            taskDone(true);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            taskDone(false);
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void locationGetterDidFail(boolean shouldShowMessage) {
+                            taskDone(false);
+                        }
+                    });
+                } catch (Exception e) {
+                    taskDone(false);
+                }
             }
 
-            if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
-            {
-                //test code delete me
-                ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
-                results = temp;
-                taskDone(true);
-            }
 
-            if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
-            {
-                  //test code delete me
-                ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
-                results = temp;
-                taskDone(true);
+        }
+
+        if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
+        {
+            try {
+                new LocationGetter(context, new LocationGetterCompletion() {
+                    @Override
+                    public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                        final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
+
+                        Log.d("logtag", "Location: " + latitude + " , " + longitude);
+                        final ArrayList<Community> temp2 = new ArrayList<Community>();
+
+
+                        FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("community")
+                                .orderByChild("numMembers")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                            final Community community = childSnapshot.getValue(Community.class);
+                                            if (community.getOriginLong() >= latLongBounds.getLonMin() && community.getOriginLong() <= latLongBounds.getLonMax()) {
+                                                if (community.getOriginLat() >= latLongBounds.getLatMin() && community.getOriginLat() <= latLongBounds.getLatMax()) {
+                                                    temp.add(community);
+                                                }
+                                            }
+                                            // temp2 = temp;
+                                        }
+                                        for (int i = temp2.size(); i >= 0; i--) {
+                                            results.add(temp.get(i));
+                                        }
+                                        taskDone(true);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        taskDone(false);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void locationGetterDidFail(boolean shouldShowMessage) {
+                        taskDone(false);
+                    }
+                });
+            } catch (Exception e) {
+                taskDone(false);
             }
         }
+
+        if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
+        {
+
+            try {
+                new LocationGetter(context, new LocationGetterCompletion() {
+                    @Override
+                    public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                        final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
+
+                        Log.d("logtag", "Location: " + latitude + " , " + longitude);
+
+
+                        FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("community")
+                                .orderByChild("numMembers")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                            final Community community = childSnapshot.getValue(Community.class);
+                                            if (community.getOriginLong() >= latLongBounds.getLonMin() && community.getOriginLong() <= latLongBounds.getLonMax()) {
+                                                if (community.getOriginLat() >= latLongBounds.getLatMin() && community.getOriginLat() <= latLongBounds.getLatMax()) {
+                                                    temp.add(community);
+                                                }
+                                            }
+                                        }
+
+                                        results = temp;
+                                        taskDone(true);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        taskDone(false);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void locationGetterDidFail(boolean shouldShowMessage) {
+                        taskDone(false);
+                    }
+                });
+            } catch (Exception e) {
+                taskDone(false);
+            }
+        }
+
 
         if (section.equals(Section.JOINED))
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                   //test code delete me
-                ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
-                results = temp;
-                taskDone(true);
-            }
 
-            if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
-            {
-                   //test code delete me
-                ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
-                results = temp;
-                taskDone(true);
-            }
+                try {
+                    new LocationGetter(context, new LocationGetterCompletion() {
+                        @Override
+                        public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                            final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
 
-            if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
-            {
-                      //test code delete me
-                ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
-                results = temp;
-                taskDone(true);
+                            Log.d("logtag", "Location: " + latitude + " , " + longitude);
+
+
+                            FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("community")
+                                    .orderByChild("name")
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot snapshot) {
+                                            for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                                final Community community = childSnapshot.getValue(Community.class);
+                                                if (community.isJoinable() == false) {
+                                                    temp.add(community);
+                                                }
+                                            }
+                                            results = temp;
+                                            taskDone(true);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            taskDone(false);
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void locationGetterDidFail(boolean shouldShowMessage) {
+                            taskDone(false);
+                        }
+                    });
+                } catch (Exception e) {
+                    taskDone(false);
+                }
+            }
+        }
+
+        if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
+        {
+
+            try {
+                new LocationGetter(context, new LocationGetterCompletion() {
+                    @Override
+                    public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                        final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
+
+                        Log.d("logtag", "Location: " + latitude + " , " + longitude);
+
+
+                        FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("community")
+                                .orderByChild("numMembers")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                            final Community community = childSnapshot.getValue(Community.class);
+                                            if (community.isJoinable() == false) {
+                                                temp.add(community);
+                                            }
+                                        }
+                                        results = reverse(temp);
+                                        taskDone(true);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        taskDone(false);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void locationGetterDidFail(boolean shouldShowMessage) {
+                        taskDone(false);
+                    }
+
+                });
+            } catch (Exception e) {
+                taskDone(false);
+            }
+        }
+
+        if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
+        {
+
+            try {
+                new LocationGetter(context, new LocationGetterCompletion() {
+                    @Override
+                    public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                        final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
+
+                        Log.d("logtag", "Location: " + latitude + " , " + longitude);
+
+
+                        FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("community")
+                                .orderByChild("numMembers")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                            final Community community = childSnapshot.getValue(Community.class);
+                                            if (community.isJoinable() == false) {
+                                                temp.add(community);
+                                            }
+                                        }
+                                        results = temp;
+                                        taskDone(true);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        taskDone(false);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void locationGetterDidFail(boolean shouldShowMessage) {
+                        taskDone(false);
+                    }
+                });
+            } catch (Exception e) {
+                taskDone(false);
             }
         }
 
@@ -119,28 +352,137 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                    //test code delete me
-                ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
-                results = temp;
-                taskDone(true);;
+                try {
+                    new LocationGetter(context, new LocationGetterCompletion() {
+                        @Override
+                        public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                            final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
+
+                            Log.d("logtag", "Location: " + latitude + " , " + longitude);
+
+
+                            FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("community")
+                                    .orderByChild("name")
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot snapshot) {
+                                            for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                                final Community community = childSnapshot.getValue(Community.class);
+                                                if (community.getOwner() == currentUser) {
+                                                    temp.add(community);
+                                                }
+                                            }
+                                            results = temp;
+                                            taskDone(true);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            taskDone(false);
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void locationGetterDidFail(boolean shouldShowMessage) {
+                            taskDone(false);
+                        }
+
+                    });
+                } catch (Exception e) {
+                    taskDone(false);
+                }
             }
 
             if (order.equals(Order.MEMBER_COUNT_LOW_TO_HIGH))
-            {    //test code delete me
-                ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
-                results = temp;
-                taskDone(true);
+            {
+
+                try {
+                    new LocationGetter(context, new LocationGetterCompletion() {
+                        @Override
+                        public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                            final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
+
+                            Log.d("logtag", "Location: " + latitude + " , " + longitude);
+
+
+                            FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("community")
+                                    .orderByChild("numMembers")
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot snapshot) {
+                                            for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                                final Community community = childSnapshot.getValue(Community.class);
+                                                if (community.getOwner().equals(currentUser)) {
+                                                    temp.add(community);
+                                                }
+                                            }
+                                            results = reverse(temp);
+                                            taskDone(true);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            taskDone(false);
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void locationGetterDidFail(boolean shouldShowMessage) {
+                            taskDone(false);
+                        }
+
+                    });
+                } catch (Exception e) {
+                    taskDone(false);
+                }
             }
 
             if (order.equals(Order.MEMBER_COUNT_HIGH_TO_LOW))
             {
-                //test code delete me
-                ArrayList<Community> temp = new ArrayList<>();
-                for (int i = 0; i < (((int) (Math.random() * 10)) + 1); i++) temp.add(new Community("fake id", "http://fake.com/", 0.0, 0.0, 0.0, "fake name", true, FirebaseAuth.getInstance().getCurrentUser().getUid(), 0));
-                results = temp;
-                taskDone(true);
+
+                try {
+                    new LocationGetter(context, new LocationGetterCompletion() {
+                        @Override
+                        public void locationGetterDidGetLocation(final double latitude, final double longitude) {
+                            final LocationGetter.LatLongBounds latLongBounds = new LocationGetter.LatLongBounds(latitude,longitude,10);
+
+                            Log.d("logtag", "Location: " + latitude + " , " + longitude);
+
+
+                            FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/").getReference().child("community")
+                                    .orderByChild("numMembers")
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot snapshot) {
+                                            for (DataSnapshot childSnapshot: snapshot.getChildren()) {
+                                                final Community community = childSnapshot.getValue(Community.class);
+                                                if (community.getOwner().equals(currentUser)) {
+                                                    temp.add(community);
+                                                }
+                                            }
+
+                                            results = temp;
+                                            taskDone(true);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            taskDone(false);
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void locationGetterDidFail(boolean shouldShowMessage) {
+                            taskDone(false);
+                        }
+
+                    });
+                } catch (Exception e) {
+                    taskDone(false);
+                }
             }
         }
         return null;
@@ -148,20 +490,20 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
 
 
 
-   void taskDone(final boolean isSuccessful)
-   {
-       uiThread.post(new Runnable() {
-           @Override
-           public void run() {
-               if (isSuccessful)
-               {
-                if (communityToStartFrom == null) completion.communityGetterGotInitalCommunities(results);
-                else  completion.communityGetterGotAditionalCommunities(results);
-               }
-               else completion.communityGetterDidFail();
-           }
-       });
-   }
+    void taskDone(final boolean isSuccessful)
+    {
+        uiThread.post(new Runnable() {
+            @Override
+            public void run() {
+                if (isSuccessful)
+                {
+                    if (communityToStartFrom == null) completion.communityGetterGotInitalCommunities(results);
+                    else  completion.communityGetterGotAditionalCommunities(results);
+                }
+                else completion.communityGetterDidFail();
+            }
+        });
+    }
 
     //Inner Classes
     public static class Section {
@@ -208,6 +550,17 @@ public class CommunityGetter extends AsyncTask<Void, Void, Void> {
         {
             return obj.getClass() != Order.class ? false : this.getId() == ((Order) obj).getId();
         }
+    }
+    public ArrayList<Community> reverse(ArrayList<Community> temp){
+        temp = new ArrayList<Community>();
+        ArrayList<Community> reverse = new ArrayList<Community>();
+        //int begin = 0;
+        for (int end = temp.size()-1; end >= 0; end--){
+
+            reverse.add(temp.get(end));
+
+        }
+        return reverse;
     }
 
 }

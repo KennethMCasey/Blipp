@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -121,7 +120,7 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
         //int index = container.indexOfChild(pp);
         //container.removeView(pp);
         Blip blipView = new Blip(this.getContext()).withBlip(this.blip);
-        blipView.setLayoutParams( new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 5.0f));
+        blipView.setLayoutParams( new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 5.0f));
         ((ViewGroup)v).addView(blipView, 0);
 
         //Configure the toParent button
@@ -421,7 +420,7 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
     }
 
 
-    //TODO: Implement me
+
     /*
     private class BottomHit implements AbsListView.OnScrollListener
     {
@@ -473,7 +472,7 @@ public class BlippDetailFragment extends Fragment implements BlipGetterCompletio
     }
 
 
-    //TODO: Make popup window of larger image when tapping on image view.
+
     private class ImageDetailView implements View.OnClickListener
     {
         @Override

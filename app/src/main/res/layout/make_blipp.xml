@@ -1,78 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:background="@color/blipp_dark"
-    android:layout_height="wrap_content">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:theme="@style/Theme.MaterialComponents.Light"
+    android:layout_height="match_parent"
+    android:elevation="50dp">
 
-
-    <EditText
-        android:hint="Enter Blipp Text Here"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:id="@+id/make_blipp_text"
-        android:layout_alignParentTop="true"
-        android:textColor="@color/blipp_white"
-        android:textColorHint="@color/blipp_white"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:id="@+id/make_blipp_photo"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/make_blipp_text"></ImageView>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/make_blipp_btn_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Photo"
-        android:layout_below="@id/make_blipp_photo">
-    </Button>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/make_blipp_text_layout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:hint="Enter Blipp Text">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/make_blipp_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"/>
 
-    <CheckBox
-        android:id="@+id/check_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Close Distance"
-        android:textColor="@color/blipp_white"
-        android:textColorHint="@color/blipp_white"
-        android:layout_below="@id/make_blipp_btn_image"></CheckBox>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
-        android:id="@+id/check_reg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Regular Distance"
-        android:textColor="@color/blipp_white"
-        android:textColorHint="@color/blipp_white"
-        android:layout_below="@+id/check_close"></CheckBox>
+        <ImageView
+            android:id="@+id/make_blipp_photo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/make_blipp_text">
 
-    <CheckBox
-        android:id="@+id/check_max"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Max Distance"
-        android:textColor="@color/blipp_white"
-        android:textColorHint="@color/blipp_white"
-        android:layout_below="@+id/check_reg"></CheckBox>
+        </ImageView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/make_blipp_btn_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_photo">
+        </com.google.android.material.button.MaterialButton>
 
 
-    <Button
-        android:text="Discard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnClose"
-        android:layout_below="@+id/check_max"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnSubmit"
-        android:layout_below="@+id/btnClose"
-        android:layout_centerHorizontal="true" />
+        <CheckBox
+            android:id="@+id/check_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close Distance"
+            android:textColor="@color/blipp_white"
+            android:textColorHint="@color/blipp_white"
+            android:layout_below="@id/make_blipp_btn_image"></CheckBox>
 
-</RelativeLayout>
+        <CheckBox
+            android:id="@+id/check_reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regular Distance"
+            android:textColor="@color/blipp_white"
+            android:textColorHint="@color/blipp_white"
+            android:layout_below="@+id/check_close"></CheckBox>
+
+        <CheckBox
+            android:id="@+id/check_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Max Distance"
+            android:textColor="@color/blipp_white"
+            android:textColorHint="@color/blipp_white"
+            android:layout_below="@+id/check_reg"></CheckBox>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:text="Discard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnClose"
+                android:layout_centerHorizontal="true" />
+            <com.google.android.material.button.MaterialButton
+                android:text="Submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnSubmit"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

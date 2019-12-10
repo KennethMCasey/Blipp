@@ -46,11 +46,9 @@ public class BlipDeleter extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        //TODO: Write a Query that Successfully deletes the passed blipp from firebase.
 
         // blip to delete : class variable blip
 
-        //TODO: If blip url not equal null delete blip photo from firebase
 
         FirebaseDatabase.getInstance().getReference().child("blip").child(blip.getId()).getRef().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

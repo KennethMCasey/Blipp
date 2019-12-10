@@ -3,29 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.MaterialComponents.Light">
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
-    <TextView
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
-    android:layout_weight="2"
-        android:textColor="@color/blipp_white"
-    android:text="@string/feed_distance_lbl"
-    ></TextView>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="5" />
 
-    <Spinner
-        android:id="@+id/spinner_feed"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        >
-    </Spinner>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_between" />
+
+        <Spinner
+            android:id="@+id/spinner_feed"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7">
+        </Spinner>
 
     </LinearLayout>
 
@@ -35,56 +39,62 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
+        <View
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:textColor="@color/blipp_white"
-            android:text="@string/feed_order_lbl"
-            ></TextView>
+            android:layout_height="0dp"
+            android:layout_weight="5" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_sort" />
 
         <Spinner
             android:id="@+id/spinner_order"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="7">
         </Spinner>
 
     </LinearLayout>
 
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="23"
-    android:background="@color/blipp_light"
-    >
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swiperefresh_feed"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       >
-    <ListView
-    android:id="@+id/list_feed"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="23">
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swiperefresh_feed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_blipp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/blipp_grey"
-        app:borderWidth="0dp"
-        android:contentDescription="@string/fab_description"
-        android:src="@drawable/ic_add_24px"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+                <ListView
+                    android:id="@+id/list_feed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-</FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_blipp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/blipp_grey"
+            app:borderWidth="0dp"
+            android:contentDescription="@string/fab_description"
+            android:elevation="15dp"
+            android:src="@drawable/ic_add_24px">
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    </FrameLayout>
 </LinearLayout>

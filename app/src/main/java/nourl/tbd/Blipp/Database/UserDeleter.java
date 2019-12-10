@@ -27,7 +27,6 @@ public class UserDeleter extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        //TODO: delete the passed user from the firebase user table
         try {
             FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/")
                     .getReference("user")

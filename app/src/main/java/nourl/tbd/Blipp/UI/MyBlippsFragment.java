@@ -160,7 +160,7 @@ public class MyBlippsFragment extends Fragment implements BlipGetterCompletion {
         }
     }
 
-    //TODO: Implement me
+
 
     /*
     private class BottomHit implements AbsListView.OnScrollListener

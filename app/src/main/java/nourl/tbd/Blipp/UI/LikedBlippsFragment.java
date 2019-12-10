@@ -158,7 +158,7 @@ public class LikedBlippsFragment extends Fragment implements BlipGetterCompletio
         }
     }
 
-    //TODO: Implement me
+
     /*
     private class BottomHit implements AbsListView.OnScrollListener
     {

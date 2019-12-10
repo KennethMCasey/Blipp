@@ -16,9 +16,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 
 import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Like;
@@ -168,7 +166,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 if (distance.equals(Distance.CLOSE)) {
 
                     if (order.equals(Order.MOST_RECENT)) {
-                        //TODO: Wrire a query that will return an array of blips from firebase that are within close distance of the current user and marked as close distance ordered by most recent
                         //Note: Close distance is defined as 0Miles - 0.1Miles
                         try {
                             new LocationGetter(context, new LocationGetterCompletion() {
@@ -226,7 +223,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
-                        //TODO: close distance/most liked
                         //Note: Close distance is defined as 0Miles - 0.1Miles
 
                         try {
@@ -277,7 +273,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
                 if (distance.equals(Distance.REGULAR)) {
                     if (order.equals(Order.MOST_RECENT)) {
-                        //TODO: Wrire a query that will return an array of blips from firebase that are within regular distance of the current user and marked as regular distance ordered by most recent
                         try {
                             new LocationGetter(context, new LocationGetterCompletion() {
                                 @Override
@@ -335,7 +330,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
-                        //TODO: regular distance/most liked
                         //Note: regular is defined as 0Miles - 1Miles
 
                         try {
@@ -385,7 +379,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
                 if (distance.equals(Distance.MAX)) {
                     if (order.equals(Order.MOST_RECENT)) {
-                        //TODO: Wrire a query that will return an array of blips from firebase that are within Max distance of the current user and marked as Max distance ordered by most recent
                         //Note: MAx distance is defined as 0Miles - 10Miles
 
                         try {
@@ -445,7 +438,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                     }
 
                     if (order.equals(Order.MOST_LIKED)) {
-                        //TODO: Max distance/most liked
                         //Note: MAx distance is defined as 0Miles - 10Miles
 
                         try {
@@ -501,7 +493,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             if (section.equals(Section.LIKED_BLIPS)) {
 
                 if (order.equals(Order.MOST_RECENT)) {
-                    //TODO: Wrire a query that will return an array of blips from firebase that the user has previously liked (no dislikes) order by most recent
                     try {
                         FirebaseDatabase.getInstance().getReference().child("like").orderByChild("userId").equalTo(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -542,7 +533,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 }
 
                 if (order.equals(Order.MOST_LIKED)) {
-                    //TODO: Wrire a query that will return an array of blips from firebase that the user has previously liked (no dislikes) order by most liked
                     try {
                         FirebaseDatabase.getInstance().getReference().child("like").orderByChild("userId").equalTo(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -587,8 +577,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
 
             if (section.equals(Section.MY_BLIPS)) {
                 if (order.equals(Order.MOST_RECENT)) {
-                    //TODO: Wrire a query that will return an array of blips from firebase that the user has previously bliped, order by most recent
-
                     try {
                         FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("userId").equalTo(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -613,7 +601,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
                 }
 
                 if (order.equals(Order.MOST_LIKED)) {
-                    //TODO: Wrire a query that will return an array of blips from firebase that the user has previously bliped, order by most liked
                     temp = new ArrayList<>();
                     try {
                         FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("userId").equalTo(currentUser).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -644,7 +631,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         if (communityId != null) {
             if (order.equals(Order.MOST_RECENT))
             {
-                //TODO: Return an array of blips that are in this community ordered by most recent.
                 try {
                     results = new ArrayList<>();
                     Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("community").equalTo(communityId);
@@ -669,7 +655,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             }
 
             if (order.equals(Order.MOST_LIKED)) {
-                //TODO: Return an array of blips that are in this community ordered by most recent.
 
                 results = new ArrayList<>();
                 temp = new ArrayList<>();
@@ -699,7 +684,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         //reply queries
         if (parentId != null) {
             if (order.equals(Order.MOST_RECENT)) {
-                //TODO: Return an array of blips that are replys to the parent blip ordered by most recent
                 results = new ArrayList<>();
                 try {
                     Query q = FirebaseDatabase.getInstance().getReference().child("blip").orderByChild("parent").equalTo(parentId);
@@ -725,7 +709,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
             }
 
             if (order.equals(Order.MOST_LIKED)) {
-                //TODO: Return an array of blips that are replys to the parent blip ordered by most liked
                 temp = new ArrayList<>();
                 results = new ArrayList<>();
                 try {
@@ -836,28 +819,6 @@ public class BlipGetter extends AsyncTask<Void, Void, Void> {
         }
     }
     public static ArrayList<Blipp> sortByLikes(ArrayList<Blipp> temp) {
-/*
-        ArrayList<Blipp> finalList = new ArrayList<Blipp>();
-
-        int[][] arr = new int[temp.size()][2];
-        for(int i = 0; i < temp.size(); i++){
-            arr[i][0] = temp.get(i).getNumOfLikes();
-            arr[i][1] = i;
-            //for (int j = 0; j <temp.size(); j++){ }
-        }
-        Arrays.sort(arr, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                return Integer.compare(o2[1], o1[1]);
-            }
-        });
-        finalList.clear();
-        for (int j = 0; j <arr.length; j++){
-            finalList.add(temp.get(arr[j][1]));
-        }
-       if (finalList != null) Collections.reverse(finalList);
-        return finalList;
-        */
         Collections.sort(temp);
         return temp;
     }

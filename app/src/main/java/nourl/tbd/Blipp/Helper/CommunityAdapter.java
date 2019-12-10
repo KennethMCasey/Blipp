@@ -14,8 +14,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Community;
 import nourl.tbd.Blipp.BlippConstructs.Member;
 import nourl.tbd.Blipp.BlippConstructs.User;

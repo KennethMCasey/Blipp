@@ -304,7 +304,7 @@ public class CommunityBlipsFragment extends Fragment implements BlipGetterComple
         }
     }
 
-    //TODO: Implement me
+
 
     /*
     private class BottomHit implements AbsListView.OnScrollListener

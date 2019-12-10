@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.ContentProvider;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
@@ -87,7 +85,7 @@ public class BlippContentActivity extends AppCompatActivity implements FragmentS
         fragID = id;
     }
 
-    //Todo: Preserve the state of the current fragment
+
     void tabFragmentSwap(int tab)
     {
         while (getSupportFragmentManager().getBackStackEntryCount() > 0){

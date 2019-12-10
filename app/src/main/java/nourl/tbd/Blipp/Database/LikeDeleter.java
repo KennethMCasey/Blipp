@@ -8,13 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import nourl.tbd.Blipp.BlippConstructs.Blipp;
 import nourl.tbd.Blipp.BlippConstructs.Like;
 
 public class LikeDeleter extends AsyncTask<Void, Void, Void>
@@ -34,7 +28,7 @@ public class LikeDeleter extends AsyncTask<Void, Void, Void>
     @Override
     protected Void doInBackground(Void... voids)
     {
-        //TODO: Delete the like on the passed blip by the current user in firebase
+
         //this will only work with a like id attribute.
             FirebaseDatabase.getInstance().getReference().child("like")
                     .child(like.getId())

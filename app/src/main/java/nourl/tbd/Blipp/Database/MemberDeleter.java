@@ -34,7 +34,6 @@ public class MemberDeleter extends AsyncTask<Void, Void, Void>
 
     @Override
     protected Void doInBackground(Void... voids) {
-        //TODO: write function that will delete the current member from firebase
         mMemberDatabaseReference = FirebaseDatabase.getInstance().getReference();
         Query q = mMemberDatabaseReference.child("member").orderByChild("memberId").equalTo(member.getMemberId());
         q.addListenerForSingleValueEvent(new ValueEventListener() {
