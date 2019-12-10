@@ -8,12 +8,13 @@ import android.os.Bundle;
 
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,9 +29,9 @@ import nourl.tbd.Blipp.R;
 public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button login;
-    Button register;
-    Button reset;
+    MaterialButton login;
+    TextView register;
+    MaterialButton reset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //This Class handles the button on click events
-    class LoginOnClick implements Button.OnClickListener {
+    class LoginOnClick implements MaterialButton.OnClickListener {
         @Override
         public void onClick(View view) {
             //If the register button is hit bring the user to the register activity.

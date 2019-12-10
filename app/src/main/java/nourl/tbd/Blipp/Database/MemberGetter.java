@@ -101,7 +101,6 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                //TODO: Get all active users in alphabetical order from the passed community
 
                 queryAA.orderByChild("banned").equalTo("false");
                 queryAA.orderByChild("displayName");
@@ -129,8 +128,6 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.NEWEST_TO_OLDEST))
             {
-                //TODO: Get all active users from newest to oldest order from the passed community
-
                 queryAN.orderByChild("banned").equalTo("false");
                 queryAN.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -159,7 +156,6 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
         {
             if (order.equals(Order.ALPHABETICAL))
             {
-                //TODO: Get all banned users in alphabetical order from the passed community
 
                 queryBA.orderByChild("banned").equalTo("true");
                 queryBA.orderByChild("displayName");
@@ -187,7 +183,6 @@ public class MemberGetter extends AsyncTask<Void, Void, Void> {
 
             if (order.equals(Order.NEWEST_TO_OLDEST))
             {
-                //TODO: Get all banned users in newest to oldest order from the passed community
 
                 queryBN.orderByChild("banned").equalTo("true");
                 queryBN.addListenerForSingleValueEvent(new ValueEventListener() {

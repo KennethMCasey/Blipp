@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
-
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +43,6 @@ public class LikeGetter extends AsyncTask<Void, Void, Void>
     @Override
     protected Void doInBackground(Void... voids)
     {
-        //TODO: Write firebase query that will return the ArrayList of ALL Likes on The Blip
         //call task done with true or false when done
         dbr = FirebaseDatabase.getInstance().getReference();
         Query query = dbr.child("like")

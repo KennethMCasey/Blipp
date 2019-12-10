@@ -12,8 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import nourl.tbd.Blipp.BlippConstructs.Member;
 import nourl.tbd.Blipp.BlippConstructs.User;
 
 public class UserGetter extends AsyncTask<Void, Void, User> {
@@ -44,7 +42,6 @@ public class UserGetter extends AsyncTask<Void, Void, User> {
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://blipp-15ee8.firebaseio.com/");
         mMemberDatabaseReference = mFirebaseDatabase.getReference("user");
 
-        //TODO: get the user object with the passed user id from firebase and assign it to the user class variable
         Query query = mMemberDatabaseReference;
         query.orderByChild("id").equals(userID);
 

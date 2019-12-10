@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -27,6 +29,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Firebase auth object
     FirebaseAuth auth;
+    TextInputLayout email;
+    TextInputLayout password;
+    TextInputLayout confirmPassword;
+    TextInputLayout name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    class Submit implements Button.OnClickListener {
+    class Submit implements MaterialButton.OnClickListener {
         @Override
         public void onClick(View view) {
             //Get all the Text from the edit texts
@@ -59,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
             //Make sure email is proper
             else if (!Patterns.EMAIL_ADDRESS.matcher(userName).matches()) {
-                Toast.makeText(RegisterActivity.this, "Error: Please enter valid email.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Error: Please enter valid email.", Toast.LENGTH_LONG).show();
             } else if (!password.equals(passwordConfirm)) {
                 Toast.makeText(RegisterActivity.this, "Error: Please ensure passwords match.", Toast.LENGTH_LONG).show();
             }

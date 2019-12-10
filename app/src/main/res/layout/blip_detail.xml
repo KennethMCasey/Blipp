@@ -3,89 +3,93 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:theme="@style/Theme.MaterialComponents.Light"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/buttonHolder"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/blip_detail_to_parent"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:text="Go To Parent"
+            android:layout_weight="1"
+            app:icon="@drawable/ic_thumb_up_alt_24px" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="@color/blipp_offset"
-    >
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/blip_detail_reply"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Make Reply"
+            android:layout_weight="1"
+            app:icon="@drawable/ic_thumb_down_alt_24px" />
 
-    <Button
-    android:id="@+id/blip_detail_to_parent"
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_weight="2"
-    android:text="Go To Parent"
-       android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-    >
-</Button>
-    <Button
-        android:id="@+id/blip_detail_reply"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="2"
-        android:text="Make Reply"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        >
-    </Button>
-    <Button
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/blip_detail_delete"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="2"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Delete Blip"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        >
-    </Button>
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        app:icon="@drawable/ic_thumb_down_alt_24px" />
 
-
-
-</LinearLayout>
-
-
-
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:background="@color/blipp_light">
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="5" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Select Reply Ordering"
-            ></TextView>
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_sort" />
 
         <Spinner
             android:id="@+id/spinner_order_blip_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            >
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7">
         </Spinner>
 
     </LinearLayout>
 
 
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@color/blipp_light">
+        android:layout_weight="10">
 
 
         <include
@@ -96,22 +100,22 @@
         </include>
 
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swiperefresh_blip_detail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-
-        <ListView
-            android:id="@+id/list_replys_blipp_detail"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swiperefresh_blip_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            >
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <ListView
+                android:id="@+id/list_replys_blipp_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </FrameLayout>
-</LinearLayout>
 
+</LinearLayout>

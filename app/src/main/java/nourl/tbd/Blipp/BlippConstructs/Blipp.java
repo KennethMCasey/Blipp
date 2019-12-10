@@ -1,8 +1,6 @@
 package nourl.tbd.Blipp.BlippConstructs;
 
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Comparator;
 import java.util.Date;
 
 public class Blipp implements Comparable {

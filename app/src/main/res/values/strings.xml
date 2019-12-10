@@ -74,4 +74,7 @@
     <string name="make_community_name">community name</string>
     <string name="make_community_add_photo">Add Photo</string>
     <string name="make_community_miles_default">-</string>
+    <string name="no_account_yet_create_one">No account yet? Create one!</string>
+    <string name="app_name_caps">BLIPP</string>
+    <string name="add_photo">Add Photo</string>
 </resources>
